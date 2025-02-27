@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseSvg from '@/components/base/svg/BaseSvg.vue';
-
+console.log(import.meta.env.BASE_URL)
 </script>
 
 <template>
