@@ -1,5 +1,9 @@
-<script setup>
-defineProps(['to'])
+<script setup lang='ts'>
+interface Props {
+  to: string
+}
+
+defineProps<Props>()
 </script>
 
 <template>
@@ -8,6 +12,3 @@ defineProps(['to'])
   </RouterLink>
 </template>
 
-<style lang="scss" >
-@import './BaseButtonText.scss';
-</style>

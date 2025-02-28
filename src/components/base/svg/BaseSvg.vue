@@ -1,8 +1,9 @@
 <script setup lang="ts">
-defineProps<{
+interface Props {
   id: string
-}>()
+}
 
+defineProps<Props>()
 </script>
 
 <template>

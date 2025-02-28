@@ -73,5 +73,10 @@ html {
 
 a {
   text-decoration: none;
+  color: unset;
+}
+
+a:visited{
+  color: unset;
 }
 

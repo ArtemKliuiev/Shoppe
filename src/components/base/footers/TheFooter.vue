@@ -9,5 +9,5 @@
 </template>
 
 <style scoped lang="scss">
-@use 'TheFooter'
+
 </style>

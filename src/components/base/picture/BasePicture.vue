@@ -1,5 +1,14 @@
-<script setup>
-defineProps(['srcset', 'src', 'alt', 'width', 'height', 'lazy'])
+<script setup lang="ts">
+interface Props {
+  srcset: string,
+  src: string,
+  alt: string,
+  width: string,
+  height: string,
+  lazy: string
+}
+
+defineProps<Props>()
 </script>
 
 <template>

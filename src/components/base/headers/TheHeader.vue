@@ -1,73 +1,53 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import BaseSvg from '@/components/base/svg/BaseSvg.vue';
-console.log(import.meta.env.BASE_URL)
+import BaseButtonText from '@/components/base/baseButtonText/BaseButtonText.vue';
+import BurgerBtn from '@/components/ui/burger/BurgerBtn.vue';
+import BurgerMenu from '@/components/base/burger-menu/BurgerMenu.vue';
+import { dataHeaderShope } from '@/components/mixins/data-header-shope';
+
+
+const isOpenBurgerMenu = ref(false)
+
 </script>
 
 <template>
 <header class="header">
     <div class="header__line">
-        <div class="header__logo">SHOPPE</div>
+        <div class="header__logo">
+            <BaseButtonText to="/">
+                SHOPPE
+            </BaseButtonText>
+        </div>
 
         <div class="header__main">
             <ul class="header__list">
-                <li class="header__list-item header__list-shope header__list-item_active">
+                <li class="header__list-item header__list-shope " :class="{'header__list-item_active': $route.name === 'shope'}">
                     Shope
 
                     <div class="header__shop">
-                        <div class="header__shop-column">
-                            <p class="header__shop-title">SHOP TYPES</p>
+                        <div class="header__shop-column" v-for="item in dataHeaderShope" :key="item.title">
+                            <p class="header__shop-title">{{ item.title }}</p>
 
                             <ul class="header__shop-list">
-                                <li class="header__shop-list-item">Shop full width</li>
-
-                                <li class="header__shop-list-item">Shop With sidebar</li>
-
-                                <li class="header__shop-list-item">Shop category</li>
-
-                                <li class="header__shop-list-item">Shop carousel</li>
-
-                                <li class="header__shop-list-item">Masonry grid</li>
-                            </ul>
-                        </div>
-
-                        <div class="header__shop-column">
-                            <p class="header__shop-title">SINGLE PRODUCT</p>
-
-                            <ul class="header__shop-list">
-                                <li class="header__shop-list-item">Standard product</li>
-
-                                <li class="header__shop-list-item">Variable product</li>
-
-                                <li class="header__shop-list-item">On sale product</li>
-
-                                <li class="header__shop-list-item">Out of stock product</li>
-
-                                <li class="header__shop-list-item">New! Product</li>
-                            </ul>
-                        </div>
-
-                        <div class="header__shop-column">
-                            <p class="header__shop-title">SINGLE PRODUCT</p>
-
-                            <ul class="header__shop-list">
-                                <li class="header__shop-list-item">Cart</li>
-
-                                <li class="header__shop-list-item">Checkout</li>
-
-                                <li class="header__shop-list-item">My account</li>
-
-                                <li class="header__shop-list-item">Wishlist</li>
-
-                                <li class="header__shop-list-item">Order tracking</li>
+                                <li class="header__shop-list-item" v-for="li in item.list" :key="li.name">
+                                    <BaseButtonText :to="li.link">
+                                        {{ li.name }}
+                                    </BaseButtonText>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="header__list-item">
-                    Blog
+                <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'blog'}">
+                    <BaseButtonText to="/blog">
+                        Blog
+                    </BaseButtonText>
                 </li>
-                <li class="header__list-item">
-                    Our Story
+                <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'story'}">
+                    <BaseButtonText to="/story">
+                        Our Story
+                    </BaseButtonText>
                 </li>
             </ul>
 
@@ -83,20 +63,50 @@ console.log(import.meta.env.BASE_URL)
                 <div class="header__btn header__btn-person">
                     <BaseSvg class="header__btn-icon" id="person"/>
                 </div>
+
+                <div class="header__btn header__btn-burger">
+                    <BurgerBtn v-model="isOpenBurgerMenu"/>
+                </div>
             </div>
         </div>
     </div>
 </header>
+
+<Transition name="menu">
+    <BurgerMenu v-if="isOpenBurgerMenu"/>
+</Transition>
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/styles/mixins/index.scss' as *;
+
+.menu-leave-to,
+.menu-enter-from{
+    transform: scaleX(0);
+}
+
+.menu-enter-active,
+.menu-leave-active{
+    transition: transform 0.2s ease-in-out;
+    transform-origin: 0 0;
+}
+
+.menu-leave-from,
+.menu-enter-to{
+    transform: scaleX(1);
+}
+
 .header{
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     background-color: var(--background);
-    padding: 45px 20px 0 ;
+    padding: 45px 15px 0;
+
+    @include media-down(md) {
+        padding: 5px 15px ;
+    }
 
     &__line {
         position: relative;
@@ -106,11 +116,20 @@ console.log(import.meta.env.BASE_URL)
         border-bottom: 1px solid var(--gray);
         margin: 0 auto;
         max-width: 1248px;
+
+        @include media-down(md) {
+            padding: 0;
+            border-bottom: unset;
+        }
     }
     
     &__logo {
         font-family: Allerta Stencil, sans-serif;
         font-size: 35px;
+
+        @include media-down(md) {
+            font-size: 25px;
+        }
 
         &::first-letter{
             color: var(--accent);
@@ -121,6 +140,10 @@ console.log(import.meta.env.BASE_URL)
         display: flex;
         width: 100%;
         max-width: 504px;
+
+        @include media-down(md) {
+            width: unset;
+        }
     }
     
     &__list {
@@ -131,6 +154,11 @@ console.log(import.meta.env.BASE_URL)
         max-width: 319px;
         position: relative;
         padding-right: 50px;
+
+        @include media-down(md) {
+            display: none;
+            width: unset;
+        }
 
         &::before{
             content: '';
@@ -191,6 +219,10 @@ console.log(import.meta.env.BASE_URL)
         justify-content: space-between;
         align-items: center;
         flex-grow: 1;
+
+        @include media-down(md) {
+            padding: 0;
+        }
     }
 
     &__btn {
@@ -210,16 +242,30 @@ console.log(import.meta.env.BASE_URL)
         &-search {
             width: 19px;
             height: 19px;
+
+            @include media-down(md) {
+                display: none;
+            }
         }
 
         &-basket {
             width: 21px;
             height: 21px;
+
+            @include media-down(md) {
+                width: 18px;
+                height: 18px;
+                margin-right: 18px;
+            }
         }
 
         &-person {
             width: 20px;
             height: 20px;
+
+            @include media-down(md) {
+                display: none;
+            }
         }
     }
 
