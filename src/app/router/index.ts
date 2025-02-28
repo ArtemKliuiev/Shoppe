@@ -1,22 +1,25 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import MainPage from '@/components/pages/main/MainPage.vue'
+import ShopePage from '@/components/pages/shope/ShopePage.vue'
+import ProductPage from '@/components/pages/product/ProductPage.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.VITE_BASE_URL),
+  history: createWebHashHistory('/Shoppe/'),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: import('@/components/pages/main/MainPage.vue'),
+      component: MainPage,
     },
     {
       path: '/shope',
       name: 'shope',
-      component: import('@/components/pages/shope/ShopePage.vue'),
+      component: ShopePage,
     },
     {
       path: '/product',
       name: 'product',
-      component: import('@/components/pages/product/ProductPage.vue'),
+      component: ProductPage,
     },
   ],
 })
