@@ -10,7 +10,7 @@ import BasketBtn from '@/components/ui/BasketBtn.vue';
 import HeaderSearch from '@/components/ui/HeaderSearch.vue';
 
 
-const isOpenBurgerMenu = ref<boolean>(true)
+const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)
 const search = ref('')
 const route = useRoute()
@@ -103,6 +103,10 @@ watch(isOpenBurgerMenu, () => {
                         </BaseButtonText>
                     </li>
                 </ul>
+
+                <div class="header__burger-bottom">
+
+                </div>
             </nav>
         </div>
     </Transition>
@@ -381,6 +385,7 @@ watch(isOpenBurgerMenu, () => {
             height: 30px;
             animation: spin 0.5s linear infinite; 
         }
+
         &-nav {
             padding: 16px 6px;
         }
@@ -398,6 +403,10 @@ watch(isOpenBurgerMenu, () => {
             &-link{
                 padding: 10px;
             }
+        }
+
+        &-bottom{
+
         }
     }
    
