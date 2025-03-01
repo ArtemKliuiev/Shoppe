@@ -87,41 +87,43 @@ watch(isOpenBurgerMenu, () => {
         </div>
     </div>
 
-    <Transition name="menu"  v-scroll-lock="true">
-        <div v-if="isOpenBurgerMenu" class="header__burger-menu">
+    <Transition name="menu" type="transition">
+        <div v-if="isOpenBurgerMenu" class="header__burger-menu"  v-scroll-lock="true"> 
             <HeaderSearch v-model="search"/>
             
-            <ul class="header__burger-cards" v-if="search.length">
-                <div class="header__burger-loader"></div>
-            </ul>
-
-            <nav v-else class="header__burger-nav">
-                <ul class="header__burger-list">
-                    <li class="header__burger-list-item" v-for="item in dataBurgerMenu" :key="item.link">
-                        <BaseButtonText className="header__burger-list-link" :to="item.link">
-                            {{ item.name }}
-                        </BaseButtonText>
-                    </li>
+            <Transition name="search" mode="out-in" type="transition">
+                <ul class="header__burger-cards" v-if="search.length">
+                    <div class="header__burger-loader"></div>
                 </ul>
 
-                <div class="header__burger-bottom">
-                    <BaseButtonText className="header__burger-btn header__burger-btn-account" to="/account">
-                        <BaseSvg class="header__burger-btn-icon header__burger-account-icon" id="person"/>
+                <nav class="header__burger-nav" v-else >
+                    <ul class="header__burger-list">
+                        <li class="header__burger-list-item" v-for="item in dataBurgerMenu" :key="item.link">
+                            <BaseButtonText className="header__burger-list-link" :to="item.link">
+                                {{ item.name }}
+                            </BaseButtonText>
+                        </li>
+                    </ul>
 
-                        <span class="header__burger-btn-text">
-                            My account
-                        </span>
-                    </BaseButtonText>
+                    <div class="header__burger-bottom">
+                        <BaseButtonText className="header__burger-btn header__burger-btn-account" to="/account">
+                            <BaseSvg class="header__burger-btn-icon header__burger-account-icon" id="person"/>
 
-                    <BaseButtonText className="header__burger-btn header__burger-btn-exit" to="/exit">
-                        <BaseSvg class="header__burger-btn-icon header__burger-exit-icon" id="exit"/>
+                            <span class="header__burger-btn-text">
+                                My account
+                            </span>
+                        </BaseButtonText>
 
-                        <span class="header__burger-btn-text">
-                            Logout
-                        </span>
-                    </BaseButtonText>
-                </div>
-            </nav>
+                        <BaseButtonText className="header__burger-btn header__burger-btn-exit" to="/exit">
+                            <BaseSvg class="header__burger-btn-icon header__burger-exit-icon" id="exit"/>
+
+                            <span class="header__burger-btn-text">
+                                Logout
+                            </span>
+                        </BaseButtonText>
+                    </div>
+                </nav>
+            </Transition>
         </div>
     </Transition>
 </header>
@@ -460,7 +462,7 @@ watch(isOpenBurgerMenu, () => {
 
 .menu-enter-active,
 .menu-leave-active{
-    transition: all 0.2s ease-in-out;
+    transition: top 0.2s ease-in-out;
 }
 
 .menu-leave-from,
@@ -471,6 +473,37 @@ watch(isOpenBurgerMenu, () => {
 .menu-leave-active{
     overflow: hidden;
 }
+
+
+
+
+
+
+.search-enter-from{
+    left: -100%;
+}
+
+.search-enter-to{
+    left: 0;
+}
+
+.search-leave-from{
+    left: 0;
+}
+
+.search-leave-to{
+    left: +100%;
+}
+
+
+.search-enter-active,
+.search-leave-active{
+    transition: left 0.3s;
+}
+
+
+
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
