@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref} from 'vue';
-import BaseSvg from '@/components/base/svg/BaseSvg.vue';
-import BaseButtonText from '@/components/base/baseButtonText/BaseButtonText.vue';
-import BurgerBtn from '@/components/ui/burger/BurgerBtn.vue';
+import BaseSvg from '@/components/base/BaseSvg.vue';
+import BaseButtonText from '@/components/base/BaseButtonText.vue';
+import BurgerBtn from '@/components/ui/BurgerBtn.vue';
 import { dataHeaderShope } from '@/components/mixins/data-header-shope';
+import BasketBtn from '@/components/ui/BasketBtn.vue';
 
-
-const isOpenBurgerMenu = ref(false)
-
+const isOpenBurgerMenu = ref<boolean>(false)
+const basketCount = ref<number>(0)
 
 </script>
 
@@ -57,7 +57,7 @@ const isOpenBurgerMenu = ref(false)
                 </div>
 
                 <div class="header__btn header__btn-basket">
-                    <BaseSvg class="header__btn-icon" id="basket"/>
+                    <BasketBtn :count="basketCount" @click="basketCount++"/>
                 </div>
 
                 <div class="header__btn header__btn-person">
@@ -86,9 +86,6 @@ const isOpenBurgerMenu = ref(false)
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
-
-
-
 .header{
     position: sticky;
     z-index: 100;
@@ -98,7 +95,7 @@ const isOpenBurgerMenu = ref(false)
     background-color: var(--background);
     padding: 45px 15px 0;
 
-    @include media-down(md) {
+    @include media-down(sm) {
         padding: 5px 15px ;
     }
 
@@ -111,7 +108,7 @@ const isOpenBurgerMenu = ref(false)
         margin: 0 auto;
         max-width: 1248px;
 
-        @include media-down(md) {
+        @include media-down(sm) {
             padding: 0;
             border-bottom: unset;
         }
@@ -121,7 +118,7 @@ const isOpenBurgerMenu = ref(false)
         font-family: Allerta Stencil, sans-serif;
         font-size: 35px;
 
-        @include media-down(md) {
+        @include media-down(sm) {
             font-size: 25px;
         }
 
@@ -135,7 +132,7 @@ const isOpenBurgerMenu = ref(false)
         width: 100%;
         max-width: 504px;
 
-        @include media-down(md) {
+        @include media-down(sm) {
             width: unset;
         }
     }
@@ -149,7 +146,7 @@ const isOpenBurgerMenu = ref(false)
         position: relative;
         padding-right: 50px;
 
-        @include media-down(md) {
+        @include media-down(sm) {
             display: none;
             width: unset;
         }
@@ -214,7 +211,7 @@ const isOpenBurgerMenu = ref(false)
         align-items: center;
         flex-grow: 1;
 
-        @include media-down(md) {
+        @include media-down(sm) {
             padding: 0;
         }
     }
@@ -237,27 +234,18 @@ const isOpenBurgerMenu = ref(false)
             width: 19px;
             height: 19px;
 
-            @include media-down(md) {
+            @include media-down(sm) {
                 display: none;
             }
         }
 
-        &-basket {
-            width: 21px;
-            height: 21px;
 
-            @include media-down(md) {
-                width: 18px;
-                height: 18px;
-                margin-right: 18px;
-            }
-        }
 
         &-person {
             width: 20px;
             height: 20px;
 
-            @include media-down(md) {
+            @include media-down(sm) {
                 display: none;
             }
         }

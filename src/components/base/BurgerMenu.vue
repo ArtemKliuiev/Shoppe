@@ -10,14 +10,5 @@ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur voluptatum an
 </template>
 
 <style scoped lang="scss">
-.burger-menu{
-    position: fixed;
-    overflow: auto;
-    top: 47px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: red;
 
-}
 </style>

@@ -39,7 +39,7 @@ const isOpen = computed({
   user-select: none;
   display: none;
 
-  @include media-down(md) {
+  @include media-down(sm) {
     display: block;
   }
 
