@@ -105,7 +105,21 @@ watch(isOpenBurgerMenu, () => {
                 </ul>
 
                 <div class="header__burger-bottom">
+                    <BaseButtonText className="header__burger-btn header__burger-btn-account" to="/account">
+                        <BaseSvg class="header__burger-btn-icon header__burger-account-icon" id="person"/>
 
+                        <span class="header__burger-btn-text">
+                            My account
+                        </span>
+                    </BaseButtonText>
+
+                    <BaseButtonText className="header__burger-btn header__burger-btn-exit" to="/exit">
+                        <BaseSvg class="header__burger-btn-icon header__burger-exit-icon" id="exit"/>
+
+                        <span class="header__burger-btn-text">
+                            Logout
+                        </span>
+                    </BaseButtonText>
                 </div>
             </nav>
         </div>
@@ -354,16 +368,18 @@ watch(isOpenBurgerMenu, () => {
     &__burger{
         &-menu {
             position: fixed;
+            padding-top: 5px;
             z-index: -20;
             overflow: auto;
-            top: 105px;
+            top: 100px;
             left: 0;
             width: 100%;
-            height: calc(100% - 47px);
+            height: calc(100% - 100px);
             background-color: var(--background);
 
             @include media-down(sm) {
-                top: 48px;
+                top: 43px;
+                height: calc(100% - 43px);
             }
         }
 
@@ -388,10 +404,14 @@ watch(isOpenBurgerMenu, () => {
 
         &-nav {
             padding: 16px 6px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 32px);
         }
 
         &-list{
             margin-top: 10px;
+            flex-grow: 1;
 
             &-item{
                 font-size: 20px;
@@ -406,7 +426,36 @@ watch(isOpenBurgerMenu, () => {
         }
 
         &-bottom{
+            border-top: 1px solid var(--gray);
+            margin: 0 10px;
+            padding-top: 10px;
+        }
 
+        &-btn{
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            line-height: 30px;
+
+            &-text{
+                font-size: 20px;
+            }
+
+            &-icon{
+                color: var(--text);
+                margin-right: 10px;
+            }
+
+        }
+
+        &-account-icon{
+            width: 20px;
+            height: 20px;
+        }
+
+        &-exit-icon{
+            width: 18px;
+            height: 18px;
         }
     }
    

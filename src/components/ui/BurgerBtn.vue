@@ -84,7 +84,7 @@ const isOpen = computed({
     }
 
     &::before {
-      bottom: 43%;
+      bottom: 45%;
       width: 100%;
       transform: rotate(-45deg);
     }

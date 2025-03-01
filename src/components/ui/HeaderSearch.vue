@@ -26,7 +26,7 @@ const text = computed({
 
 <template>
 <div class="search">
-    <input type="text" v-model="text">
+    <input type="text" v-model="text" placeholder="Search">
 
     <BaseSvg class="search__icon" id="search"/>
 </div>

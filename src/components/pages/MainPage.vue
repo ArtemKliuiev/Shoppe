@@ -10,5 +10,7 @@ Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae illo, minus simil
 </template>
 
 <style scoped>
-
+.one{
+    background-color: red;
+}
 </style>
