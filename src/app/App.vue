@@ -6,15 +6,15 @@ import SvgManager from '@/components/base/svg/SvgManager.vue';
 </script>
 
 <template>
-<TheHeader/>
+    <div class="wrapper">
+        <TheHeader/>
+            <main class="main">
+                <RouterView/>
+            </main>
+        <TheFooter/>
+    </div>
 
-<main class="main">
-    <RouterView/>
-</main>
-
-<TheFooter/>
-
-<SvgManager/>
+    <SvgManager/>
 </template>
 
 <style scoped>

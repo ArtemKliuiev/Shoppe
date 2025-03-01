@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref} from 'vue';
 import BaseSvg from '@/components/base/svg/BaseSvg.vue';
 import BaseButtonText from '@/components/base/baseButtonText/BaseButtonText.vue';
 import BurgerBtn from '@/components/ui/burger/BurgerBtn.vue';
-import BurgerMenu from '@/components/base/burger-menu/BurgerMenu.vue';
 import { dataHeaderShope } from '@/components/mixins/data-header-shope';
 
 
 const isOpenBurgerMenu = ref(false)
+
 
 </script>
 
@@ -72,32 +72,26 @@ const isOpenBurgerMenu = ref(false)
     </div>
 </header>
 
-<Transition name="menu">
-    <BurgerMenu v-if="isOpenBurgerMenu"/>
+<Transition name="menu"  v-scroll-lock="true">
+    <div v-if="isOpenBurgerMenu" class="burger-menu">
+
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat voluptatum ipsa dicta quas est! Doloremque quod laudantium id saepe amet quo dicta, necessitatibus enim sapiente nostrum laborum sed, repellat recusandae, iure blanditiis natus at? Eos doloremque laborum laboriosam maxime. Vero qui natus magni, dolor est blanditiis in a deserunt enim voluptatum, illum, illo tempore earum dicta quibusdam doloribus cupiditate impedit provident laudantium exercitationem! Culpa beatae sunt sequi corporis, similique suscipit pariatur in aliquam cupiditate facilis, quis nobis, labore nam doloribus? Delectus, suscipit saepe. Ut optio, odit non beatae explicabo sequi corrupti adipisci deleniti alias blanditiis odio hic? Impedit vero ratione, in illum placeat necessitatibus nesciunt quaerat ad voluptate atque enim veniam dolorum earum reprehenderit delectus velit optio officiis tempora mollitia dolorem explicabo vel. Molestias veritatis amet deserunt corporis et quibusdam provident eaque dolorem! Velit vitae, fugit dolore distinctio tenetur possimus nobis consequatur ad accusantium dolor illum omnis, obcaecati voluptate aliquam amet commodi illo quisquam deserunt. Fugiat, assumenda quo. Esse fuga, voluptas harum vel, ullam asperiores rerum, culpa libero earum reprehenderit sit. At deleniti nisi suscipit quisquam minus consectetur voluptatibus doloribus cum iure tenetur quas, dolorum blanditiis praesentium, impedit inventore laborum incidunt dolores cumque harum ex ducimus soluta hic corrupti! Temporibus corrupti enim quis libero voluptate totam rerum molestias debitis ut facere. Corrupti fugiat accusantium vitae alias laborum commodi sequi voluptates aliquid reiciendis ex velit dicta, quaerat qui dolorem vero nihil hic inventore laboriosam, illum labore error nulla quam? Amet corporis officiis asperiores suscipit laborum hic beatae, molestiae at mollitia. Corrupti, molestiae inventore placeat consequatur quas iste veritatis sapiente aliquam rem eaque modi deserunt consectetur perspiciatis qui neque nostrum! Laboriosam, rerum temporibus officia magnam iure, impedit non necessitatibus ratione pariatur quisquam natus modi unde. Molestias illum corporis non consequuntur, asperiores nobis ea ex amet quidem reiciendis eos beatae? Possimus aperiam quo adipisci consequuntur, saepe quod quas nulla dolor sed quam atque libero placeat nostrum asperiores delectus odit error voluptates! Tenetur fuga in dignissimos vel voluptate numquam quas itaque asperiores nam molestias eius illum quaerat provident placeat magnam ut libero saepe similique, tempora odio atque! Magni voluptatum quas incidunt, quae consectetur itaque, aliquam est saepe unde minima veritatis ab asperiores illo eos, delectus explicabo! Ipsam distinctio quae eligendi, ad molestiae voluptatem. Iusto quisquam nostrum ex hic, maxime dolorem perferendis quasi ab id vero fuga dolore error molestiae laudantium voluptatem enim inventore culpa reprehenderit saepe aliquam possimus est facilis incidunt. Non aliquid, illo voluptas itaque exercitationem porro minima repudiandae! Recusandae illum placeat ad, eius, beatae quisquam, sed dolore molestiae quam impedit laborum? Repellendus eaque quos neque asperiores eos tenetur quo minus dicta iure quasi eius, accusantium modi blanditiis rem facilis quibusdam deleniti mollitia. Cumque, quasi iure eos odio placeat iste qui omnis nobis debitis sequi, rem neque labore voluptatibus cupiditate vitae incidunt culpa ullam reprehenderit fuga possimus tempora voluptatum amet ad. Eligendi, velit itaque. Autem, ad temporibus! Iste alias error amet aut iure expedita cumque eaque neque cupiditate, laboriosam ea in incidunt excepturi ratione quod, veniam tempora obcaecati doloremque nulla? Veritatis, quaerat cupiditate!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, nulla necessitatibus. Officia unde pariatur harum, repellendus veritatis dignissimos autem, asperiores quidem nostrum hic, soluta omnis corrupti ea animi culpa alias tempora nulla provident dolorum nobis laboriosam? Quam dolores voluptas a, magnam magni tempore excepturi odit doloremque similique facere enim ab voluptatibus quaerat temporibus officiis? Nam a suscipit incidunt vitae quidem inventore mollitia error perferendis omnis saepe aspernatur soluta expedita praesentium amet cum tenetur quisquam consequatur fugit, itaque eaque ab aliquam. Sit alias magni cumque labore at corporis deleniti blanditiis reprehenderit inventore est quis aliquam, rem voluptatum dignissimos obcaecati quam dolor nesciunt maiores? Exercitationem est ipsa quasi cumque magnam neque voluptas dolore perspiciatis iure, reiciendis adipisci quas vel minus doloremque similique ex quae numquam! Placeat facere modi fugit harum at consectetur veritatis aperiam, obcaecati delectus ducimus odit! Ut, rem suscipit maiores velit consequatur qui deleniti in officiis doloribus culpa ipsam doloremque vitae incidunt, expedita laudantium aliquam. Natus eveniet, iure aut commodi nobis animi debitis laudantium enim, molestias, adipisci dolorem nemo aliquid esse doloremque! Ex quia libero est provident, harum nobis amet odit necessitatibus impedit dolor reprehenderit soluta quae! In, minus soluta quidem suscipit qui cum eius maxime corrupti fugiat accusamus assumenda maiores omnis quia quisquam, ratione earum laborum architecto modi provident voluptates? Iusto laboriosam aliquid repudiandae repellendus minima, sapiente animi nam ipsa esse natus sed at doloremque impedit deserunt dolorum amet. Commodi exercitationem voluptatem hic alias cupiditate ullam labore vero, a veritatis eaque maxime, reiciendis ea iusto id placeat eos laudantium aperiam possimus consequatur iste blanditiis! Nisi quasi, nostrum labore est mollitia voluptas praesentium quo quibusdam tenetur quas laboriosam? Accusamus tempore rem quae tenetur totam aut voluptatibus neque itaque! Qui doloremque, consequuntur quas molestiae perspiciatis, alias pariatur iusto aut velit odit et veritatis officia sequi aliquid! Quaerat numquam cupiditate obcaecati sit.
+
+    </div>
 </Transition>
+
 </template>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
-.menu-leave-to,
-.menu-enter-from{
-    transform: scaleX(0);
-}
 
-.menu-enter-active,
-.menu-leave-active{
-    transition: transform 0.2s ease-in-out;
-    transform-origin: 0 0;
-}
 
-.menu-leave-from,
-.menu-enter-to{
-    transform: scaleX(1);
-}
 
 .header{
     position: sticky;
+    z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
@@ -318,5 +312,38 @@ const isOpenBurgerMenu = ref(false)
             }
         }
     }
+
+
+   
+}
+
+.burger-menu{
+    position: fixed;
+    overflow: auto;
+    top: 47px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 47px);
+    background-color: var(--background);
+    background-color: red;
+}
+
+.menu-leave-to,
+.menu-enter-from{
+    top: -100%;
+}
+
+.menu-enter-active,
+.menu-leave-active{
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-leave-from,
+.menu-enter-to{
+    top: 0;
+}
+
+.menu-leave-active{
+    overflow: hidden;
 }
 </style>
