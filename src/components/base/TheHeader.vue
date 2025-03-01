@@ -376,9 +376,10 @@ watch(isOpenBurgerMenu, () => {
 
         &-cards {
             position: relative;
-            min-height: calc(100% - 53px);
+            min-height: 150px;
             margin: 10px 16px;
             border-radius: 4px;
+            
         }
 
         &-loader {
