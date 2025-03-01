@@ -130,9 +130,6 @@ watch(isOpenBurgerMenu, () => {
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
-
-
-
 .header{
     position: sticky;
     z-index: 100;
@@ -165,8 +162,6 @@ watch(isOpenBurgerMenu, () => {
         }
     }
 
-
-    
     &__logo {
         font-family: Allerta Stencil, sans-serif;
         font-size: 35px;
@@ -354,10 +349,6 @@ watch(isOpenBurgerMenu, () => {
         }
     }
 
-    &__burger-menu{
-
-    }
-
     &__cards{
         position: relative;
         min-height: calc(100% - 53px);
@@ -410,7 +401,7 @@ watch(isOpenBurgerMenu, () => {
         }
 
         &-list{
-            margin-top: 10px;
+            margin: 10px 0 20px;
             flex-grow: 1;
 
             &-item{
