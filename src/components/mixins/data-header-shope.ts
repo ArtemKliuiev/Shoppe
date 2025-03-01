@@ -1,4 +1,45 @@
-export const dataHeaderShope = [
+interface DataLink{
+    name: string,
+    link: string
+}
+
+interface DataHeaderShope{
+    title: string,
+    list: Array<DataLink>
+}
+
+export const dataBurgerMenu: Array<DataLink> = [
+    {
+        name: 'Home',
+        link: '/'
+    },
+    {
+        name: 'Shop',
+        link: '/shope'
+    },
+    {
+        name: 'About',
+        link: '/about'
+    },
+    {
+        name: 'Blog',
+        link: '/blog'
+    },
+    {
+        name: 'Help',
+        link: '/404'
+    },
+    {
+        name: 'Contact',
+        link: '/contact'
+    },
+    {
+        name: 'Search',
+        link: '/404'
+    },
+]
+
+export const dataHeaderMenu: Array<DataHeaderShope> = [
     {
         title: 'SHOP TYPES',
         list: [

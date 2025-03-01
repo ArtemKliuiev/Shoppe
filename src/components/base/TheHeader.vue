@@ -1,90 +1,119 @@
 <script setup lang="ts">
-import { ref} from 'vue';
+import { ref, watch} from 'vue';
+import { useRoute } from 'vue-router';
+
+import { dataHeaderMenu, dataBurgerMenu } from '@/components/mixins/data-header-shope';
 import BaseSvg from '@/components/base/BaseSvg.vue';
 import BaseButtonText from '@/components/base/BaseButtonText.vue';
 import BurgerBtn from '@/components/ui/BurgerBtn.vue';
-import { dataHeaderShope } from '@/components/mixins/data-header-shope';
 import BasketBtn from '@/components/ui/BasketBtn.vue';
+import HeaderSearch from '@/components/ui/HeaderSearch.vue';
 
-const isOpenBurgerMenu = ref<boolean>(false)
+
+const isOpenBurgerMenu = ref<boolean>(true)
 const basketCount = ref<number>(0)
+const search = ref('')
+const route = useRoute()
+
+watch(route, () => {
+    isOpenBurgerMenu.value = false
+})
+
+watch(isOpenBurgerMenu, () => {
+    search.value = ''
+})
 
 </script>
 
 <template>
 <header class="header">
-    <div class="header__line">
-        <div class="header__logo">
-            <BaseButtonText to="/">
-                SHOPPE
-            </BaseButtonText>
-        </div>
+    <div class="header__head">
+        <div class="header__head-container">
+            <div class="header__logo">
+                <BaseButtonText to="/">
+                    SHOPPE
+                </BaseButtonText>
+            </div>
 
-        <div class="header__main">
-            <ul class="header__list">
-                <li class="header__list-item header__list-shope " :class="{'header__list-item_active': $route.name === 'shope'}">
-                    Shope
+            <div class="header__main">
+                <ul class="header__list">
+                    <li class="header__list-item header__list-shope " :class="{'header__list-item_active': $route.name === 'shope'}">
+                        Shope
 
-                    <div class="header__shop">
-                        <div class="header__shop-column" v-for="item in dataHeaderShope" :key="item.title">
-                            <p class="header__shop-title">{{ item.title }}</p>
+                        <div class="header__shop">
+                            <div class="header__shop-column" v-for="item in dataHeaderMenu" :key="item.title">
+                                <p class="header__shop-title">{{ item.title }}</p>
 
-                            <ul class="header__shop-list">
-                                <li class="header__shop-list-item" v-for="li in item.list" :key="li.name">
-                                    <BaseButtonText :to="li.link">
-                                        {{ li.name }}
-                                    </BaseButtonText>
-                                </li>
-                            </ul>
+                                <ul class="header__shop-list">
+                                    <li class="header__shop-list-item" v-for="li in item.list" :key="li.name">
+                                        <BaseButtonText :to="li.link">
+                                            {{ li.name }}
+                                        </BaseButtonText>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                    </li>
+                    <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'blog'}">
+                        <BaseButtonText to="/blog">
+                            Blog
+                        </BaseButtonText>
+                    </li>
+                    <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'story'}">
+                        <BaseButtonText to="/story">
+                            Our Story
+                        </BaseButtonText>
+                    </li>
+                </ul>
+
+                <div class="header__buttons">
+                    <div class="header__btn header__btn-search">
+                        <BaseSvg class="header__btn-icon" id="search"/>
                     </div>
-                </li>
-                <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'blog'}">
-                    <BaseButtonText to="/blog">
-                        Blog
-                    </BaseButtonText>
-                </li>
-                <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'story'}">
-                    <BaseButtonText to="/story">
-                        Our Story
-                    </BaseButtonText>
-                </li>
-            </ul>
 
-            <div class="header__buttons">
-                <div class="header__btn header__btn-search">
-                    <BaseSvg class="header__btn-icon" id="search"/>
-                </div>
+                    <div class="header__btn header__btn-basket">
+                        <BasketBtn :count="basketCount" @click="basketCount++"/>
+                    </div>
 
-                <div class="header__btn header__btn-basket">
-                    <BasketBtn :count="basketCount" @click="basketCount++"/>
-                </div>
+                    <div class="header__btn header__btn-person">
+                        <BaseSvg class="header__btn-icon" id="person"/>
+                    </div>
 
-                <div class="header__btn header__btn-person">
-                    <BaseSvg class="header__btn-icon" id="person"/>
-                </div>
-
-                <div class="header__btn header__btn-burger">
-                    <BurgerBtn v-model="isOpenBurgerMenu"/>
+                    <div class="header__btn header__btn-burger">
+                        <BurgerBtn v-model="isOpenBurgerMenu"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <Transition name="menu"  v-scroll-lock="true">
+        <div v-if="isOpenBurgerMenu" class="header__burger-menu">
+            <HeaderSearch v-model="search"/>
+            
+            <ul class="header__burger-cards" v-if="search.length">
+                <div class="header__burger-loader"></div>
+            </ul>
+
+            <nav v-else class="header__burger-nav">
+                <ul class="header__burger-list">
+                    <li class="header__burger-list-item" v-for="item in dataBurgerMenu" :key="item.link">
+                        <BaseButtonText className="header__burger-list-link" :to="item.link">
+                            {{ item.name }}
+                        </BaseButtonText>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </Transition>
 </header>
-
-<Transition name="menu"  v-scroll-lock="true">
-    <div v-if="isOpenBurgerMenu" class="burger-menu">
-
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat voluptatum ipsa dicta quas est! Doloremque quod laudantium id saepe amet quo dicta, necessitatibus enim sapiente nostrum laborum sed, repellat recusandae, iure blanditiis natus at? Eos doloremque laborum laboriosam maxime. Vero qui natus magni, dolor est blanditiis in a deserunt enim voluptatum, illum, illo tempore earum dicta quibusdam doloribus cupiditate impedit provident laudantium exercitationem! Culpa beatae sunt sequi corporis, similique suscipit pariatur in aliquam cupiditate facilis, quis nobis, labore nam doloribus? Delectus, suscipit saepe. Ut optio, odit non beatae explicabo sequi corrupti adipisci deleniti alias blanditiis odio hic? Impedit vero ratione, in illum placeat necessitatibus nesciunt quaerat ad voluptate atque enim veniam dolorum earum reprehenderit delectus velit optio officiis tempora mollitia dolorem explicabo vel. Molestias veritatis amet deserunt corporis et quibusdam provident eaque dolorem! Velit vitae, fugit dolore distinctio tenetur possimus nobis consequatur ad accusantium dolor illum omnis, obcaecati voluptate aliquam amet commodi illo quisquam deserunt. Fugiat, assumenda quo. Esse fuga, voluptas harum vel, ullam asperiores rerum, culpa libero earum reprehenderit sit. At deleniti nisi suscipit quisquam minus consectetur voluptatibus doloribus cum iure tenetur quas, dolorum blanditiis praesentium, impedit inventore laborum incidunt dolores cumque harum ex ducimus soluta hic corrupti! Temporibus corrupti enim quis libero voluptate totam rerum molestias debitis ut facere. Corrupti fugiat accusantium vitae alias laborum commodi sequi voluptates aliquid reiciendis ex velit dicta, quaerat qui dolorem vero nihil hic inventore laboriosam, illum labore error nulla quam? Amet corporis officiis asperiores suscipit laborum hic beatae, molestiae at mollitia. Corrupti, molestiae inventore placeat consequatur quas iste veritatis sapiente aliquam rem eaque modi deserunt consectetur perspiciatis qui neque nostrum! Laboriosam, rerum temporibus officia magnam iure, impedit non necessitatibus ratione pariatur quisquam natus modi unde. Molestias illum corporis non consequuntur, asperiores nobis ea ex amet quidem reiciendis eos beatae? Possimus aperiam quo adipisci consequuntur, saepe quod quas nulla dolor sed quam atque libero placeat nostrum asperiores delectus odit error voluptates! Tenetur fuga in dignissimos vel voluptate numquam quas itaque asperiores nam molestias eius illum quaerat provident placeat magnam ut libero saepe similique, tempora odio atque! Magni voluptatum quas incidunt, quae consectetur itaque, aliquam est saepe unde minima veritatis ab asperiores illo eos, delectus explicabo! Ipsam distinctio quae eligendi, ad molestiae voluptatem. Iusto quisquam nostrum ex hic, maxime dolorem perferendis quasi ab id vero fuga dolore error molestiae laudantium voluptatem enim inventore culpa reprehenderit saepe aliquam possimus est facilis incidunt. Non aliquid, illo voluptas itaque exercitationem porro minima repudiandae! Recusandae illum placeat ad, eius, beatae quisquam, sed dolore molestiae quam impedit laborum? Repellendus eaque quos neque asperiores eos tenetur quo minus dicta iure quasi eius, accusantium modi blanditiis rem facilis quibusdam deleniti mollitia. Cumque, quasi iure eos odio placeat iste qui omnis nobis debitis sequi, rem neque labore voluptatibus cupiditate vitae incidunt culpa ullam reprehenderit fuga possimus tempora voluptatum amet ad. Eligendi, velit itaque. Autem, ad temporibus! Iste alias error amet aut iure expedita cumque eaque neque cupiditate, laboriosam ea in incidunt excepturi ratione quod, veniam tempora obcaecati doloremque nulla? Veritatis, quaerat cupiditate!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, nulla necessitatibus. Officia unde pariatur harum, repellendus veritatis dignissimos autem, asperiores quidem nostrum hic, soluta omnis corrupti ea animi culpa alias tempora nulla provident dolorum nobis laboriosam? Quam dolores voluptas a, magnam magni tempore excepturi odit doloremque similique facere enim ab voluptatibus quaerat temporibus officiis? Nam a suscipit incidunt vitae quidem inventore mollitia error perferendis omnis saepe aspernatur soluta expedita praesentium amet cum tenetur quisquam consequatur fugit, itaque eaque ab aliquam. Sit alias magni cumque labore at corporis deleniti blanditiis reprehenderit inventore est quis aliquam, rem voluptatum dignissimos obcaecati quam dolor nesciunt maiores? Exercitationem est ipsa quasi cumque magnam neque voluptas dolore perspiciatis iure, reiciendis adipisci quas vel minus doloremque similique ex quae numquam! Placeat facere modi fugit harum at consectetur veritatis aperiam, obcaecati delectus ducimus odit! Ut, rem suscipit maiores velit consequatur qui deleniti in officiis doloribus culpa ipsam doloremque vitae incidunt, expedita laudantium aliquam. Natus eveniet, iure aut commodi nobis animi debitis laudantium enim, molestias, adipisci dolorem nemo aliquid esse doloremque! Ex quia libero est provident, harum nobis amet odit necessitatibus impedit dolor reprehenderit soluta quae! In, minus soluta quidem suscipit qui cum eius maxime corrupti fugiat accusamus assumenda maiores omnis quia quisquam, ratione earum laborum architecto modi provident voluptates? Iusto laboriosam aliquid repudiandae repellendus minima, sapiente animi nam ipsa esse natus sed at doloremque impedit deserunt dolorum amet. Commodi exercitationem voluptatem hic alias cupiditate ullam labore vero, a veritatis eaque maxime, reiciendis ea iusto id placeat eos laudantium aperiam possimus consequatur iste blanditiis! Nisi quasi, nostrum labore est mollitia voluptas praesentium quo quibusdam tenetur quas laboriosam? Accusamus tempore rem quae tenetur totam aut voluptatibus neque itaque! Qui doloremque, consequuntur quas molestiae perspiciatis, alias pariatur iusto aut velit odit et veritatis officia sequi aliquid! Quaerat numquam cupiditate obcaecati sit.
-
-    </div>
-</Transition>
-
 </template>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
+
+
+
 
 .header{
     position: sticky;
@@ -92,27 +121,33 @@ const basketCount = ref<number>(0)
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--background);
-    padding: 45px 15px 0;
 
-    @include media-down(sm) {
-        padding: 5px 15px ;
-    }
-
-    &__line {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        padding-bottom: 7px;
-        border-bottom: 1px solid var(--gray);
-        margin: 0 auto;
-        max-width: 1248px;
+    &__head{
+        background-color: var(--background);
+        padding: 45px 15px 0;
 
         @include media-down(sm) {
             padding: 0;
-            border-bottom: unset;
+        }
+
+        &-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 7px;
+            border-bottom: 1px solid var(--gray);
+            background-color: var(--background);
+            margin: 0 auto;
+            max-width: 1248px;
+
+            @include media-down(sm) {
+                padding: 5px 15px ;
+                border-bottom: unset;
+            }
         }
     }
+
+
     
     &__logo {
         font-family: Allerta Stencil, sans-serif;
@@ -301,19 +336,71 @@ const basketCount = ref<number>(0)
         }
     }
 
+    &__burger-menu{
 
+    }
+
+    &__cards{
+        position: relative;
+        min-height: calc(100% - 53px);
+        margin: 10px 16px;
+        border-radius: 4px;
+    }
+
+    &__burger{
+        &-menu {
+            position: fixed;
+            z-index: -20;
+            overflow: auto;
+            top: 105px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 47px);
+            background-color: var(--background);
+
+            @include media-down(sm) {
+                top: 48px;
+            }
+        }
+
+        &-cards {
+            position: relative;
+            min-height: calc(100% - 53px);
+            margin: 10px 16px;
+            border-radius: 4px;
+        }
+
+        &-loader {
+            position: absolute;
+            top: calc(50% - 15px);
+            left: calc(50% - 15px);
+            border: 6px solid var(--gray); 
+            border-top: 6px solid var(--accent); 
+            border-radius: 50%; 
+            width: 30px;
+            height: 30px;
+            animation: spin 0.5s linear infinite; 
+        }
+        &-nav {
+            padding: 16px 6px;
+        }
+
+        &-list{
+            margin-top: 10px;
+
+            &-item{
+                font-size: 20px;
+                line-height: 50px;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            &-link{
+                padding: 10px;
+            }
+        }
+    }
    
-}
-
-.burger-menu{
-    position: fixed;
-    overflow: auto;
-    top: 47px;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 47px);
-    background-color: var(--background);
-    background-color: red;
 }
 
 .menu-leave-to,
@@ -333,5 +420,10 @@ const basketCount = ref<number>(0)
 
 .menu-leave-active{
     overflow: hidden;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 </style>

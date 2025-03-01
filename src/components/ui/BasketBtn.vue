@@ -10,7 +10,7 @@ const props = withDefaults(
     defineProps<Props>(), { count: 0 }
 )
 
-const classObject = computed(() => {
+const classObject = computed((): object => {
     return {
         "basket-btn__count_empty" : props.count === 0,
         "basket-btn__count_one" : props.count < 10,
@@ -22,7 +22,7 @@ const classObject = computed(() => {
 
 <template>
 <div class="basket-btn">
-    <BaseSvg id="basket"/>
+    <BaseSvg class="basket-btn__icon" id="basket"/>
 
     <div class="basket-btn__count" :class="classObject">
         <span class="basket-btn__count-text">
@@ -56,11 +56,15 @@ const classObject = computed(() => {
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        font-size: 8px;
 
         &-text {
             font-weight: 700;
             line-height: 100%;
+            font-size: 8px;
+
+            @include media-down(sm) {
+                font-size: 7px;
+            }
         }
 
         &_empty{
@@ -68,8 +72,8 @@ const classObject = computed(() => {
         }
 
         &_one{
-            right: -3px;
-            top: -3px;
+            right: -4px;
+            top: -4px;
             height: 14px;
             width: 14px;
 
@@ -83,12 +87,11 @@ const classObject = computed(() => {
 
         &_two{
             right: -5px;
-            top: -5px;
+            top: -6px;
             height: 16px;
             width: 16px;
             
             @include media-down(sm) {
-                font-size: 7px;
                 height: 15px;
                 width: 15px;
             }
@@ -96,16 +99,19 @@ const classObject = computed(() => {
 
         &_three{
             right: -7px;
-            top: -7px;
+            top: -8px;
             height: 18px;
             width: 18px;
                         
             @include media-down(sm) {
-                font-size: 7px;
                 height: 17px;
                 width: 17px;   
             }
         }
+    }
+
+    &__icon{
+        fill: var(--text);
     }
 }
 </style>

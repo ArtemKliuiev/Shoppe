@@ -79,12 +79,12 @@ const isOpen = computed({
     }
 
     &::after {
-      top: 44%;
+      top: 45%;
       transform: rotate(45deg);
     }
 
     &::before {
-      bottom: 45%;
+      bottom: 43%;
       width: 100%;
       transform: rotate(-45deg);
     }
