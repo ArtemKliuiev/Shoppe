@@ -8,11 +8,7 @@ import BasketBtn from '@/components/ui/BasketBtn.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
-import {
-  dataHeaderMenu,
-  dataBurgerMenu,
-  dataHeaderPages,
-} from '@/components/mixins/data-header-shope'
+import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
 
 const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)

@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import BaseButtonText from './BaseButtonText.vue'
+
 interface Props {
   mode?: boolean
+  to?: string
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <button class="button" :class="{ button_mode: mode }">
+  <BaseButtonText class="button" :class="{ button_mode: mode }" v-if="to" :to="to">
+    <slot></slot>
+  </BaseButtonText>
+
+  <button v-else class="button" :class="{ button_mode: mode }">
     <slot></slot>
   </button>
 </template>
@@ -16,6 +23,7 @@ defineProps<Props>()
 @use '@/assets/styles/mixins/index.scss' as *;
 
 .button {
+  display: block;
   width: 100%;
   font-size: 16px;
   font-weight: 700;
@@ -27,6 +35,9 @@ defineProps<Props>()
   border: unset;
   cursor: pointer;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition:
     transform 0.3s,
     background-color 0.3s,

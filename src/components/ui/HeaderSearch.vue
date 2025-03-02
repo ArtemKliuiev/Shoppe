@@ -25,19 +25,22 @@ const text = computed({
 </script>
 
 <template>
-  <div class="search">
+  <div class="header-search">
     <input type="text" v-model="text" placeholder="Search" />
 
-    <div class="search__load-line" :class="{ 'search__load-line_active': isLoading }"></div>
+    <div
+      class="header-search__load-line"
+      :class="{ 'header-search__load-line_active': isLoading }"
+    ></div>
 
-    <BaseSvg class="search__icon" id="search" />
+    <BaseSvg class="header-search__icon" id="search" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use '@/assets/styles/mixins/index.scss' as *;
 
-.search {
+.header-search {
   position: relative;
 
   @include media-down(sm) {
