@@ -3,7 +3,8 @@ import { computed } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue';
 
 interface Props {
-  modelValue: string
+  modelValue: string,
+  isLoading: boolean
 }
 
 interface Emits {
@@ -28,6 +29,8 @@ const text = computed({
 <div class="search">
     <input type="text" v-model="text" placeholder="Search">
 
+    <div class="search__load-line" :class="{'search__load-line_active': isLoading}"></div>
+
     <BaseSvg class="search__icon" id="search"/>
 </div>
 </template>
@@ -49,6 +52,36 @@ const text = computed({
         fill: var(--text-second);
     }
 
+    &__load-line{
+        position: absolute;
+        bottom: -1px;
+        left: 16px;
+        height: 20px;
+        background-color: var(--gray);
+        pointer-events: none;
+        clip-path: polygon(0 87%, 100% 87%, 100% 100%, 0 100%);
+        border-radius: 0 0 4px 4px;
+        width: calc(100% - 32px);
+        transition: opacity 0.3s;
+        overflow: hidden;
+        opacity: 0;
+
+        &::before{
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 30%;
+          height: 100%;
+          animation: loading 1.2s infinite ease;
+          background-color: var(--accent);
+        }
+
+        &_active{
+          opacity: 1;
+        }
+    }
+
     input{
         box-sizing: border-box;
         background-color: var(--gray-two);
@@ -61,6 +94,15 @@ const text = computed({
         line-height: 20px;
         color: var(--text-second);
     }
+}
+
+@keyframes loading {
+  0%{
+    left: 0;
+  }
+  100%{
+    left: 105%;
+  }
 }
 
 </style>

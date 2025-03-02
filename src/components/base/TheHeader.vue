@@ -11,9 +11,11 @@ import HeaderSearch from '@/components/ui/HeaderSearch.vue';
 
 
 const isOpenBurgerMenu = ref<boolean>(false)
+const searchLoaderState = ref<number>(0)
 const basketCount = ref<number>(0)
 const search = ref('')
 const route = useRoute()
+
 
 watch(route, () => {
     isOpenBurgerMenu.value = false
@@ -21,6 +23,21 @@ watch(route, () => {
 
 watch(isOpenBurgerMenu, () => {
     search.value = ''
+})
+
+
+watch(search, () => {
+
+
+    setTimeout(() => {
+        searchLoaderState.value = 1
+    },1000)
+
+    setTimeout(() => {
+        searchLoaderState.value = 2
+    },3000)
+
+
 })
 
 </script>
@@ -89,11 +106,11 @@ watch(isOpenBurgerMenu, () => {
 
     <Transition name="menu" type="transition">
         <div v-if="isOpenBurgerMenu" class="header__burger-menu"  v-scroll-lock="true"> 
-            <HeaderSearch v-model="search"/>
+            <HeaderSearch v-model="search" :isLoading="true"/>
             
             <Transition name="search" mode="out-in" type="transition">
                 <ul class="header__burger-cards" v-if="search.length">
-                    <div class="header__burger-loader"></div>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos at magni excepturi, velit fugiat rem totam consequuntur saepe aut sunt vitae vero harum suscipit in! Labore architecto dolorem ab hic?
                 </ul>
 
                 <nav class="header__burger-nav" v-else >
@@ -384,18 +401,6 @@ watch(isOpenBurgerMenu, () => {
             
         }
 
-        &-loader {
-            position: absolute;
-            top: calc(50% - 15px);
-            left: calc(50% - 15px);
-            border: 6px solid var(--gray); 
-            border-top: 6px solid var(--accent); 
-            border-radius: 50%; 
-            width: 30px;
-            height: 30px;
-            animation: spin 0.5s linear infinite; 
-        }
-
         &-nav {
             padding: 16px 6px;
             display: flex;
@@ -501,12 +506,4 @@ watch(isOpenBurgerMenu, () => {
     transition: left 0.3s;
 }
 
-
-
-
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 </style>
