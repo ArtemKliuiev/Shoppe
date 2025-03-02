@@ -136,6 +136,7 @@ function toggleBurger(): void {
             <div class="header__burger-bottom">
               <BaseButtonText
                 className="header__burger-btn header__burger-btn-account"
+                @click="isOpenBurgerMenu = false"
                 to="/account"
               >
                 <BaseSvg class="header__burger-btn-icon header__burger-account-icon" id="person" />
@@ -143,7 +144,11 @@ function toggleBurger(): void {
                 <span class="header__burger-btn-text"> My account </span>
               </BaseButtonText>
 
-              <BaseButtonText className="header__burger-btn header__burger-btn-exit" to="/exit">
+              <BaseButtonText
+                className="header__burger-btn header__burger-btn-exit"
+                @click="isOpenBurgerMenu = false"
+                to="/exit"
+              >
                 <BaseSvg class="header__burger-btn-icon header__burger-exit-icon" id="exit" />
 
                 <span class="header__burger-btn-text"> Logout </span>
@@ -488,6 +493,10 @@ function toggleBurger(): void {
     width: 360px;
     height: 100%;
     right: 0;
+
+    @include media-down(sm) {
+      width: 100%;
+    }
   }
 }
 

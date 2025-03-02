@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import BaseButton from './BaseButton.vue'
 
 interface Props {
   data: Array<string>
@@ -41,7 +42,9 @@ onUnmounted(() => {
         <p class="basket__bottom-sum">$ 100,00</p>
       </div>
 
-      <div class="basket__btn">VIEW CART</div>
+      <div class="basket__btn">
+        <BaseButton mode> VIEW CART </BaseButton>
+      </div>
     </div>
   </div>
 </template>
@@ -90,8 +93,6 @@ onUnmounted(() => {
   }
 
   &__btn {
-    background: burlywood;
-    height: 53px;
     margin: 0 36px 25px;
   }
 }
