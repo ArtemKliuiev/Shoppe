@@ -4,9 +4,10 @@ import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
 import BasketBtn from '@/components/ui/BasketBtn.vue'
-import HeaderSearch from '@/components/ui/HeaderSearch.vue'
-import TheBasket from './TheBasket.vue'
-import TheSearch from './TheSearch.vue'
+
+import TheBasket from '@/components/base/TheBasket.vue'
+import TheSearch from '@/components/base/TheSearch.vue'
+import BurgerMenu from '@/components/ui/BurgerMenu.vue'
 import {
   dataHeaderMenu,
   dataBurgerMenu,
@@ -17,8 +18,7 @@ const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)
 const search = ref<string>('')
 const basketData = reactive<Array<string>>([])
-const activeComponent = ref<string>('two')
-
+const activeComponent = ref<string>('one')
 const components = shallowReactive<Record<string, ComponentCustomOptions | null>>({
   one: null,
   two: TheBasket,
@@ -110,53 +110,11 @@ function toggleBurger(): void {
     </div>
 
     <Transition name="menu" type="transition">
-      <div v-if="isOpenBurgerMenu" class="header__burger-menu" v-scroll-lock="true">
-        <HeaderSearch v-model="search" :isLoading="false" />
-
-        <Transition name="search" mode="out-in" type="transition">
-          <ul class="header__burger-cards" v-if="search.length">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos at magni
-            excepturi, velit fugiat rem totam consequuntur saepe aut sunt vitae vero harum suscipit
-            in! Labore architecto dolorem ab hic?
-          </ul>
-
-          <nav class="header__burger-nav" v-else>
-            <ul class="header__burger-list">
-              <li class="header__burger-list-item" v-for="item in dataBurgerMenu" :key="item.link">
-                <BaseButtonText
-                  className="header__burger-list-link"
-                  @click="isOpenBurgerMenu = false"
-                  :to="item.link"
-                >
-                  {{ item.name }}
-                </BaseButtonText>
-              </li>
-            </ul>
-
-            <div class="header__burger-bottom">
-              <BaseButtonText
-                className="header__burger-btn header__burger-btn-account"
-                @click="isOpenBurgerMenu = false"
-                to="/account"
-              >
-                <BaseSvg class="header__burger-btn-icon header__burger-account-icon" id="person" />
-
-                <span class="header__burger-btn-text"> My account </span>
-              </BaseButtonText>
-
-              <BaseButtonText
-                className="header__burger-btn header__burger-btn-exit"
-                @click="isOpenBurgerMenu = false"
-                to="/exit"
-              >
-                <BaseSvg class="header__burger-btn-icon header__burger-exit-icon" id="exit" />
-
-                <span class="header__burger-btn-text"> Logout </span>
-              </BaseButtonText>
-            </div>
-          </nav>
-        </Transition>
-      </div>
+      <BurgerMenu
+        v-if="isOpenBurgerMenu"
+        v-model:search="search"
+        @closeBurger="isOpenBurgerMenu = false"
+      />
     </Transition>
   </header>
 
@@ -395,13 +353,6 @@ function toggleBurger(): void {
     }
   }
 
-  &__cards {
-    position: relative;
-    min-height: calc(100% - 53px);
-    margin: 10px 16px;
-    border-radius: 4px;
-  }
-
   &__burger {
     &-menu {
       position: fixed;
@@ -532,26 +483,5 @@ function toggleBurger(): void {
 
 .menu-leave-active {
   overflow: hidden;
-}
-
-.search-enter-from {
-  left: -100%;
-}
-
-.search-enter-to {
-  left: 0;
-}
-
-.search-leave-from {
-  left: 0;
-}
-
-.search-leave-to {
-  left: +100%;
-}
-
-.search-enter-active,
-.search-leave-active {
-  transition: left 0.3s;
 }
 </style>
