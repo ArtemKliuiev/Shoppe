@@ -17,7 +17,8 @@ h1,
 h2,
 h3,
 h4,
-p,
+h5,
+h6 p,
 ul[class],
 ol[class],
 li,
@@ -27,13 +28,14 @@ blockquote,
 dl,
 dd {
   margin: 0;
+  font-weight: 400;
 }
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
   min-height: 100vh;
   scroll-behavior: smooth;
-  text-rendering: optimizespeed;       
+  text-rendering: optimizespeed;
   line-height: 1.5;
 }
 
@@ -70,21 +72,18 @@ select {
 input {
   all: unset;
   background: none;
-  border: none; 
-  outline: none; 
-  padding: 0; 
+  border: none;
+  outline: none;
+  padding: 0;
   margin: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
-
-
 
 a {
   text-decoration: none;
   color: unset;
 }
 
-a:visited{
+a:visited {
   color: unset;
 }
-

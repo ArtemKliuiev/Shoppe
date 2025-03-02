@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, type ComponentCustomOptions } from 'vue'
+import { reactive, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
@@ -17,9 +17,9 @@ const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)
 const search = ref<string>('')
 const basketData = reactive<Array<string>>([])
-const activeComponent = ref<string>('one')
+const activeComponent = ref<string>('two')
 
-const components = reactive<Record<string, ComponentCustomOptions | null>>({
+const components = shallowReactive<Record<string, ComponentCustomOptions | null>>({
   one: null,
   two: TheBasket,
   three: TheSearch,
@@ -157,6 +157,7 @@ function toggleBurger(): void {
 
   <Transition name="right-block" mode="out-in">
     <component
+      class="header__right-block"
       :is="components[activeComponent]"
       :data="basketData"
       @close="activeComponent = 'one'"
@@ -475,6 +476,18 @@ function toggleBurger(): void {
       width: 18px;
       height: 18px;
     }
+  }
+
+  &__right-block {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    background-color: var(--background);
+    border: 1px solid var(--gray);
+    border-right: unset;
+    width: 360px;
+    height: 100%;
+    right: 0;
   }
 }
 

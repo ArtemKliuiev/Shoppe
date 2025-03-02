@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 interface Props {
-  data: string
+  data: Array<string>
 }
 
 interface Emits {
@@ -16,7 +16,7 @@ const listenerClick = (e: MouseEvent) =>
   !htmlEL.value?.contains(e.target as Node | null) ? emits('close') : null
 
 onMounted(() => {
-  document.addEventListener('click', listenerClick)
+  //   document.addEventListener('click', listenerClick)
 })
 
 onUnmounted(() => {
@@ -25,23 +25,74 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="basket" ref="htmlEL"></div>
+  <div class="basket" ref="htmlEL">
+    <div class="basket__main">
+      <h3 class="basket__title">Shopping bag</h3>
+
+      <p class="basket__info">5 items</p>
+
+      <ul class="basket__cards"></ul>
+    </div>
+
+    <div class="basket__bottom">
+      <div class="basket__bottom-text">
+        <p class="basket__bottom-info">Subtotal (5 items)</p>
+
+        <p class="basket__bottom-sum">$ 100,00</p>
+      </div>
+
+      <div class="basket__btn">VIEW CART</div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
 .basket {
-  position: fixed;
-  top: 105px;
-  background-color: red;
-  width: 400px;
-  height: calc(100% - 105px);
-  right: 0;
+  display: flex;
+  flex-direction: column;
 
-  @include media-down(md) {
-    top: 70px;
-    height: calc(100% - 70px);
+  &__main {
+    padding: 73px 10px 10px 36px;
+    flex-grow: 1;
+  }
+
+  &__title {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  &__info {
+    color: var(--text-second);
+    font-size: 12px;
+  }
+
+  &__cards {
+  }
+
+  &__bottom {
+    border-top: 1px solid var(--gray);
+    padding-top: 5px;
+
+    &-text {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 36px;
+      margin-bottom: 7px;
+    }
+
+    &-info {
+    }
+
+    &-sum {
+    }
+  }
+
+  &__btn {
+    background: burlywood;
+    height: 53px;
+    margin: 0 36px 25px;
   }
 }
 </style>

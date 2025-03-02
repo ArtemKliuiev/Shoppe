@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 interface Props {
-  data: string
+  data: Array<string>
 }
 
 interface Emits {
@@ -32,16 +32,5 @@ onUnmounted(() => {
 @use '@/assets/styles/mixins/index.scss' as *;
 
 .search {
-  position: fixed;
-  top: 105px;
-  background-color: blue;
-  width: 400px;
-  height: calc(100% - 105px);
-  right: 0;
-
-  @include media-down(md) {
-    top: 70px;
-    height: calc(100% - 70px);
-  }
 }
 </style>
