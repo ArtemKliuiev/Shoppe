@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref, type ComponentCustomOptions } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
 import BasketBtn from '@/components/ui/BasketBtn.vue'
 import HeaderSearch from '@/components/ui/HeaderSearch.vue'
+import TheBasket from './TheBasket.vue'
+import TheSearch from './TheSearch.vue'
 import {
   dataHeaderMenu,
   dataBurgerMenu,
@@ -14,11 +16,28 @@ import {
 const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)
 const search = ref<string>('')
+const basketData = reactive<Array<string>>([])
+const activeComponent = ref<string>('one')
+
+const components = reactive<Record<string, ComponentCustomOptions | null>>({
+  one: null,
+  two: TheBasket,
+  three: TheSearch,
+})
+
+function toggleBasketSearch(condition: string) {
+  if (condition === activeComponent.value) {
+    activeComponent.value = 'one'
+
+    return
+  }
+
+  activeComponent.value = condition
+}
 
 function toggleBurger(): void {
   isOpenBurgerMenu.value = !isOpenBurgerMenu.value
   search.value = ''
-  console.log(143234)
 }
 </script>
 
@@ -67,11 +86,15 @@ function toggleBurger(): void {
 
           <div class="header__buttons">
             <div class="header__btn header__btn-search">
-              <BaseSvg class="header__btn-icon" id="search" />
+              <BaseSvg
+                class="header__btn-icon"
+                id="search"
+                @click.stop="toggleBasketSearch('three')"
+              />
             </div>
 
             <div class="header__btn header__btn-basket">
-              <BasketBtn :count="basketCount" @click="basketCount++" />
+              <BasketBtn :count="basketCount" @click.stop="toggleBasketSearch('two')" />
             </div>
 
             <div class="header__btn header__btn-person">
@@ -131,6 +154,14 @@ function toggleBurger(): void {
       </div>
     </Transition>
   </header>
+
+  <Transition name="right-block" mode="out-in">
+    <component
+      :is="components[activeComponent]"
+      :data="basketData"
+      @close="activeComponent = 'one'"
+    />
+  </Transition>
 </template>
 
 <style scoped lang="scss">
@@ -146,6 +177,10 @@ function toggleBurger(): void {
   &__head {
     background-color: var(--background);
     padding: 45px 15px 0;
+
+    @include media-down(md) {
+      padding: 10px 15px 0;
+    }
 
     @include media-down(sm) {
       padding: 0;
@@ -441,6 +476,21 @@ function toggleBurger(): void {
       height: 18px;
     }
   }
+}
+
+.right-block-leave-to,
+.right-block-enter-from {
+  right: -100%;
+}
+
+.right-block-enter-active,
+.right-block-leave-active {
+  transition: right 0.2s ease-in-out;
+}
+
+.right-block-leave-from,
+.right-block-enter-to {
+  right: 0;
 }
 
 .menu-leave-to,
