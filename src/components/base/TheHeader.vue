@@ -1,45 +1,21 @@
 <script setup lang="ts">
-import { ref, watch} from 'vue';
-import { useRoute } from 'vue-router';
-
-import { dataHeaderMenu, dataBurgerMenu } from '@/components/mixins/data-header-shope';
+import { ref} from 'vue';
+import { dataHeaderMenu, dataBurgerMenu, dataHeaderPages } from '@/components/mixins/data-header-shope';
 import BaseSvg from '@/components/base/BaseSvg.vue';
 import BaseButtonText from '@/components/base/BaseButtonText.vue';
 import BurgerBtn from '@/components/ui/BurgerBtn.vue';
 import BasketBtn from '@/components/ui/BasketBtn.vue';
 import HeaderSearch from '@/components/ui/HeaderSearch.vue';
 
-
 const isOpenBurgerMenu = ref<boolean>(false)
-const searchLoaderState = ref<number>(0)
 const basketCount = ref<number>(0)
-const search = ref('')
-const route = useRoute()
+const search = ref<string>('')
 
-
-watch(route, () => {
-    isOpenBurgerMenu.value = false
-})
-
-watch(isOpenBurgerMenu, () => {
+function toggleBurger(): void{
+    isOpenBurgerMenu.value = !isOpenBurgerMenu.value
     search.value = ''
-})
-
-
-watch(search, () => {
-
-
-    setTimeout(() => {
-        searchLoaderState.value = 1
-    },1000)
-
-    setTimeout(() => {
-        searchLoaderState.value = 2
-    },3000)
-
-
-})
-
+    console.log(143234)
+}
 </script>
 
 <template>
@@ -71,14 +47,10 @@ watch(search, () => {
                             </div>
                         </div>
                     </li>
-                    <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'blog'}">
-                        <BaseButtonText to="/blog">
-                            Blog
-                        </BaseButtonText>
-                    </li>
-                    <li class="header__list-item" :class="{'header__list-item_active': $route.name === 'story'}">
-                        <BaseButtonText to="/story">
-                            Our Story
+
+                    <li class="header__list-item" :class="{'header__list-item_active': $route.name === item.namePages}" v-for="item in dataHeaderPages" :key="item.namePages">
+                        <BaseButtonText :to="item.link">
+                            {{ item.text }}
                         </BaseButtonText>
                     </li>
                 </ul>
@@ -97,7 +69,7 @@ watch(search, () => {
                     </div>
 
                     <div class="header__btn header__btn-burger">
-                        <BurgerBtn v-model="isOpenBurgerMenu"/>
+                        <BurgerBtn @click="toggleBurger()" :isOpen="isOpenBurgerMenu"/>
                     </div>
                 </div>
             </div>
@@ -106,7 +78,7 @@ watch(search, () => {
 
     <Transition name="menu" type="transition">
         <div v-if="isOpenBurgerMenu" class="header__burger-menu"  v-scroll-lock="true"> 
-            <HeaderSearch v-model="search" :isLoading="true"/>
+            <HeaderSearch v-model="search" :isLoading="false"/>
             
             <Transition name="search" mode="out-in" type="transition">
                 <ul class="header__burger-cards" v-if="search.length">
@@ -116,7 +88,7 @@ watch(search, () => {
                 <nav class="header__burger-nav" v-else >
                     <ul class="header__burger-list">
                         <li class="header__burger-list-item" v-for="item in dataBurgerMenu" :key="item.link">
-                            <BaseButtonText className="header__burger-list-link" :to="item.link">
+                            <BaseButtonText className="header__burger-list-link" @click="isOpenBurgerMenu = false" :to="item.link">
                                 {{ item.name }}
                             </BaseButtonText>
                         </li>
@@ -457,7 +429,6 @@ watch(search, () => {
             height: 18px;
         }
     }
-   
 }
 
 .menu-leave-to,
@@ -479,11 +450,6 @@ watch(search, () => {
     overflow: hidden;
 }
 
-
-
-
-
-
 .search-enter-from{
     left: -100%;
 }
@@ -500,10 +466,8 @@ watch(search, () => {
     left: +100%;
 }
 
-
 .search-enter-active,
 .search-leave-active{
     transition: left 0.3s;
 }
-
 </style>

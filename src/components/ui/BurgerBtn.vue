@@ -1,29 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
 interface Props {
-  modelValue: boolean
+  isOpen: boolean
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: boolean): void
-}
-
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
-const isOpen = computed({
-  get(){
-    return props.modelValue
-  },
-  set(newValue: boolean){
-    emits('update:modelValue', newValue)
-  }
-})
-
+defineProps<Props>()
 </script>
 
 <template>
-  <div class="burger" :class="{ burger_active: isOpen}" @click="isOpen = !isOpen">
+  <div class="burger" :class="{ burger_active: isOpen}">
     <span></span>
   </div>
 </template>

@@ -116,3 +116,16 @@ export const dataHeaderMenu: Array<DataHeaderShope> = [
         ]
     },
 ]
+
+export const dataHeaderPages = [
+    {
+        text: 'Blog',
+        namePages: 'blog',
+        link: '/blog'
+    },
+    {
+        text: 'Our Story',
+        namePages: 'story',
+        link: '/story'
+    },
+]
