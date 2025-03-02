@@ -5,6 +5,7 @@ import BaseButton from './BaseButton.vue'
 
 interface Props {
   search: string
+  isLoading: boolean
 }
 
 interface Emits {
@@ -42,9 +43,16 @@ onUnmounted(() => {
     <div class="search__main">
       <h3 class="search__title">Search</h3>
 
-      <HeaderSearch class="search__input" v-model="searchValue" :isLoading="false" />
+      <HeaderSearch class="search__input" v-model="searchValue" :isLoading="isLoading" />
 
-      <ul class="search__cards"></ul>
+      <div class="search__cards">
+        <ul class="search__cards-list"></ul>
+
+        <div
+          class="search__cards-loader"
+          :class="{ 'search__cards-loader_active': isLoading }"
+        ></div>
+      </div>
     </div>
 
     <div class="search__bottom">
@@ -63,6 +71,8 @@ onUnmounted(() => {
 
   &__main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   &__bottom {
@@ -72,6 +82,7 @@ onUnmounted(() => {
   &__title {
     font-size: 16px;
     margin-bottom: 20px;
+    color: var(--text);
   }
 
   &__input {
@@ -79,6 +90,38 @@ onUnmounted(() => {
   }
 
   &__cards {
+    position: relative;
+
+    &-list {
+      height: calc(100vh - 267px);
+      overflow: auto;
+    }
+
+    &-loader {
+      position: absolute;
+      top: calc(50% - 15px);
+      left: calc(50% - 15px);
+      border: 6px solid var(--gray);
+      border-top: 6px solid var(--accent);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 0.5s linear infinite;
+      display: none;
+
+      &_active {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

@@ -65,16 +65,21 @@ const text = computed({
   &__load-line {
     position: absolute;
     bottom: -1px;
-    left: 16px;
+    left: 0;
     height: 20px;
     background-color: var(--gray);
     pointer-events: none;
-    clip-path: polygon(0 87%, 100% 87%, 100% 100%, 0 100%);
+    clip-path: polygon(0 88%, 100% 88%, 100% 100%, 0 100%);
     border-radius: 0 0 4px 4px;
-    width: calc(100% - 32px);
+    width: 100%;
     transition: opacity 0.3s;
     overflow: hidden;
     opacity: 0;
+
+    @include media-down(sm) {
+      width: calc(100% - 32px);
+      left: 16px;
+    }
 
     &::before {
       content: '';

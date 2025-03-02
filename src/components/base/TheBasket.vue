@@ -64,6 +64,7 @@ onUnmounted(() => {
   &__title {
     font-size: 16px;
     margin-bottom: 20px;
+    color: var(--text);
   }
 
   &__info {
@@ -72,6 +73,8 @@ onUnmounted(() => {
   }
 
   &__cards {
+    height: calc(100vh - 306px);
+    overflow: auto;
   }
 
   &__bottom {
@@ -83,6 +86,7 @@ onUnmounted(() => {
       justify-content: space-between;
       padding: 0 36px;
       margin-bottom: 7px;
+      color: var(--text);
     }
 
     &-info {

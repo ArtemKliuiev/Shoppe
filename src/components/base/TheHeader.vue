@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { reactive, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
+import { inject, reactive, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
 import BasketBtn from '@/components/ui/BasketBtn.vue'
-
+import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
@@ -13,6 +13,7 @@ import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header
 const isOpenBurgerMenu = ref<boolean>(false)
 const basketCount = ref<number>(0)
 const search = ref<string>('')
+const blackTheme = inject<boolean>('blackTheme', false)
 const basketData = reactive<Array<string>>([])
 const activeComponent = ref<string>('one')
 const components = shallowReactive<Record<string, ComponentCustomOptions | null>>({
@@ -81,6 +82,10 @@ function toggleBurger(): void {
           </ul>
 
           <div class="header__buttons">
+            <div class="header__btn header__btn-theme">
+              <BaseCheckbox v-model="blackTheme" />
+            </div>
+
             <div class="header__btn header__btn-search">
               <BaseSvg
                 class="header__btn-icon"
@@ -119,6 +124,7 @@ function toggleBurger(): void {
       class="header__right-block"
       :is="components[activeComponent]"
       :data="basketData"
+      :isLoading="true"
       @close="activeComponent = 'one'"
     />
   </Transition>
@@ -168,6 +174,7 @@ function toggleBurger(): void {
       Allerta Stencil,
       sans-serif;
     font-size: 35px;
+    color: var(--text);
 
     @include media-down(sm) {
       font-size: 25px;
@@ -181,7 +188,7 @@ function toggleBurger(): void {
   &__main {
     display: flex;
     width: 100%;
-    max-width: 504px;
+    max-width: 550px;
 
     @include media-down(sm) {
       width: unset;
@@ -215,6 +222,7 @@ function toggleBurger(): void {
     &-item {
       transition: color 0.2s;
       position: relative;
+      color: var(--text);
 
       &:hover {
         color: var(--text-second);
@@ -298,6 +306,10 @@ function toggleBurger(): void {
         display: none;
       }
     }
+
+    &-theme {
+      height: 20px;
+    }
   }
 
   &__shop {
@@ -346,87 +358,6 @@ function toggleBurger(): void {
           color: var(--text);
         }
       }
-    }
-  }
-
-  &__burger {
-    &-menu {
-      position: fixed;
-      padding-top: 5px;
-      z-index: -20;
-      overflow: auto;
-      top: 100px;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 100px);
-      background-color: var(--background);
-
-      @include media-down(sm) {
-        top: 43px;
-        height: calc(100% - 43px);
-      }
-    }
-
-    &-cards {
-      position: relative;
-      min-height: 100px;
-      margin: 10px 16px;
-      border-radius: 4px;
-    }
-
-    &-nav {
-      padding: 16px 6px;
-      display: flex;
-      flex-direction: column;
-      height: calc(100% - 32px);
-    }
-
-    &-list {
-      margin: 10px 0 20px;
-      flex-grow: 1;
-
-      &-item {
-        font-size: 20px;
-        line-height: 50px;
-        cursor: pointer;
-        user-select: none;
-      }
-
-      &-link {
-        padding: 10px;
-      }
-    }
-
-    &-bottom {
-      border-top: 1px solid var(--gray);
-      margin: 0 10px;
-      padding-top: 10px;
-    }
-
-    &-btn {
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-      line-height: 30px;
-
-      &-text {
-        font-size: 20px;
-      }
-
-      &-icon {
-        color: var(--text);
-        margin-right: 10px;
-      }
-    }
-
-    &-account-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    &-exit-icon {
-      width: 18px;
-      height: 18px;
     }
   }
 

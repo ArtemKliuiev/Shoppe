@@ -29,10 +29,10 @@ const searchValue = computed({
 
 <template>
   <div class="burger-menu" v-scroll-lock="true">
-    <HeaderSearch v-model="searchValue" :isLoading="false" />
+    <HeaderSearch v-model="searchValue" :isLoading="searchValue.length !== 0" />
 
     <Transition name="search" mode="out-in" type="transition">
-      <ul class="burger-menu__cards" v-if="search.length">
+      <ul class="burger-menu__cards" v-if="searchValue.length">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos at magni excepturi,
         velit fugiat rem totam consequuntur saepe aut sunt vitae vero harum suscipit in! Labore
         architecto dolorem ab hic?
@@ -90,6 +90,7 @@ const searchValue = computed({
   width: 100%;
   height: calc(100% - 100px);
   background-color: var(--background);
+  color: var(--text);
 
   @include media-down(sm) {
     top: 43px;
