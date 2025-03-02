@@ -16,7 +16,7 @@ const listenerClick = (e: MouseEvent) =>
   !htmlEL.value?.contains(e.target as Node | null) ? emits('close') : null
 
 onMounted(() => {
-  //   document.addEventListener('click', listenerClick)
+  document.addEventListener('click', listenerClick)
 })
 
 onUnmounted(() => {
