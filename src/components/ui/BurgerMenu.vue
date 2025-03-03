@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { dataBurgerMenu } from '@/components/mixins/data-header-shope'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
-import HeaderSearch from '@/components/ui/HeaderSearch.vue'
+import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 
 interface Props {
   search: string
@@ -16,6 +17,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const blackTheme = inject<boolean>('blackTheme', false)
 
 const searchValue = computed({
   get() {
@@ -29,16 +31,23 @@ const searchValue = computed({
 
 <template>
   <div class="burger-menu" v-scroll-lock="true">
-    <HeaderSearch v-model="searchValue" :isLoading="searchValue.length !== 0" />
+    <div class="burger-menu__search">
+      <BaseInput
+        v-model="searchValue"
+        :isLoading="searchValue.length !== 0"
+        placeholder="Search"
+        type="search"
+      />
+    </div>
 
     <Transition name="search" mode="out-in" type="transition">
-      <ul class="burger-menu__cards" v-if="searchValue.length">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos at magni excepturi,
-        velit fugiat rem totam consequuntur saepe aut sunt vitae vero harum suscipit in! Labore
-        architecto dolorem ab hic?
-      </ul>
+      <ul class="burger-menu__cards" v-if="searchValue.length"></ul>
 
       <nav class="burger-menu__nav" v-else>
+        <div class="burger-menu__theme">
+          <BaseCheckbox v-model="blackTheme" />
+        </div>
+
         <ul class="burger-menu__list">
           <li class="burger-menu__list-item" v-for="item in dataBurgerMenu" :key="item.link">
             <BaseButtonText
@@ -85,16 +94,19 @@ const searchValue = computed({
   padding-top: 5px;
   z-index: -20;
   overflow: auto;
-  top: 100px;
   left: 0;
   width: 100%;
-  height: calc(100% - 100px);
+  top: 43px;
+  height: calc(100% - 43px);
   background-color: var(--background);
   color: var(--text);
 
-  @include media-down(sm) {
-    top: 43px;
-    height: calc(100% - 43px);
+  @include media-up(sm) {
+    display: none;
+  }
+
+  &__search {
+    padding: 0 16px;
   }
 
   &__cards {
@@ -105,10 +117,18 @@ const searchValue = computed({
   }
 
   &__nav {
+    position: relative;
     padding: 16px 6px;
     display: flex;
     flex-direction: column;
     height: calc(100% - 32px);
+  }
+
+  &__theme {
+    position: absolute;
+    right: 16px;
+    top: 40px;
+    height: 20px;
   }
 
   &__list {
@@ -144,17 +164,13 @@ const searchValue = computed({
     }
 
     &-icon {
-      color: var(--text);
+      fill: var(--text);
       margin-right: 10px;
-
-      &-account {
-        width: 20px;
-        height: 20px;
-      }
+      width: 20px;
+      height: 20px;
 
       &-exit {
-        width: 18px;
-        height: 18px;
+        transform: scaleX(-1);
       }
     }
   }

@@ -8,13 +8,14 @@ import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
+
 import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
 
 const isOpenBurgerMenu = ref<boolean>(false)
+const basketData = reactive<Array<string>>([])
 const basketCount = ref<number>(0)
 const search = ref<string>('')
 const blackTheme = inject<boolean>('blackTheme', false)
-const basketData = reactive<Array<string>>([])
 const activeComponent = ref<string>('one')
 const components = shallowReactive<Record<string, ComponentCustomOptions | null>>({
   one: null,
@@ -309,6 +310,16 @@ function toggleBurger(): void {
 
     &-theme {
       height: 20px;
+
+      @include media-down(sm) {
+        display: none;
+      }
+    }
+
+    &-burger {
+      @include media-up(sm) {
+        display: none;
+      }
     }
   }
 

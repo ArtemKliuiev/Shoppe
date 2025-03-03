@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, computed } from 'vue'
-import HeaderSearch from '../ui/HeaderSearch.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from './BaseButton.vue'
 
 interface Props {
@@ -43,7 +43,13 @@ onUnmounted(() => {
     <div class="search__main">
       <h3 class="search__title">Search</h3>
 
-      <HeaderSearch class="search__input" v-model="searchValue" :isLoading="isLoading" />
+      <BaseInput
+        class="search__input"
+        v-model="searchValue"
+        :isLoading="isLoading"
+        placeholder="Search"
+        type="search"
+      />
 
       <div class="search__cards">
         <ul class="search__cards-list"></ul>
