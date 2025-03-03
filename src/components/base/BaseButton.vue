@@ -49,9 +49,11 @@ defineProps<Props>()
   }
 
   &:hover {
-    background-color: unset;
-    border: 1px solid var(--text);
-    color: var(--text);
+    @media (hover: hover) {
+      background-color: unset;
+      border: 1px solid var(--text);
+      color: var(--text);
+    }
   }
 
   &:active {
@@ -64,8 +66,10 @@ defineProps<Props>()
     color: var(--text);
 
     &:hover {
-      background-color: var(--text);
-      color: var(--background);
+      @media (hover: hover) {
+        background-color: var(--text);
+        color: var(--background);
+      }
     }
   }
 }

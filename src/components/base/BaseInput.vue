@@ -113,14 +113,28 @@ input {
       padding: 5px;
       position: absolute;
       top: 18px;
-      right: 0;
+      right: -5px;
       width: 35px;
       height: 19px;
       fill: var(--text-second);
       cursor: pointer;
 
+      @include media-down(sm) {
+        padding: 3px;
+        width: 21px;
+        height: 12px;
+      }
+
       user-select: none;
-      transition: all 0.3s;
+      transition:
+        fill 0.3s,
+        transform 0.3s;
+
+      &:hover {
+        @media (hover: hover) {
+          fill: var(--text);
+        }
+      }
 
       &:active {
         transform: translateX(7px);
@@ -142,11 +156,17 @@ input {
 
   &_footer {
     border-bottom: 1px solid var(--text);
+    height: 51px;
 
     input {
       font-size: 16px;
       line-height: 27px;
       padding: 11px 40px 11px 0;
+
+      @include media-down(sm) {
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
   }
 

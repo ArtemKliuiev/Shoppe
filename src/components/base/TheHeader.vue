@@ -84,7 +84,7 @@ function toggleBurger(): void {
 
           <div class="header__buttons">
             <div class="header__btn header__btn-theme">
-              <BaseCheckbox v-model="blackTheme" />
+              <BaseCheckbox v-model="blackTheme" type="custom" />
             </div>
 
             <div class="header__btn header__btn-search">
@@ -226,9 +226,11 @@ function toggleBurger(): void {
       color: var(--text);
 
       &:hover {
-        color: var(--text-second);
-        cursor: pointer;
-        user-select: none;
+        @media (hover: hover) {
+          color: var(--text-second);
+          cursor: pointer;
+          user-select: none;
+        }
       }
 
       &_active {
@@ -284,9 +286,11 @@ function toggleBurger(): void {
       transition: fill 0.2s;
 
       &:hover {
-        fill: var(--text-second);
-        cursor: pointer;
-        user-select: none;
+        @media (hover: hover) {
+          fill: var(--text-second);
+          cursor: pointer;
+          user-select: none;
+        }
       }
     }
 
@@ -366,7 +370,9 @@ function toggleBurger(): void {
         transition: color 0.2s;
 
         &:hover {
-          color: var(--text);
+          @media (hover: hover) {
+            color: var(--text);
+          }
         }
       }
     }

@@ -45,7 +45,7 @@ const searchValue = computed({
 
       <nav class="burger-menu__nav" v-else>
         <div class="burger-menu__theme">
-          <BaseCheckbox v-model="blackTheme" />
+          <BaseCheckbox v-model="blackTheme" type="custom" />
         </div>
 
         <ul class="burger-menu__list">
