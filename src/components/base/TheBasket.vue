@@ -10,7 +10,7 @@ interface Emits {
   (e: 'close'): void
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 const emits = defineEmits<Emits>()
 const htmlEL = ref<HTMLDivElement | null>(null)
 const listenerClick = (e: MouseEvent) =>

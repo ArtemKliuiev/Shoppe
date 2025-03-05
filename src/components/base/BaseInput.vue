@@ -118,17 +118,18 @@ input {
       height: 19px;
       fill: var(--text-second);
       cursor: pointer;
+      user-select: none;
+      transition:
+        fill 0.3s,
+        transform 0.3s;
 
       @include media-down(sm) {
         padding: 3px;
         width: 21px;
         height: 12px;
+        top: 15px;
+        right: -3px;
       }
-
-      user-select: none;
-      transition:
-        fill 0.3s,
-        transform 0.3s;
 
       &:hover {
         @media (hover: hover) {
@@ -147,6 +148,11 @@ input {
       font-size: 12px;
       left: 0;
       color: var(--errors);
+
+      @include media-down(sm) {
+        font-size: 10px;
+        top: 34px;
+      }
     }
   }
 
@@ -158,10 +164,14 @@ input {
     border-bottom: 1px solid var(--text);
     height: 51px;
 
+    @include media-down(sm) {
+      height: 35px;
+    }
+
     input {
       font-size: 16px;
       line-height: 27px;
-      padding: 11px 40px 11px 0;
+      padding: 10px 0;
 
       @include media-down(sm) {
         font-size: 12px;

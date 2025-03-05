@@ -109,12 +109,21 @@ const agree = ref<boolean>(false)
     padding: 20px 20px 50px;
   }
 
+  @include media-down(sm) {
+    padding: 80px 16px 20px;
+  }
+
   &__main {
     max-width: 1248px;
     margin: 0 auto;
 
     padding-top: 27px;
     border-top: 1px solid var(--gray);
+
+    @include media-down(sm) {
+      padding-top: unset;
+      border-top: unset;
+    }
   }
 
   &__top {
@@ -123,7 +132,7 @@ const agree = ref<boolean>(false)
     margin-bottom: 42px;
 
     @include media-down(md) {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     @include media-down(sm) {
@@ -154,7 +163,7 @@ const agree = ref<boolean>(false)
       transition: color 0.3s;
 
       @include media-down(md) {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
 
       @include media-down(sm) {
@@ -173,6 +182,10 @@ const agree = ref<boolean>(false)
   &__input {
     flex-grow: 1;
     max-width: 396px;
+
+    @include media-down(sm) {
+      margin-bottom: 13px;
+    }
   }
 
   &__bottom {
@@ -181,7 +194,7 @@ const agree = ref<boolean>(false)
 
     @include media-down(sm) {
       display: grid;
-      grid-template: repeat(2, auto) / repeat(2, auto);
+      grid-template: repeat(2, auto) / auto 1fr;
     }
 
     &-text {
@@ -189,6 +202,7 @@ const agree = ref<boolean>(false)
       margin-top: 10px;
 
       @include media-down(sm) {
+        margin-top: 36px;
         font-size: 12px;
         line-height: 20px;
         grid-column: 1/3;
@@ -202,6 +216,7 @@ const agree = ref<boolean>(false)
       line-height: 20px;
       grid-column: 1;
       grid-row: 1;
+      width: 119px;
 
       @include media-up(sm) {
         display: none;
@@ -210,8 +225,8 @@ const agree = ref<boolean>(false)
       &:before {
         content: '';
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: 6px;
+        right: 5px;
         width: 47px;
         height: 1px;
         background-color: var(--text);
@@ -227,11 +242,19 @@ const agree = ref<boolean>(false)
 
       @include media-down(sm) {
         grid-column: 2;
+        justify-content: flex-start;
+        gap: 16px;
         grid-row: 1;
       }
 
       &-item {
         height: 20px;
+
+        &:first-child {
+          @include media-down(sm) {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -249,8 +272,8 @@ const agree = ref<boolean>(false)
         transform 0.3s;
 
       @include media-down(sm) {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
       }
 
       &:hover {
@@ -267,6 +290,7 @@ const agree = ref<boolean>(false)
 
   &__agree {
     display: flex;
+    margin-bottom: 40px;
 
     @include media-up(sm) {
       display: none;
