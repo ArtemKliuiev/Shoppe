@@ -8,7 +8,6 @@ import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
-
 import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
 
 const isOpenBurgerMenu = ref<boolean>(false)
@@ -40,7 +39,7 @@ function toggleBurger(): void {
 </script>
 
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header_main-page': $route.name === 'home' }">
     <div class="header__head">
       <div class="header__head-container">
         <div class="header__logo">
@@ -135,7 +134,7 @@ function toggleBurger(): void {
 @use '@/assets/styles/mixins/index.scss' as *;
 
 .header {
-  position: sticky;
+  position: fixed;
   z-index: 100;
   top: 0;
   left: 0;
@@ -157,7 +156,7 @@ function toggleBurger(): void {
       position: relative;
       display: flex;
       justify-content: space-between;
-      padding-bottom: 7px;
+      padding-bottom: 6px;
       border-bottom: 1px solid var(--gray);
       background-color: var(--background);
       margin: 0 auto;
@@ -237,7 +236,7 @@ function toggleBurger(): void {
         &::before {
           content: '';
           position: absolute;
-          bottom: -23px;
+          bottom: -22px;
           z-index: 2;
           left: 0;
           width: 100%;
@@ -330,7 +329,7 @@ function toggleBurger(): void {
   &__shop {
     position: absolute;
     pointer-events: none;
-    top: 46px;
+    top: 45px;
     right: 0;
     transform: translateX(50%);
     background-color: var(--background);
@@ -391,6 +390,14 @@ function toggleBurger(): void {
 
     @include media-down(sm) {
       width: 100%;
+    }
+  }
+
+  &_main-page {
+    .header {
+      &__head-container {
+        border-bottom: unset;
+      }
     }
   }
 }

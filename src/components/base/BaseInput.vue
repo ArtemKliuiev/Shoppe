@@ -17,7 +17,7 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const text = computed({
+const text = computed<string>({
   get() {
     return props.modelValue
   },

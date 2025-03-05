@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import BaseButtonText from './BaseButtonText.vue'
-import BaseInput from './BaseInput.vue'
-import BaseSvg from './BaseSvg.vue'
-import BaseCheckbox from './BaseCheckbox.vue'
+import BaseButtonText from '@/components/base/BaseButtonText.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseSvg from '@/components/base/BaseSvg.vue'
+import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 
 const inputValue = ref<string>('')
 const agree = ref<boolean>(false)
@@ -113,7 +113,7 @@ const agree = ref<boolean>(false)
     padding: 50px 16px 30px;
   }
 
-  @include media-down(sx) {
+  @include media-down(xs) {
     padding: 80px 16px 20px;
   }
 
@@ -319,7 +319,7 @@ const agree = ref<boolean>(false)
     &-label {
       font-size: 12px;
       color: var(--text);
-      margin-left: 2px;
+      margin-left: 3px;
     }
   }
 }

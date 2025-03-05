@@ -1,11 +1,11 @@
 <script setup lang="ts">
 interface Props {
-  srcset: string,
-  src: string,
-  alt: string,
-  width: string,
-  height: string,
-  lazy: string
+  srcset: string
+  src: string
+  width: string
+  height: string
+  alt?: string
+  lazy?: string
 }
 
 defineProps<Props>()
@@ -15,15 +15,11 @@ defineProps<Props>()
   <picture>
     <source :srcset="srcset" type="image/webp" />
     <img
-      :loading="lazy ? 'lazy' : 'eager'"
+      :loading="lazy ? 'lazy' : undefined"
       :height="height"
       :width="width"
       :src="src"
-      :alt="alt ? alt : 'img'"
+      :alt="alt ? alt : undefined"
     />
   </picture>
 </template>
-
-<style>
-@import "./BasePicture.scss";
-</style>

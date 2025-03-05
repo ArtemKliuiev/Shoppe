@@ -88,12 +88,6 @@ onUnmounted(() => {
       margin-bottom: 7px;
       color: var(--text);
     }
-
-    &-info {
-    }
-
-    &-sum {
-    }
   }
 
   &__btn {
