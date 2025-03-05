@@ -110,6 +110,10 @@ const agree = ref<boolean>(false)
   }
 
   @include media-down(sm) {
+    padding: 50px 16px 30px;
+  }
+
+  @include media-down(sx) {
     padding: 80px 16px 20px;
   }
 
@@ -120,7 +124,7 @@ const agree = ref<boolean>(false)
     padding-top: 27px;
     border-top: 1px solid var(--gray);
 
-    @include media-down(sm) {
+    @include media-down(xs) {
       padding-top: unset;
       border-top: unset;
     }
@@ -135,7 +139,7 @@ const agree = ref<boolean>(false)
       margin-bottom: 24px;
     }
 
-    @include media-down(sm) {
+    @include media-down(xs) {
       flex-direction: column;
     }
   }
@@ -153,7 +157,7 @@ const agree = ref<boolean>(false)
       margin: 0;
     }
 
-    @include media-down(sm) {
+    @include media-down(xs) {
       order: 2;
     }
 
@@ -183,7 +187,8 @@ const agree = ref<boolean>(false)
     flex-grow: 1;
     max-width: 396px;
 
-    @include media-down(sm) {
+    @include media-down(xs) {
+      max-width: unset;
       margin-bottom: 13px;
     }
   }
@@ -192,7 +197,7 @@ const agree = ref<boolean>(false)
     display: flex;
     justify-content: space-between;
 
-    @include media-down(sm) {
+    @include media-down(xs) {
       display: grid;
       grid-template: repeat(2, auto) / auto 1fr;
     }
@@ -202,6 +207,11 @@ const agree = ref<boolean>(false)
       margin-top: 10px;
 
       @include media-down(sm) {
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      @include media-down(xs) {
         margin-top: 36px;
         font-size: 12px;
         line-height: 20px;
@@ -218,7 +228,7 @@ const agree = ref<boolean>(false)
       grid-row: 1;
       width: 119px;
 
-      @include media-up(sm) {
+      @include media-up(xs) {
         display: none;
       }
 
@@ -240,7 +250,7 @@ const agree = ref<boolean>(false)
       flex-grow: 1;
       max-width: 157px;
 
-      @include media-down(sm) {
+      @include media-down(xs) {
         grid-column: 2;
         justify-content: flex-start;
         gap: 16px;
@@ -251,7 +261,7 @@ const agree = ref<boolean>(false)
         height: 20px;
 
         &:first-child {
-          @include media-down(sm) {
+          @include media-down(xs) {
             display: none;
           }
         }
@@ -272,6 +282,11 @@ const agree = ref<boolean>(false)
         transform 0.3s;
 
       @include media-down(sm) {
+        width: 16px;
+        height: 16px;
+      }
+
+      @include media-down(xs) {
         width: 12px;
         height: 12px;
       }
@@ -292,7 +307,7 @@ const agree = ref<boolean>(false)
     display: flex;
     margin-bottom: 40px;
 
-    @include media-up(sm) {
+    @include media-up(xs) {
       display: none;
     }
 
