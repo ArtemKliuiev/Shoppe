@@ -2,19 +2,24 @@
 import BaseButtonText from './BaseButtonText.vue'
 
 interface Props {
-  mode?: boolean
+  type?: string
   to?: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const classObject: Record<string, boolean> = {
+  button_mode: props.type === 'mode',
+  button_bold: props.type === 'bold',
+}
 </script>
 
 <template>
-  <BaseButtonText class="button" :class="{ button_mode: mode }" v-if="to" :to="to">
+  <BaseButtonText class="button" :class="classObject" v-if="to" :to="to">
     <slot></slot>
   </BaseButtonText>
 
-  <button v-else class="button" :class="{ button_mode: mode }">
+  <button v-else class="button" :class="classObject">
     <slot></slot>
   </button>
 </template>
@@ -64,6 +69,25 @@ defineProps<Props>()
     background-color: unset;
     border: 1px solid var(--text);
     color: var(--text);
+
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--text);
+        color: var(--background);
+      }
+    }
+  }
+
+  &_bold {
+    background-color: unset;
+    border: 2px solid var(--background);
+
+    @include media-down(sm) {
+      border: 1px solid var(--background);
+      font-size: 12px;
+      font-weight: 400;
+      padding: 0 5px;
+    }
 
     &:hover {
       @media (hover: hover) {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowReactive } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   modelValue: boolean
@@ -24,10 +24,10 @@ const checkboxValue = computed({
   },
 })
 
-const classObject = shallowReactive({
+const classObject = {
   checkbox_custom: props.type === 'custom',
   checkbox_default: !props.type,
-})
+}
 </script>
 
 <template>

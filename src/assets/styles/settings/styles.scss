@@ -18,11 +18,6 @@ body {
   flex: 1 1 auto;
   background: var(--background);
   color: var(--text);
-  margin-top: 105px;
-
-  @include media-down(md) {
-    margin-top: 75px;
-  }
 }
 
 .container {

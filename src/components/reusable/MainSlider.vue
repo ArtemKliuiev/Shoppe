@@ -5,6 +5,10 @@ import MainSlide from '@/components/ui/MainSlide.vue'
 import { dataMainSlider } from '@/components/mixins/data-main-slider'
 
 const modules = [Autoplay, EffectFade, Navigation, Pagination]
+
+// :autoplay="{
+//       delay: 5000,
+//     }"
 </script>
 
 <template>
@@ -12,9 +16,6 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
     :spaceBetween="30"
     :effect="'fade'"
     :navigation="true"
-    :autoplay="{
-      delay: 5000,
-    }"
     :loop="true"
     :pagination="{
       clickable: true,

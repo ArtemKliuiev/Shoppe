@@ -43,7 +43,7 @@ onUnmounted(() => {
       </div>
 
       <div class="basket__btn">
-        <BaseButton mode> VIEW CART </BaseButton>
+        <BaseButton type="mode"> VIEW CART </BaseButton>
       </div>
     </div>
   </div>

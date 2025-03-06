@@ -95,7 +95,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-basket">
-              <BasketBtn :count="basketCount" @click.stop="toggleBasketSearch('two')" />
+              <BasketBtn @click.stop="toggleBasketSearch('two')" />
             </div>
 
             <div class="header__btn header__btn-person">
@@ -134,7 +134,7 @@ function toggleBurger(): void {
 @use '@/assets/styles/mixins/index.scss' as *;
 
 .header {
-  position: fixed;
+  position: sticky;
   z-index: 100;
   top: 0;
   left: 0;
@@ -223,12 +223,12 @@ function toggleBurger(): void {
       transition: color 0.2s;
       position: relative;
       color: var(--text);
+      cursor: pointer;
+      user-select: none;
 
       &:hover {
         @media (hover: hover) {
           color: var(--text-second);
-          cursor: pointer;
-          user-select: none;
         }
       }
 

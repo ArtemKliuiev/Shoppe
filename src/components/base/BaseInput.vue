@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowReactive } from 'vue'
+import { computed } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 
 interface Props {
@@ -26,12 +26,12 @@ const text = computed<string>({
   },
 })
 
-const classObject = shallowReactive({
+const classObject: Record<string, boolean> = {
   input_default: !props.type,
   input_search: props.type === 'search',
   input_footer: props.type === 'footer',
-  input_error: props.errorText,
-})
+  input_error: Boolean(props.errorText),
+}
 </script>
 
 <template>

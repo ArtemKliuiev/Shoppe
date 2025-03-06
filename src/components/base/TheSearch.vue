@@ -62,7 +62,7 @@ onUnmounted(() => {
     </div>
 
     <div class="search__bottom">
-      <BaseButton to="/shope" mode @click="$emit('close')"> Go to shope </BaseButton>
+      <BaseButton to="/shope" type="mode" @click="$emit('close')"> Go to shope </BaseButton>
     </div>
   </div>
 </template>

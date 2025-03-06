@@ -9,6 +9,7 @@ export interface DataSlide {
   image: DataImage
   title: string
   price: string
+  link: string
 }
 
 export const dataMainSlider: Array<DataSlide> = [
@@ -21,6 +22,7 @@ export const dataMainSlider: Array<DataSlide> = [
     },
     title: 'Gold big hoops',
     price: '68,00',
+    link: '/404',
   },
   {
     image: {
@@ -31,6 +33,7 @@ export const dataMainSlider: Array<DataSlide> = [
     },
     title: 'Silver small hoops',
     price: '45,00',
+    link: '/404',
   },
   {
     image: {
@@ -41,6 +44,7 @@ export const dataMainSlider: Array<DataSlide> = [
     },
     title: 'Platinum studs',
     price: '120,00',
+    link: '/404',
   },
   {
     image: {
@@ -51,6 +55,7 @@ export const dataMainSlider: Array<DataSlide> = [
     },
     title: 'Rose gold earrings',
     price: '80,00',
+    link: '/404',
   },
   {
     image: {
@@ -61,5 +66,6 @@ export const dataMainSlider: Array<DataSlide> = [
     },
     title: 'Diamond drop earrings',
     price: '250,00',
+    link: '/404',
   },
 ]
