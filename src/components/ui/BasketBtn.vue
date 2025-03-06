@@ -5,7 +5,7 @@ interface Props {
   count: number
 }
 
-const props = withDefaults(defineProps<Props>(), { count: 2 })
+const props = defineProps<Props>()
 
 const classObject: Record<string, boolean> = {
   'basket-btn__count_empty': props.count === 0,

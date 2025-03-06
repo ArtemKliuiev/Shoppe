@@ -103,10 +103,10 @@ const agree = ref<boolean>(false)
 
 .footer {
   background-color: var(--background);
-  padding: 20px 20px 100px;
+  padding: 250px 20px 100px;
 
   @include media-down(md) {
-    padding: 20px 20px 50px;
+    padding: 150px 20px 50px;
   }
 
   @include media-down(sm) {

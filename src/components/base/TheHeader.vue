@@ -95,7 +95,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-basket">
-              <BasketBtn @click.stop="toggleBasketSearch('two')" />
+              <BasketBtn :count="basketCount" @click.stop="toggleBasketSearch('two')" />
             </div>
 
             <div class="header__btn header__btn-person">
