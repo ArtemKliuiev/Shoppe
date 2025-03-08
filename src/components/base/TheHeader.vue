@@ -259,6 +259,7 @@ function toggleBurger(): void {
       &:hover {
         .header__shop {
           opacity: 1;
+          transition: unset;
           pointer-events: unset;
         }
       }
@@ -266,8 +267,8 @@ function toggleBurger(): void {
       &::after {
         content: '';
         position: absolute;
-        width: 100%;
-        left: 0;
+        width: 140%;
+        left: -20%;
         top: 0;
         height: 50px;
       }
@@ -346,6 +347,7 @@ function toggleBurger(): void {
     display: flex;
     padding: 30px 0;
     opacity: 0;
+    transition: opacity 0.3s;
 
     &-column {
       position: relative;
