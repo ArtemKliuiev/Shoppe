@@ -96,6 +96,7 @@ const searchValue = computed({
   overflow: auto;
   left: 0;
   width: 100%;
+
   top: 43px;
   height: calc(100% - 43px);
   background-color: var(--background);

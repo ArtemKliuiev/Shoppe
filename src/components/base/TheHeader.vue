@@ -10,19 +10,24 @@ import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
 import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
 
-const isOpenBurgerMenu = ref<boolean>(false)
+const isOpenBurgerMenu = ref(false)
 const basketData = reactive<Array<string>>([])
-const basketCount = ref<number>(0)
-const search = ref<string>('')
-const blackTheme = inject<boolean>('blackTheme', false)
-const activeComponent = ref<string>('one')
-const components = shallowReactive<Record<string, ComponentCustomOptions | null>>({
+const basketCount = ref(0)
+const search = ref('')
+const blackTheme = inject('blackTheme', false)
+const activeComponent = ref('one')
+
+interface Components {
+  [key: string]: ComponentCustomOptions | null
+}
+
+const components = shallowReactive<Components>({
   one: null,
   two: TheBasket,
   three: TheSearch,
 })
 
-function toggleBasketSearch(condition: string) {
+function toggleBasketSearch(condition: string): void {
   if (condition === activeComponent.value) {
     activeComponent.value = 'one'
 

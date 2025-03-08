@@ -31,13 +31,9 @@ const classObject = {
 </script>
 
 <template>
-  <input
-    class="checkbox"
-    :class="classObject"
-    type="checkbox"
-    v-model="checkboxValue"
-    :id="id || undefined"
-  />
+  <div class="checkbox" :class="classObject">
+    <input type="checkbox" v-model="checkboxValue" :id="id || undefined" />
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -52,47 +48,59 @@ const classObject = {
     border: 1px solid var(--text-second);
     border-radius: 2px;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      width: 10px;
-      border-radius: 1px;
-      height: 10px;
-      background-color: var(--text-second);
-      transition: opacity 0.3s;
-      opacity: 0;
-    }
+    input {
+      width: 100%;
+      height: 100%;
 
-    &:checked {
       &::after {
-        opacity: 1;
+        content: '';
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: 10px;
+        border-radius: 1px;
+        height: 10px;
+        background-color: var(--text-second);
+        transition: opacity 0.3s;
+        opacity: 0;
+      }
+
+      &:checked {
+        &::after {
+          opacity: 1;
+        }
       }
     }
   }
 
   &_custom {
+    height: 20px;
+    width: 33px;
     width: 33px;
     border-radius: 10px;
     height: 20px;
-    background-color: gray;
+    background-color: var(--text-second);
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 14px;
-      border-radius: 50%;
-      height: 14px;
-      background-color: var(--background);
-      transition: left 0.3s;
-    }
+    input {
+      width: 100%;
+      height: 100%;
 
-    &:checked {
       &::after {
-        left: 16px;
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 14px;
+        border-radius: 50%;
+        height: 14px;
+        background-color: var(--background);
+        transition: left 0.3s;
+      }
+
+      &:checked {
+        &::after {
+          left: 16px;
+        }
       }
     }
   }
