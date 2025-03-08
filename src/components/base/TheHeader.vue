@@ -9,6 +9,11 @@ import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
 import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
+import { useScrollLock } from '@/components/composable/use-scroll-lock'
+
+interface Components {
+  [key: string]: ComponentCustomOptions | null
+}
 
 const isOpenBurgerMenu = ref(false)
 const basketData = reactive<Array<string>>([])
@@ -16,10 +21,6 @@ const basketCount = ref(0)
 const search = ref('')
 const blackTheme = inject('blackTheme', false)
 const activeComponent = ref('one')
-
-interface Components {
-  [key: string]: ComponentCustomOptions | null
-}
 
 const components = shallowReactive<Components>({
   one: null,
@@ -39,12 +40,15 @@ function toggleBasketSearch(condition: string): void {
 
 function toggleBurger(): void {
   isOpenBurgerMenu.value = !isOpenBurgerMenu.value
+
+  useScrollLock(isOpenBurgerMenu.value)
+
   search.value = ''
 }
 </script>
 
 <template>
-  <header class="header" :class="{ 'header_main-page': $route.name === 'home' }">
+  <header :class="{ 'header_main-page': $route.name === 'home' }" class="header">
     <div class="header__head">
       <div class="header__head-container">
         <div class="header__logo">
@@ -54,17 +58,17 @@ function toggleBurger(): void {
         <div class="header__main">
           <ul class="header__list">
             <li
-              class="header__list-item header__list-shope"
               :class="{ 'header__list-item_active': $route.name === 'shope' }"
+              class="header__list-item header__list-shope"
             >
               Shope
 
               <div class="header__shop">
-                <div class="header__shop-column" v-for="item in dataHeaderMenu" :key="item.title">
+                <div v-for="item in dataHeaderMenu" :key="item.title" class="header__shop-column">
                   <p class="header__shop-title">{{ item.title }}</p>
 
                   <ul class="header__shop-list">
-                    <li class="header__shop-list-item" v-for="li in item.list" :key="li.name">
+                    <li v-for="li in item.list" :key="li.name" class="header__shop-list-item">
                       <BaseButtonText :to="li.link">
                         {{ li.name }}
                       </BaseButtonText>
@@ -75,10 +79,10 @@ function toggleBurger(): void {
             </li>
 
             <li
-              class="header__list-item"
-              :class="{ 'header__list-item_active': $route.name === item.namePages }"
               v-for="item in dataHeaderPages"
               :key="item.namePages"
+              :class="{ 'header__list-item_active': $route.name === item.namePages }"
+              class="header__list-item"
             >
               <BaseButtonText :to="item.link">
                 {{ item.text }}
@@ -108,7 +112,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-burger">
-              <BurgerBtn @click="toggleBurger()" :isOpen="isOpenBurgerMenu" />
+              <BurgerBtn :isOpen="isOpenBurgerMenu" @click="toggleBurger()" />
             </div>
           </div>
         </div>
@@ -126,10 +130,10 @@ function toggleBurger(): void {
 
   <Transition name="right-block" mode="out-in">
     <component
-      class="header__right-block"
       :is="components[activeComponent]"
       :data="basketData"
       :isLoading="true"
+      class="header__right-block"
       @close="activeComponent = 'one'"
     />
   </Transition>

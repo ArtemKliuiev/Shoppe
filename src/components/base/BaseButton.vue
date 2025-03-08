@@ -2,7 +2,7 @@
 import BaseButtonText from './BaseButtonText.vue'
 
 interface Props {
-  type?: string
+  type?: 'mode' | 'bold'
   to?: string
 }
 

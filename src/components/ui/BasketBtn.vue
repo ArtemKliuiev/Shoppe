@@ -19,7 +19,7 @@ const classObject: Record<string, boolean> = {
   <div class="basket-btn">
     <BaseSvg class="basket-btn__icon" id="basket" />
 
-    <div class="basket-btn__count" :class="classObject">
+    <div :class="classObject" class="basket-btn__count">
       <span class="basket-btn__count-text">
         {{ count < 999 ? count : '999' }}
       </span>

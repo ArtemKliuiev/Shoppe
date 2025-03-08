@@ -13,11 +13,11 @@ defineProps<Props>()
 <template>
   <div class="main-slide">
     <BasePicture
-      class="main-slide__image"
       :src="data.image.src"
       :srcset="data.image.srcset"
       :width="data.image.width"
       :height="data.image.height"
+      class="main-slide__image"
     />
   </div>
 
@@ -32,7 +32,7 @@ defineProps<Props>()
       {{ data.price }}
     </p>
 
-    <BaseButton class="main-slide__btn" :to="data.link" type="bold"> View Product </BaseButton>
+    <BaseButton :to="data.link" class="main-slide__btn" type="bold"> View Product </BaseButton>
   </div>
 </template>
 

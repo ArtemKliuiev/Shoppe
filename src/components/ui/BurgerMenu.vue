@@ -17,7 +17,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
-const blackTheme = inject<boolean>('blackTheme', false)
+const blackTheme = inject('blackTheme', false)
 
 const searchValue = computed({
   get() {
@@ -30,7 +30,7 @@ const searchValue = computed({
 </script>
 
 <template>
-  <div class="burger-menu" v-scroll-lock="true">
+  <div class="burger-menu">
     <div class="burger-menu__search">
       <BaseInput
         v-model="searchValue"
@@ -41,19 +41,19 @@ const searchValue = computed({
     </div>
 
     <Transition name="search" mode="out-in" type="transition">
-      <ul class="burger-menu__cards" v-if="searchValue.length"></ul>
+      <ul v-if="searchValue.length" class="burger-menu__cards"></ul>
 
-      <nav class="burger-menu__nav" v-else>
+      <nav v-else class="burger-menu__nav">
         <div class="burger-menu__theme">
           <BaseCheckbox v-model="blackTheme" type="custom" />
         </div>
 
         <ul class="burger-menu__list">
-          <li class="burger-menu__list-item" v-for="item in dataBurgerMenu" :key="item.link">
+          <li v-for="item in dataBurgerMenu" :key="item.link" class="burger-menu__list-item">
             <BaseButtonText
+              :to="item.link"
               className="burger-menu__list-link"
               @click="$emit('closeBurger')"
-              :to="item.link"
             >
               {{ item.name }}
             </BaseButtonText>
@@ -63,8 +63,8 @@ const searchValue = computed({
         <div class="burger-menu__bottom">
           <BaseButtonText
             className="burger-menu__btn burger-menu__btn-account"
-            @click="$emit('closeBurger')"
             to="/account"
+            @click="$emit('closeBurger')"
           >
             <BaseSvg class="burger-menu__btn-icon burger-menu__btn-icon-account" id="person" />
 
@@ -73,8 +73,8 @@ const searchValue = computed({
 
           <BaseButtonText
             className="burger-menu__btn burger-menu__btn-exit"
-            @click="$emit('closeBurger')"
             to="/exit"
+            @click="$emit('closeBurger')"
           >
             <BaseSvg class="burger-menu__btn-icon burger-menu__btn-icon-exit" id="exit" />
 

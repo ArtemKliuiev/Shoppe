@@ -44,9 +44,9 @@ onUnmounted(() => {
       <h3 class="search__title">Search</h3>
 
       <BaseInput
-        class="search__input"
         v-model="searchValue"
         :isLoading="isLoading"
+        class="search__input"
         placeholder="Search"
         type="search"
       />
@@ -55,8 +55,8 @@ onUnmounted(() => {
         <ul class="search__cards-list"></ul>
 
         <div
-          class="search__cards-loader"
           :class="{ 'search__cards-loader_active': isLoading }"
+          class="search__cards-loader"
         ></div>
       </div>
     </div>

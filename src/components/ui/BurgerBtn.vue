@@ -7,7 +7,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="burger" :class="{ burger_active: isOpen}">
+  <div :class="{ burger_active: isOpen }" class="burger">
     <span></span>
   </div>
 </template>
@@ -54,7 +54,7 @@ defineProps<Props>()
 
   &::before {
     bottom: 15%;
-    width: 70%
+    width: 70%;
   }
 
   &_active {
@@ -74,5 +74,4 @@ defineProps<Props>()
     }
   }
 }
-
 </style>

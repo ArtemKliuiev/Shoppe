@@ -7,12 +7,7 @@ defineProps<Props>()
 </script>
 
 <template>
-    <svg>
-      <use :href="`#${id}`"></use>
-    </svg>
-</template> 
-
-<style scoped lang="scss">
-
-</style>
-
+  <svg>
+    <use :href="`#${id}`"></use>
+  </svg>
+</template>

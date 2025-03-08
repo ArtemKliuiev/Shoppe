@@ -1,13 +1,10 @@
-import '../assets/styles/styles.scss'
+import '@/assets/styles/styles.scss'
 
 import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import V3ScrollLock from 'v3-scroll-lock';
+import App from '@/app/App.vue'
+import router from '@/app/router'
 
 const app = createApp(App)
-
-app.use(V3ScrollLock, { reserveScrollBarGap: true })
 
 app.use(router)
 

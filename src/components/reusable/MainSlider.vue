@@ -10,9 +10,6 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
 <template>
   <swiper
     :spaceBetween="30"
-    :effect="'fade'"
-    :navigation="true"
-    :loop="true"
     :autoplay="{
       delay: 5000,
     }"
@@ -20,6 +17,9 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       clickable: true,
     }"
     :modules="modules"
+    navigation
+    loop
+    effect="fade"
   >
     <swiper-slide v-for="slide in dataMainSlider" :key="slide.title">
       <MainSlide :data="slide" />

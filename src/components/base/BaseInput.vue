@@ -6,7 +6,7 @@ interface Props {
   modelValue: string
   placeholder?: string
   isLoading?: boolean
-  type?: string
+  type?: 'search' | 'footer'
   errorText?: string
 }
 
@@ -17,7 +17,7 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const text = computed<string>({
+const text = computed({
   get() {
     return props.modelValue
   },
@@ -35,11 +35,11 @@ const classObject: Record<string, boolean> = {
 </script>
 
 <template>
-  <div class="input" :class="classObject">
-    <input type="text" v-model="text" :placeholder="placeholder ? placeholder : ''" />
+  <div :class="classObject" class="input">
+    <input v-model="text" :placeholder="placeholder" type="text" />
 
     <template v-if="props.type === 'search'">
-      <div class="input__search-line" :class="{ 'input__search-line_active': isLoading }"></div>
+      <div :class="{ 'input__search-line_active': isLoading }" class="input__search-line"></div>
 
       <BaseSvg class="input__search-icon" id="search" />
     </template>

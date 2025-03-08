@@ -5,8 +5,8 @@ import BaseInput from '@/components/base/BaseInput.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 
-const inputValue = ref<string>('')
-const agree = ref<boolean>(false)
+const inputValue = ref('')
+const agree = ref(false)
 </script>
 
 <template>
@@ -28,14 +28,14 @@ const agree = ref<boolean>(false)
         </ul>
 
         <BaseInput
-          class="footer__input"
           v-model="inputValue"
+          class="footer__input"
           type="footer"
           placeholder="Give an email, get the newsletter."
         />
 
         <div class="footer__agree">
-          <BaseCheckbox class="footer__agree-checkbox" v-model="agree" id="agree" />
+          <BaseCheckbox v-model="agree" class="footer__agree-checkbox" id="agree" />
 
           <label class="footer__agree-label" for="agree"
             >i agree to the website’s terms and conditions</label

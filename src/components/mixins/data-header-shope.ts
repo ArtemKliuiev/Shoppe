@@ -8,6 +8,12 @@ interface DataHeaderShope {
   list: Array<DataLink>
 }
 
+interface DataHeaderPages {
+  text: string
+  namePages: string
+  link: string
+}
+
 export const dataBurgerMenu: Array<DataLink> = [
   {
     name: 'Home',
@@ -116,8 +122,8 @@ export const dataHeaderMenu: Array<DataHeaderShope> = [
     ],
   },
 ]
-//todo
-export const dataHeaderPages = [
+
+export const dataHeaderPages: Array<DataHeaderPages> = [
   {
     text: 'Blog',
     namePages: 'blog',

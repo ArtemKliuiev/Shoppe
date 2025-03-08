@@ -1,6 +1,6 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 interface Props {
-  to: string,
+  to: string
   className?: string
 }
 
@@ -8,8 +8,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <RouterLink :class="className ? className : ''" :to="to">
+  <RouterLink :to="to" :class="className ? className : ''">
     <slot></slot>
   </RouterLink>
 </template>
-

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 interface Props {
   modelValue: boolean
-  type?: string
+  type?: 'custom'
   id?: string
 }
 
@@ -12,7 +12,6 @@ interface Emits {
 }
 
 const props = defineProps<Props>()
-
 const emits = defineEmits<Emits>()
 
 const checkboxValue = computed({
@@ -31,8 +30,8 @@ const classObject = {
 </script>
 
 <template>
-  <div class="checkbox" :class="classObject">
-    <input type="checkbox" v-model="checkboxValue" :id="id || undefined" />
+  <div :class="classObject" class="checkbox">
+    <input v-model="checkboxValue" :id="id || undefined" type="checkbox" />
   </div>
 </template>
 
