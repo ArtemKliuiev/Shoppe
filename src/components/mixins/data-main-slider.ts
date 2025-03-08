@@ -1,4 +1,4 @@
-interface DataImage {
+export interface DataImage {
   src: string
   srcset: string
   width: string

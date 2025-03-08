@@ -2,6 +2,7 @@
 import MainSlider from '@/components/reusable/MainSlider.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import ProductCard from '@/components/reusable/ProductCard.vue'
+import { dataCards } from '@/components/mixins/data-cards'
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import ProductCard from '@/components/reusable/ProductCard.vue'
     </div>
 
     <ul class="main-page__cards">
-      <ProductCard v-for="n in 6" :key="n" />
+      <ProductCard v-for="card in dataCards" :key="card.title" :data="card" />
     </ul>
   </div>
 </template>
@@ -84,16 +85,16 @@ import ProductCard from '@/components/reusable/ProductCard.vue'
 
   &__cards {
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 86px 57px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 83px 55px;
 
     @include media-down(ml) {
       gap: 50px 30px;
     }
 
     @include media-down(sm) {
-      grid-template-columns: repeat(2, auto);
-      gap: 24px 16px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 23px 16px;
     }
   }
 }
