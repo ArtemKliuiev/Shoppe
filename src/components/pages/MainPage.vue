@@ -63,13 +63,11 @@ import { dataCards } from '@/components/mixins/data-cards'
     font-size: 20px;
     font-weight: 500;
     margin-right: 2px;
-    transition:
-      opacity 0.3s,
-      transform 0.3s;
+    transition: color 0.3s;
 
     &:hover {
       @media (hover: hover) {
-        opacity: 0.8;
+        color: var(--text);
       }
     }
 

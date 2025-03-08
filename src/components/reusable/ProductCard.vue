@@ -1,41 +1,68 @@
 <script setup lang="ts">
 import BasePicture from '@/components/base/BasePicture.vue'
 import type { DataCards } from '@/components/mixins/data-cards'
-import BaseButtonText from '../base/BaseButtonText.vue'
+import BaseButtonText from '@/components/base/BaseButtonText.vue'
+import BaseSvg from '@/components/base/BaseSvg.vue'
+import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 interface Props {
   data: DataCards
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const router = useRouter()
+const like = ref(false)
+
+function cardClick() {
+  router.push('/shope/' + props.data.id)
+}
+
+function basketClick() {}
 </script>
 
 <template>
-  <BaseButtonText :to="'/shope/' + data.id">
-    <div class="card">
-      <div class="card__image">
-        <BasePicture
-          :src="data.image.src"
-          :srcset="data.image.srcset"
-          :width="data.image.width"
-          :height="data.image.height"
-          alt="product photo"
-        />
-      </div>
+  <div class="card" @click="cardClick">
+    <div class="card__image">
+      <BasePicture
+        :src="data.image.src"
+        :srcset="data.image.srcset"
+        :width="data.image.width"
+        :height="data.image.height"
+        alt="product photo"
+      />
 
-      <div class="card__main">
-        <h4 class="card__title">
-          {{ data.title }}
-        </h4>
+      <div class="card__hover">
+        <div class="card__buttons">
+          <div class="card__btn" @click.stop="basketClick">
+            <BaseSvg class="card__icon card__icon-basket" id="basket" />
+          </div>
 
-        <p class="card__price">
-          <span>$</span>
+          <div class="card__btn">
+            <BaseSvg class="card__icon card__icon-eye" id="eye" />
+          </div>
 
-          {{ data.price }}
-        </p>
+          <div class="card__btn" @click.stop>
+            <BaseCheckbox v-model="like" type="like" />
+          </div>
+        </div>
       </div>
     </div>
-  </BaseButtonText>
+
+    <div class="card__main">
+      <h4 class="card__title">
+        {{ data.title }}
+      </h4>
+
+      <p class="card__price">
+        <span>$</span>
+
+        {{ data.price }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -51,10 +78,23 @@ defineProps<Props>()
       :deep(img) {
         transform: scale(1.1);
       }
+
+      .card {
+        &__hover {
+          &::before {
+            transform: scaleX(1);
+          }
+        }
+
+        &__buttons {
+          opacity: 1;
+        }
+      }
     }
   }
 
   &__image {
+    position: relative;
     aspect-ratio: 377/ 380;
     border-radius: 8px;
     overflow: hidden;
@@ -66,6 +106,82 @@ defineProps<Props>()
 
     :deep(img) {
       transition: transform 0.3s;
+    }
+  }
+
+  &__hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--background);
+      opacity: 0.6;
+      left: 0;
+      transform: scaleX(0);
+      top: 0;
+      transition: transform 0.2s;
+    }
+  }
+
+  &__buttons {
+    position: relative;
+    opacity: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    @include media-down(sm) {
+      gap: 20px;
+    }
+
+    @include media-down(xs) {
+      gap: 10px;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    fill: var(--text);
+    transition: fill 0.2s;
+
+    &:hover {
+      fill: var(--accent);
+    }
+
+    &-basket {
+      height: 25px;
+      width: 25px;
+
+      @include media-down(xs) {
+        height: 15px;
+        width: 15px;
+      }
+    }
+
+    &-eye {
+      height: 32px;
+      width: 32px;
+
+      @include media-down(xs) {
+        height: 20px;
+        width: 20px;
+      }
     }
   }
 
