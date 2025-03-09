@@ -91,14 +91,13 @@ const searchValue = computed({
 
 .burger-menu {
   position: fixed;
-  padding-top: 5px;
+  padding-top: 48px;
   z-index: -20;
   overflow: auto;
   left: 0;
+  top: 0;
   width: 100%;
-
-  top: 43px;
-  height: calc(100% - 43px);
+  height: 100%;
   background-color: var(--background);
   color: var(--text);
 

@@ -28,14 +28,27 @@ const components = shallowReactive<Components>({
   three: TheSearch,
 })
 
+
 function toggleBasketSearch(condition: string): void {
-  if (condition === activeComponent.value) {
-    activeComponent.value = 'one'
+  switch (condition) {
+    case activeComponent.value:
+      activeComponent.value = 'one'
 
-    return
+      useScrollLock(false)
+    break;
+
+    case 'one':
+      activeComponent.value = condition
+
+      useScrollLock(false)
+    break;
+
+    default:
+      activeComponent.value = condition
+
+      useScrollLock(true)
+    break;
   }
-
-  activeComponent.value = condition
 }
 
 function toggleBurger(): void {
@@ -130,11 +143,12 @@ function toggleBurger(): void {
 
   <Transition name="right-block" mode="out-in">
     <component
+      v-model:search="search"
       :is="components[activeComponent]"
       :data="basketData"
       :isLoading="true"
       class="header__right-block"
-      @close="activeComponent = 'one'"
+      @close="toggleBasketSearch('one')"
     />
   </Transition>
 </template>
@@ -151,6 +165,7 @@ function toggleBurger(): void {
 
   &__head {
     background-color: var(--background);
+    transition: background-color 0.3s;
     padding: 45px 15px 0;
 
     @include media-down(md) {
@@ -168,6 +183,7 @@ function toggleBurger(): void {
       padding-bottom: 6px;
       border-bottom: 1px solid var(--gray);
       background-color: var(--background);
+      transition: background-color 0.3s;
       margin: 0 auto;
       max-width: 1248px;
 
@@ -184,6 +200,7 @@ function toggleBurger(): void {
       sans-serif;
     font-size: 35px;
     color: var(--text);
+    transition: color 0.3s;
 
     @include media-down(sm) {
       font-size: 25px;

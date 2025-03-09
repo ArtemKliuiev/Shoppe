@@ -3,21 +3,24 @@
 body {
   font-family: 'DM Sans', serif;
   font-size: 16px;
-  color: var(--text);
+
 }
 
 .wrapper {
-  background: var(--background);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  color: var(--text);
+  background-color: var(--background);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .main {
   flex: 1 1 auto;
-  background: var(--background);
-  color: var(--text);
+  // background: var(--background);
+  // transition: background-color 0.3s;
+  // color: var(--text);
 }
 
 .container {

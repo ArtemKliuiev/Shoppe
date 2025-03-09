@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import BaseButton from './BaseButton.vue'
+import ProductCard from '../reusable/ProductCard.vue';
+import { dataCards } from '../mixins/data-cards';
 
 interface Props {
   data: Array<string>
@@ -32,7 +34,9 @@ onUnmounted(() => {
 
       <p class="basket__info">5 items</p>
 
-      <ul class="basket__cards"></ul>
+      <ul class="basket__cards">
+        <ProductCard :data="dataCards[0]"/>
+      </ul>
     </div>
 
     <div class="basket__bottom">

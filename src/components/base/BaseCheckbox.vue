@@ -99,7 +99,7 @@ const classObject: Record<string, boolean> = {
         border-radius: 50%;
         height: 14px;
         background-color: var(--background);
-        transition: left 0.3s;
+        transition: background-color 0.3s, left 0.3s;
       }
 
       &:checked {

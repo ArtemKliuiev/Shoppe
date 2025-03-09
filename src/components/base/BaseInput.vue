@@ -162,6 +162,7 @@ input {
 
   &_footer {
     border-bottom: 1px solid var(--text);
+    transition: border 0.3s;
     height: 51px;
 
     @include media-down(sm) {

@@ -46,6 +46,7 @@ const classObject: Record<string, boolean> = {
   transition:
     transform 0.3s,
     background-color 0.3s,
+    border 0.3s,
     color 0.3s;
 
   @include media-down(sm) {

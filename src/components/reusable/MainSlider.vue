@@ -72,6 +72,7 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       height: 10px;
       opacity: 1;
       background-color: var(--background);
+      transition: background-color 0.3s;
 
       &::before {
         content: '';
@@ -96,6 +97,7 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       &-active {
         background-color: unset;
         border: 1px solid var(--background);
+        transition: border 0.3s;
         width: 18px;
         height: 18px;
         transform: translateY(4px);

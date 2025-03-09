@@ -103,6 +103,7 @@ const agree = ref(false)
 
 .footer {
   background-color: var(--background);
+  transition: background-color 0.3s;
   padding: 250px 20px 100px;
 
   @include media-down(md) {
@@ -120,9 +121,9 @@ const agree = ref(false)
   &__main {
     max-width: 1248px;
     margin: 0 auto;
-
     padding-top: 27px;
     border-top: 1px solid var(--gray);
+    transition: border 0.3s;
 
     @include media-down(xs) {
       padding-top: unset;

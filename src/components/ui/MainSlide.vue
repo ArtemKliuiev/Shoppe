@@ -57,6 +57,7 @@ defineProps<Props>()
     bottom: 50%;
     left: 40px;
     color: var(--background);
+    transition: color 0.3s;
     transform: translateY(50%);
 
     @include media-down(ml) {

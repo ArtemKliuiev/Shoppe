@@ -11,7 +11,12 @@ interface Props {
   data: DataCards
 }
 
+interface Emit{
+  (e: 'addToBasket'): void
+}
+
 const props = defineProps<Props>()
+const emit = defineEmits<Emit>()
 
 const router = useRouter()
 const like = ref(false)
@@ -19,8 +24,6 @@ const like = ref(false)
 function cardClick() {
   router.push('/shope/' + props.data.id)
 }
-
-function basketClick() {}
 </script>
 
 <template>
@@ -36,7 +39,7 @@ function basketClick() {}
 
       <div class="card__hover">
         <div class="card__buttons">
-          <div class="card__btn" @click.stop="basketClick">
+          <div class="card__btn" @click.stop="$emit('addToBasket')">
             <BaseSvg class="card__icon card__icon-basket" id="basket" />
           </div>
 
