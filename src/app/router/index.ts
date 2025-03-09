@@ -5,6 +5,8 @@ import ProductPage from '@/components/pages/ProductPage.vue'
 import BlogPage from '@/components/pages/BlogPage.vue'
 import StoryPage from '@/components/pages/StoryPage.vue'
 
+//Test push
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
