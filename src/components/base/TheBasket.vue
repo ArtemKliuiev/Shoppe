@@ -28,7 +28,7 @@ const dataBasketCard = computed(() => {
     const cardData: DataCards | undefined = dataCards.find((card) => card.id === basketData.id)
 
     if (cardData) {
-      cardData.count = basketData.count
+      ;(cardData as DataBasketCards).count = basketData.count
 
       newArray.push(cardData as DataBasketCards)
     }
@@ -37,13 +37,13 @@ const dataBasketCard = computed(() => {
   return newArray
 })
 
-// onMounted(() => {
-//   document.addEventListener('click', listenerClick)
-// })
+onMounted(() => {
+  document.addEventListener('click', listenerClick)
+})
 
-// onUnmounted(() => {
-//   document.removeEventListener('click', listenerClick)
-// })
+onUnmounted(() => {
+  document.removeEventListener('click', listenerClick)
+})
 </script>
 
 <template>
