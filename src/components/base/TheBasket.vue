@@ -1,30 +1,49 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import BaseButton from './BaseButton.vue'
-import ProductCard from '../reusable/ProductCard.vue';
-import { dataCards } from '../mixins/data-cards';
+import { onMounted, onUnmounted, computed, ref } from 'vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BasketCard from '@/components/reusable/BasketCard.vue'
+import { dataCards } from '@/components/mixins/data-cards'
+import type { DataBasketCards, DataCards } from '@/components/mixins/data-cards'
+import type { DataBasket } from '@/components/composable/use-basket-storage'
 
 interface Props {
-  data: Array<string>
+  data: DataBasket[]
 }
 
 interface Emits {
   (e: 'close'): void
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
+
 const htmlEL = ref<HTMLDivElement | null>(null)
 const listenerClick = (e: MouseEvent) =>
   !htmlEL.value?.contains(e.target as Node | null) ? emits('close') : null
 
-onMounted(() => {
-  document.addEventListener('click', listenerClick)
+const dataBasketCard = computed(() => {
+  const newArray: DataBasketCards[] = []
+
+  props.data.forEach((basketData) => {
+    const cardData: DataCards | undefined = dataCards.find((card) => card.id === basketData.id)
+
+    if (cardData) {
+      cardData.count = basketData.count
+
+      newArray.push(cardData as DataBasketCards)
+    }
+  })
+
+  return newArray
 })
 
-onUnmounted(() => {
-  document.removeEventListener('click', listenerClick)
-})
+// onMounted(() => {
+//   document.addEventListener('click', listenerClick)
+// })
+
+// onUnmounted(() => {
+//   document.removeEventListener('click', listenerClick)
+// })
 </script>
 
 <template>
@@ -35,7 +54,7 @@ onUnmounted(() => {
       <p class="basket__info">5 items</p>
 
       <ul class="basket__cards">
-        <ProductCard :data="dataCards[0]"/>
+        <BasketCard :data="dataBasketCard[0]" />
       </ul>
     </div>
 
@@ -61,7 +80,7 @@ onUnmounted(() => {
   flex-direction: column;
 
   &__main {
-    padding: 73px 10px 10px 36px;
+    padding: 73px 30px 10px 36px;
     flex-grow: 1;
   }
 
@@ -78,6 +97,7 @@ onUnmounted(() => {
 
   &__cards {
     height: calc(100vh - 306px);
+    margin: 5px 0;
     overflow: auto;
   }
 

@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { inject, reactive, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
+import {
+  inject,
+  onMounted,
+  ref,
+  shallowReactive,
+  shallowRef,
+  type ComponentCustomOptions,
+} from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
@@ -8,19 +15,22 @@ import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
 import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
 import { useScrollLock } from '@/components/composable/use-scroll-lock'
+import type { DataBasket } from '@/components/composable/use-basket-storage'
 
 interface Components {
   [key: string]: ComponentCustomOptions | null
 }
 
 const isOpenBurgerMenu = ref(false)
-const basketData = reactive<Array<string>>([])
 const basketCount = ref(0)
 const search = ref('')
 const blackTheme = inject('blackTheme', false)
 const activeComponent = ref('one')
+const basketStorage = useBasketStorage()
+const dataBasket = shallowRef<Array<DataBasket>>([])
 
 const components = shallowReactive<Components>({
   one: null,
@@ -28,6 +38,15 @@ const components = shallowReactive<Components>({
   three: TheSearch,
 })
 
+onMounted(() => {
+  dataBasket.value = basketStorage.get()
+
+  console.log(dataBasket.value)
+})
+
+basketStorage.on((data) => {
+  dataBasket.value = data
+})
 
 function toggleBasketSearch(condition: string): void {
   switch (condition) {
@@ -35,19 +54,19 @@ function toggleBasketSearch(condition: string): void {
       activeComponent.value = 'one'
 
       useScrollLock(false)
-    break;
+      break
 
     case 'one':
       activeComponent.value = condition
 
       useScrollLock(false)
-    break;
+      break
 
     default:
       activeComponent.value = condition
 
       useScrollLock(true)
-    break;
+      break
   }
 }
 
@@ -145,8 +164,8 @@ function toggleBurger(): void {
     <component
       v-model:search="search"
       :is="components[activeComponent]"
-      :data="basketData"
       :isLoading="true"
+      :data="dataBasket"
       class="header__right-block"
       @close="toggleBasketSearch('one')"
     />

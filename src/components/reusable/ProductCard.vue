@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BasePicture from '@/components/base/BasePicture.vue'
 import type { DataCards } from '@/components/mixins/data-cards'
-import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import { ref } from 'vue'
@@ -11,12 +10,12 @@ interface Props {
   data: DataCards
 }
 
-interface Emit{
+interface Emit {
   (e: 'addToBasket'): void
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<Emit>()
+defineEmits<Emit>()
 
 const router = useRouter()
 const like = ref(false)

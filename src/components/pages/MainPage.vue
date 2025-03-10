@@ -7,19 +7,21 @@ import { useBasketStorage } from '@/components/composable/use-basket-storage'
 import type { DataBasket } from '@/components/composable/use-basket-storage'
 import type { DataCards } from '@/components/mixins/data-cards'
 
-const storage = useBasketStorage()
+const basketStorage = useBasketStorage()
 
-function addToBasket(card: DataCards){
-  storage.add({
-    id: card.id,
-    count: 1
-  })
+function addToBasket(card: DataCards) {
+  basketStorage.add(
+    {
+      id: card.id,
+      count: 1,
+    },
+    true,
+  )
 }
 
-function delCard(id: number){
-  storage.remove(id)
+function delCard(id: number) {
+  basketStorage.remove(id)
 }
-
 </script>
 
 <template>
@@ -33,7 +35,12 @@ function delCard(id: number){
     </div>
 
     <ul class="main-page__cards">
-      <ProductCard v-for="card in dataCards" :key="card.title" :data="card" @addToBasket="addToBasket(card)"/>
+      <ProductCard
+        v-for="card in dataCards"
+        :key="card.title"
+        :data="card"
+        @addToBasket="addToBasket(card)"
+      />
     </ul>
   </div>
 </template>
