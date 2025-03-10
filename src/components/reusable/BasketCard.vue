@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import BasePicture from '@/components/base/BasePicture.vue'
-import BaseSvg from '@/components/base/BaseSvg.vue'
-import type { DataBasketCards } from '@/components/mixins/data-cards'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import BasePicture from '@/components/base/BasePicture.vue'
+import CountItems from '@/components/ui/CountItems.vue'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
+import type { DataBasketCards } from '@/components/mixins/data-cards'
 
 interface Props {
   data: DataBasketCards
@@ -13,19 +13,15 @@ interface Emit {
   (e: 'addToBasket'): void
 }
 
+// const basketStorage = useBasketStorage()
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
-const router = useRouter()
-const like = ref(false)
-
-function cardClick() {
-  router.push('/shope/' + props.data.id)
-}
+const count = ref('0')
 </script>
 
 <template>
-  <div class="basket-card" @click="cardClick">
+  <div class="basket-card">
     <div class="basket-card__image">
       <BasePicture
         :src="data.image.src"
@@ -53,7 +49,11 @@ function cardClick() {
         </p>
       </div>
 
-      <div class="basket-card__count">+ 0 -</div>
+      <div class="basket-card__count">
+        <span class="basket-card__count-text">QTY:</span>
+
+        <CountItems v-model="count" />
+      </div>
     </div>
 
     <div class="basket-card__close"></div>
@@ -100,6 +100,7 @@ function cardClick() {
   }
 
   &__count {
+    // display: flex;
   }
 
   &__close {
@@ -108,15 +109,20 @@ function cardClick() {
     cursor: pointer;
     top: 4px;
     right: 3px;
-    width: 10px;
-    height: 10px;
-    transition: transform 0.3s;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition:
+      transform 0.3s,
+      background-color 0.3;
 
     &:hover {
       @media (hover: hover) {
+        background-color: var(--text);
+
         &::before,
         &::after {
-          background-color: var(--text-second);
+          background-color: var(--background);
         }
       }
     }
