@@ -8,7 +8,8 @@ interface BasketStorage {
   set: (value: DataBasket[]) => void
   get: () => DataBasket[]
   del: (id: number) => void
-  add: (value: DataBasket, notAdd: boolean) => void
+  add: (value: DataBasket) => void
+  change: (id: number, newValue: string) => void
   remove: (id: number) => void
 }
 
@@ -62,10 +63,9 @@ function basketStorage(): BasketStorage {
 
     const findCard = oldArray.find((obj) => obj.id == id)
 
-    if (findCard?.count) {
-    }
+    if (findCard) findCard.count = newValue
 
-    set(findCard)
+    if (oldArray) set(oldArray)
   }
 
   function remove(id: number): void {
@@ -87,7 +87,7 @@ function basketStorage(): BasketStorage {
 
   return {
     add,
-    // change,
+    change,
     del,
     get: getBasketData,
     on,
