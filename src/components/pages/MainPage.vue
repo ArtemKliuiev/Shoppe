@@ -10,13 +10,10 @@ import type { DataCards } from '@/components/mixins/data-cards'
 const basketStorage = useBasketStorage()
 
 function addToBasket(card: DataCards) {
-  basketStorage.add(
-    {
-      id: card.id,
-      count: 1,
-    },
-    true,
-  )
+  basketStorage.add({
+    id: card.id,
+    count: '1',
+  })
 }
 
 function delCard(id: number) {
@@ -115,8 +112,11 @@ function delCard(id: number) {
     }
 
     @include media-down(sm) {
-      grid-template-columns: repeat(2, 1fr);
       gap: 23px 16px;
+    }
+
+    @include media-down(xs) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }

@@ -209,6 +209,7 @@ function toggleBurger(): void {
       @include media-down(sm) {
         padding: 5px 15px;
         border-bottom: unset;
+        transition: unset;
       }
     }
   }

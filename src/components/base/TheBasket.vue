@@ -5,6 +5,8 @@ import BasketCard from '@/components/reusable/BasketCard.vue'
 import { dataCards } from '@/components/mixins/data-cards'
 import type { DataBasketCards, DataCards } from '@/components/mixins/data-cards'
 import type { DataBasket } from '@/components/composable/use-basket-storage'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
+import BaseSvg from './BaseSvg.vue'
 
 interface Props {
   data: DataBasket[]
@@ -17,9 +19,8 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
+const basketStorage = useBasketStorage()
 const htmlEL = ref<HTMLDivElement | null>(null)
-const listenerClick = (e: MouseEvent) =>
-  !htmlEL.value?.contains(e.target as Node | null) ? emits('close') : null
 
 const dataBasketCard = computed(() => {
   const newArray: DataBasketCards[] = []
@@ -28,33 +29,58 @@ const dataBasketCard = computed(() => {
     const cardData: DataCards | undefined = dataCards.find((card) => card.id === basketData.id)
 
     if (cardData) {
-      ;(cardData as DataBasketCards).count = basketData.count
+      const basketCard = cardData as DataBasketCards
 
-      newArray.push(cardData as DataBasketCards)
+      basketCard.count = basketData.count
+
+      newArray.push(basketCard)
     }
   })
 
   return newArray
 })
 
-onMounted(() => {
-  document.addEventListener('click', listenerClick)
-})
+function deletCard(id: number) {
+  console.log('delet')
+  basketStorage.del(id)
+}
 
-onUnmounted(() => {
-  document.removeEventListener('click', listenerClick)
-})
+function listenerClick(e: MouseEvent) {
+  if (!htmlEL.value?.contains(e.target as Node | null)) {
+    emits('close')
+  }
+}
+
+// onMounted(() => {
+//   document.addEventListener('click', listenerClick)
+// })
+
+// onUnmounted(() => {
+//   document.removeEventListener('click', listenerClick)
+// })
 </script>
 
 <template>
   <div class="basket" ref="htmlEL">
     <div class="basket__main">
+      <div class="basket__back">
+        <BaseSvg id="back-arrow" />
+      </div>
+
       <h3 class="basket__title">Shopping bag</h3>
 
-      <p class="basket__info">5 items</p>
+      <p class="basket__info">
+        {{ dataBasketCard.length }}
+        items
+      </p>
 
       <ul class="basket__cards">
-        <BasketCard :data="dataBasketCard[0]" />
+        <BasketCard
+          v-for="card in dataBasketCard"
+          :key="card.id"
+          :data="card"
+          @deleteCard="deletCard"
+        />
       </ul>
     </div>
 
@@ -80,14 +106,28 @@ onUnmounted(() => {
   flex-direction: column;
 
   &__main {
-    padding: 73px 30px 10px 36px;
+    padding: 73px 0 10px 36px;
     flex-grow: 1;
+
+    @include media-down(sm) {
+      padding: 16px;
+    }
+  }
+
+  &__back {
+    width: 50px;
+    height: 30px;
+    fill: red;
   }
 
   &__title {
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 19px;
     color: var(--text);
+
+    @include media-down(sm) {
+      text-align: center;
+    }
   }
 
   &__info {

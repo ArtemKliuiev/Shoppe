@@ -147,7 +147,7 @@ function cardClick() {
       gap: 20px;
     }
 
-    @include media-down(xs) {
+    @include media-down(xxs) {
       gap: 10px;
     }
   }
@@ -170,7 +170,7 @@ function cardClick() {
       height: 25px;
       width: 25px;
 
-      @include media-down(xs) {
+      @include media-down(xxs) {
         height: 15px;
         width: 15px;
       }
@@ -180,7 +180,7 @@ function cardClick() {
       height: 32px;
       width: 32px;
 
-      @include media-down(xs) {
+      @include media-down(xxs) {
         height: 20px;
         width: 20px;
       }

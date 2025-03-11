@@ -99,7 +99,9 @@ const classObject: Record<string, boolean> = {
         border-radius: 50%;
         height: 14px;
         background-color: var(--background);
-        transition: background-color 0.3s, left 0.3s;
+        transition:
+          background-color 0.3s,
+          left 0.3s;
       }
 
       &:checked {
@@ -114,7 +116,7 @@ const classObject: Record<string, boolean> = {
     width: 25px;
     height: 25px;
 
-    @include media-down(xs) {
+    @include media-down(xxs) {
       height: 15px;
       width: 15px;
     }

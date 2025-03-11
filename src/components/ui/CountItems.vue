@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   modelValue: string
@@ -11,7 +11,6 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
-const classObject = ref({})
 
 const display = computed({
   get() {
@@ -19,13 +18,13 @@ const display = computed({
   },
   set(value: string) {
     emit('update:modelValue', value)
-
-    classObject.value = {
-      count__display_two: value.length > 1,
-      count__display_three: value.length > 2,
-    }
   },
 })
+
+const classObject = computed(() => ({
+  count__display_two: display.value.length > 1,
+  count__display_three: display.value.length > 2,
+}))
 
 function addCount(condition: boolean) {
   const count: number = +display.value
@@ -42,7 +41,7 @@ function validationCount() {
 
   if (+display.value > 999) display.value = display.value.slice(0, -1)
 
-  if (display.value === '0') display.value = '1'
+  if (display.value === '0' || !display.value) display.value = '1'
 }
 </script>
 

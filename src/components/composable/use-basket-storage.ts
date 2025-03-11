@@ -1,6 +1,6 @@
 export interface DataBasket {
   id: number
-  count: number
+  count: string
 }
 
 interface BasketStorage {
@@ -33,47 +33,50 @@ function basketStorage(): BasketStorage {
     callbacks.forEach((callback) => callback(value))
   }
 
-  function get() {
+  function getBasketData(): DataBasket[] {
     const getValue = localStorage.getItem('basket')
 
     return JSON.parse(getValue ? getValue : '[]')
   }
 
   function del(id: number): void {
-    const getValue = localStorage.getItem('basket')
-
-    const oldArray: DataBasket[] = JSON.parse(getValue ? getValue : '[]')
+    const oldArray = getBasketData()
 
     const newArray = oldArray.filter((obj) => obj.id != id)
 
     set(newArray)
   }
 
-  function add(value: DataBasket, notAdd: boolean = false): void {
-    const getValue = localStorage.getItem('basket')
+  function add(data: DataBasket): void {
+    const oldArray = getBasketData()
 
-    const oldArray: DataBasket[] = JSON.parse(getValue ? getValue : '[]')
+    const findCard = oldArray.find((obj) => obj.id == data.id)
 
-    const findCard = oldArray.find((obj) => obj.id == value.id)
-
-    if (findCard && !notAdd) findCard.count++
-
-    if (!findCard) oldArray.push(value)
+    if (!findCard) oldArray.push(data)
 
     set(oldArray)
   }
 
-  function remove(id: number): void {
-    const getValue = localStorage.getItem('basket')
-
-    const oldArray: DataBasket[] = JSON.parse(getValue ? getValue : '[]')
+  function change(id: number, newValue: string): void {
+    const oldArray = getBasketData()
 
     const findCard = oldArray.find((obj) => obj.id == id)
 
-    if (findCard) findCard.count--
+    if (findCard?.count) {
+    }
+
+    set(findCard)
+  }
+
+  function remove(id: number): void {
+    const oldArray = getBasketData()
+
+    const findCard = oldArray.find((obj) => obj.id == id)
+
+    if (findCard) String(+findCard.count - 1)
     else return
 
-    if (findCard.count < 1) {
+    if (+findCard.count < 1) {
       del(id)
 
       return
@@ -83,11 +86,12 @@ function basketStorage(): BasketStorage {
   }
 
   return {
+    add,
+    // change,
+    del,
+    get: getBasketData,
     on,
     set,
-    get,
-    del,
-    add,
     remove,
   }
 }

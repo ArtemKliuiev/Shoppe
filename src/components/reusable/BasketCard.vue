@@ -10,14 +10,13 @@ interface Props {
 }
 
 interface Emit {
-  (e: 'addToBasket'): void
+  (e: 'deleteCard', id: number): void
 }
 
-// const basketStorage = useBasketStorage()
+const basketStorage = useBasketStorage()
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
-
-const count = ref('0')
+const count = ref(String(props.data.count))
 </script>
 
 <template>
@@ -56,7 +55,7 @@ const count = ref('0')
       </div>
     </div>
 
-    <div class="basket-card__close"></div>
+    <div class="basket-card__close" @click.stop="$emit('deleteCard', data.id)"></div>
   </div>
 </template>
 
@@ -67,9 +66,16 @@ const count = ref('0')
 
 // @include media-down(sm) {}
 .basket-card {
+  max-width: 293px;
+  margin-bottom: 20px;
   position: relative;
   display: flex;
-  gap: 8px;
+  gap: 7px;
+
+  @include media-down(sm) {
+    max-width: unset;
+    margin: 0 10px 20px 0;
+  }
 
   &__image {
     width: 136px;
@@ -82,6 +88,9 @@ const count = ref('0')
 
   &__main {
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__info {
@@ -100,7 +109,13 @@ const count = ref('0')
   }
 
   &__count {
-    // display: flex;
+    display: flex;
+    align-items: center;
+
+    &-text {
+      font-size: 12px;
+      color: var(--text-second);
+    }
   }
 
   &__close {
