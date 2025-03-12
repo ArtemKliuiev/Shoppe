@@ -102,12 +102,12 @@ onUnmounted(() => {
 
     <div class="basket__bottom">
       <div class="basket__bottom-text">
-        <p class="basket__bottom-info">Subtotal (5 items)</p>
+        <p class="basket__bottom-info">Subtotal ( {{ dataBasketCards.length }} items)</p>
 
         <p class="basket__bottom-sum">
           $
 
-          {{ price ? price.toFixed(2).replace('.', ',') : 0 }}
+          {{ price ? price.toFixed(2).replace('.', ',') : '0,00' }}
         </p>
       </div>
 

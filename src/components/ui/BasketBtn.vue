@@ -81,7 +81,8 @@ watch(props, () => {
     border-radius: 50%;
     transition:
       border 0.3s,
-      color 0.3s;
+      color 0.3s,
+      background-color 0.3s;
 
     &-text {
       font-weight: 700;

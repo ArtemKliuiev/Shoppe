@@ -90,6 +90,16 @@ const classObject: Record<string, boolean> = {
     background-color: var(--text-second);
 
     input {
+      &::before {
+        content: '';
+        position: absolute;
+        width: 130%;
+        height: 140%;
+        left: -15%;
+        top: -20%;
+        opacity: 0.3;
+      }
+
       &::after {
         content: '';
         position: absolute;
