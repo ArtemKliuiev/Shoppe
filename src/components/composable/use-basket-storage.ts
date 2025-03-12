@@ -10,7 +10,6 @@ interface BasketStorage {
   del: (id: number) => void
   add: (value: DataBasket) => void
   change: (id: number, newValue: string) => void
-  remove: (id: number) => void
 }
 
 let singelFunction: BasketStorage | null = null
@@ -68,23 +67,6 @@ function basketStorage(): BasketStorage {
     if (oldArray) set(oldArray)
   }
 
-  function remove(id: number): void {
-    const oldArray = getBasketData()
-
-    const findCard = oldArray.find((obj) => obj.id == id)
-
-    if (findCard) String(+findCard.count - 1)
-    else return
-
-    if (+findCard.count < 1) {
-      del(id)
-
-      return
-    }
-
-    set(oldArray)
-  }
-
   return {
     add,
     change,
@@ -92,6 +74,5 @@ function basketStorage(): BasketStorage {
     get: getBasketData,
     on,
     set,
-    remove,
   }
 }

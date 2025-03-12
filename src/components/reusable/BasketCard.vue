@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import BasePicture from '@/components/base/BasePicture.vue'
 import CountItems from '@/components/ui/CountItems.vue'
-import { useBasketStorage } from '@/components/composable/use-basket-storage'
 import type { DataBasketCards } from '@/components/mixins/data-cards'
 
 interface Props {
@@ -11,12 +10,16 @@ interface Props {
 
 interface Emit {
   (e: 'deleteCard', id: number): void
+  (e: 'changeCount', id: number, value: string): void
 }
 
-const basketStorage = useBasketStorage()
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
-const count = ref(String(props.data.count))
+const count = ref(props.data.count)
+
+watch(count, () => {
+  emit('changeCount', props.data.id, count.value)
+})
 </script>
 
 <template>
@@ -62,9 +65,6 @@ const count = ref(String(props.data.count))
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
-// @media (hover: hover) {}
-
-// @include media-down(sm) {}
 .basket-card {
   max-width: 293px;
   margin-bottom: 20px;
@@ -73,8 +73,12 @@ const count = ref(String(props.data.count))
   gap: 7px;
 
   @include media-down(sm) {
-    max-width: unset;
-    margin: 0 10px 20px 0;
+    max-width: 93vw;
+  }
+
+  @include media-down(xs) {
+    max-width: 88vw;
+    margin-bottom: 25px;
   }
 
   &__image {
@@ -93,10 +97,15 @@ const count = ref(String(props.data.count))
     justify-content: space-between;
   }
 
-  &__info {
-  }
-
   &__title {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    padding-right: 20px;
   }
 
   &__text {
@@ -131,6 +140,13 @@ const count = ref(String(props.data.count))
       transform 0.3s,
       background-color 0.3;
 
+    @include media-down(sm) {
+      width: 16px;
+      height: 16px;
+      top: 1px;
+      right: 2px;
+    }
+
     &:hover {
       @media (hover: hover) {
         background-color: var(--text);
@@ -143,7 +159,7 @@ const count = ref(String(props.data.count))
     }
 
     &:active {
-      transform: scale(0.8);
+      transform: scale(0.9);
     }
 
     &::before,
@@ -157,6 +173,10 @@ const count = ref(String(props.data.count))
       background-color: var(--text);
       transition: background-color 0.3s;
       width: 7px;
+
+      @include media-down(sm) {
+        width: 8px;
+      }
     }
 
     &::before {

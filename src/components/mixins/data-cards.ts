@@ -27,7 +27,7 @@ export const dataCards: Array<DataCards> = [
   },
   {
     title: 'Moon Necklace',
-    price: '30,00',
+    price: '30,13',
     id: 2,
     type: 'Black / Medium',
     image: {
@@ -39,7 +39,7 @@ export const dataCards: Array<DataCards> = [
   },
   {
     title: 'Star Bracelet',
-    price: '15,00',
+    price: '15,34',
     id: 3,
     type: 'Black / Medium',
     image: {
@@ -51,7 +51,7 @@ export const dataCards: Array<DataCards> = [
   },
   {
     title: 'Sun Ring',
-    price: '25,00',
+    price: '25,87',
     id: 4,
     type: 'Black / Medium',
     image: {
@@ -63,7 +63,7 @@ export const dataCards: Array<DataCards> = [
   },
   {
     title: 'Galaxy Pendant',
-    price: '35,00',
+    price: '35,15',
     id: 5,
     type: 'Black / Medium',
     image: {
@@ -75,7 +75,7 @@ export const dataCards: Array<DataCards> = [
   },
   {
     title: 'Aurora Earrings',
-    price: '22,00',
+    price: '22,20',
     id: 6,
     type: 'Black / Medium',
     image: {

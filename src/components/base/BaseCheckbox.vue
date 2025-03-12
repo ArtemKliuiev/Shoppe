@@ -136,13 +136,13 @@ const classObject: Record<string, boolean> = {
         top: 0;
         left: 0;
         fill: var(--text);
-        transition: fill 0.2s;
+        transition: fill 0.3s;
 
         &-fill {
           opacity: 0;
           transition:
-            opacity 0.2s,
-            fill 0.2s;
+            opacity 0.3s,
+            fill 0.3s;
         }
       }
     }

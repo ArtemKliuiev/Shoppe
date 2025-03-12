@@ -25,7 +25,6 @@ interface Components {
 }
 
 const isOpenBurgerMenu = ref(false)
-const basketCount = ref(0)
 const search = ref('')
 const blackTheme = inject('blackTheme', false)
 const activeComponent = ref('one')
@@ -40,8 +39,6 @@ const components = shallowReactive<Components>({
 
 onMounted(() => {
   dataBasket.value = basketStorage.get()
-
-  console.log(dataBasket.value)
 })
 
 basketStorage.on((data) => {
@@ -136,7 +133,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-basket">
-              <BasketBtn :count="basketCount" @click.stop="toggleBasketSearch('two')" />
+              <BasketBtn :count="dataBasket.length" @click.stop="toggleBasketSearch('two')" />
             </div>
 
             <div class="header__btn header__btn-person">
@@ -161,14 +158,16 @@ function toggleBurger(): void {
   </header>
 
   <Transition name="right-block" mode="out-in">
-    <component
-      v-model:search="search"
-      :is="components[activeComponent]"
-      :isLoading="true"
-      :data="dataBasket"
-      class="header__right-block"
-      @close="toggleBasketSearch('one')"
-    />
+    <KeepAlive include="TheBasket">
+      <component
+        v-model:search="search"
+        :is="components[activeComponent]"
+        :isLoading="true"
+        :data="dataBasket"
+        class="header__right-block"
+        @close="toggleBasketSearch('one')"
+      />
+    </KeepAlive>
   </Transition>
 </template>
 
@@ -266,7 +265,7 @@ function toggleBurger(): void {
     }
 
     &-item {
-      transition: color 0.2s;
+      transition: color 0.3s;
       position: relative;
       color: var(--text);
       cursor: pointer;
@@ -329,7 +328,7 @@ function toggleBurger(): void {
 
     &-icon {
       fill: var(--text);
-      transition: fill 0.2s;
+      transition: fill 0.3s;
 
       &:hover {
         @media (hover: hover) {
@@ -414,7 +413,7 @@ function toggleBurger(): void {
 
       &-item {
         margin-bottom: 10px;
-        transition: color 0.2s;
+        transition: color 0.3s;
 
         &:hover {
           @media (hover: hover) {

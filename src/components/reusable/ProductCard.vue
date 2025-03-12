@@ -131,7 +131,7 @@ function cardClick() {
       left: 0;
       transform: scaleX(0);
       top: 0;
-      transition: transform 0.2s;
+      transition: transform 0.3s;
     }
   }
 
@@ -160,10 +160,16 @@ function cardClick() {
 
   &__icon {
     fill: var(--text);
-    transition: fill 0.2s;
+    transition:
+      fill 0.3s,
+      transform 0.3s;
 
     &:hover {
       fill: var(--accent);
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
 
     &-basket {
@@ -187,12 +193,16 @@ function cardClick() {
     }
   }
 
-  &__main {
-  }
-
   &__title {
     font-size: 20px;
     margin-bottom: 12px;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
 
     @include media-down(sm) {
       margin-bottom: 5px;

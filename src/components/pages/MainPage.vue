@@ -4,7 +4,6 @@ import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import ProductCard from '@/components/reusable/ProductCard.vue'
 import { dataCards } from '@/components/mixins/data-cards'
 import { useBasketStorage } from '@/components/composable/use-basket-storage'
-import type { DataBasket } from '@/components/composable/use-basket-storage'
 import type { DataCards } from '@/components/mixins/data-cards'
 
 const basketStorage = useBasketStorage()
@@ -15,10 +14,6 @@ function addToBasket(card: DataCards) {
     count: '1',
   })
 }
-
-function delCard(id: number) {
-  basketStorage.remove(id)
-}
 </script>
 
 <template>
@@ -26,7 +21,7 @@ function delCard(id: number) {
     <MainSlider class="main-page__slider" />
 
     <div class="main-page__info">
-      <h1 class="main-page__title" @click="delCard(2)">Shop The Latest</h1>
+      <h1 class="main-page__title">Shop The Latest</h1>
 
       <BaseButtonText class="main-page__btn" to="/shope"> View All </BaseButtonText>
     </div>

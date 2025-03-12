@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, ref } from 'vue'
+import { onMounted, onUnmounted, watch, computed, ref, onUpdated } from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BasketCard from '@/components/reusable/BasketCard.vue'
 import { dataCards } from '@/components/mixins/data-cards'
@@ -18,11 +18,10 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
-
 const basketStorage = useBasketStorage()
 const htmlEL = ref<HTMLDivElement | null>(null)
 
-const dataBasketCard = computed(() => {
+const dataBasketCards = computed(() => {
   const newArray: DataBasketCards[] = []
 
   props.data.forEach((basketData) => {
@@ -40,9 +39,24 @@ const dataBasketCard = computed(() => {
   return newArray
 })
 
+const price = computed(() => {
+  return dataBasketCards.value.reduce((acc: number, el: DataBasketCards) => {
+    const priceOne = parseFloat(el.price.replace(',', '.'))
+
+    const price = +el.count * priceOne
+
+    acc = acc + price
+
+    return acc
+  }, 0)
+})
+
 function deletCard(id: number) {
-  console.log('delet')
   basketStorage.del(id)
+}
+
+function changeCard(id: number, value: string) {
+  basketStorage.change(id, value)
 }
 
 function listenerClick(e: MouseEvent) {
@@ -51,44 +65,50 @@ function listenerClick(e: MouseEvent) {
   }
 }
 
-// onMounted(() => {
-//   document.addEventListener('click', listenerClick)
-// })
+onMounted(() => {
+  document.addEventListener('click', listenerClick)
+})
 
-// onUnmounted(() => {
-//   document.removeEventListener('click', listenerClick)
-// })
+onUnmounted(() => {
+  document.removeEventListener('click', listenerClick)
+})
 </script>
 
 <template>
   <div class="basket" ref="htmlEL">
     <div class="basket__main">
-      <div class="basket__back">
+      <div class="basket__back" @click="$emit('close')">
         <BaseSvg id="back-arrow" />
       </div>
 
       <h3 class="basket__title">Shopping bag</h3>
 
       <p class="basket__info">
-        {{ dataBasketCard.length }}
+        {{ dataBasketCards.length }}
+
         items
       </p>
 
-      <ul class="basket__cards">
+      <TransitionGroup class="basket__cards" name="cards" tag="ul">
         <BasketCard
-          v-for="card in dataBasketCard"
+          v-for="card in dataBasketCards"
           :key="card.id"
           :data="card"
-          @deleteCard="deletCard"
+          @deleteCard.once="deletCard"
+          @changeCount="changeCard"
         />
-      </ul>
+      </TransitionGroup>
     </div>
 
     <div class="basket__bottom">
       <div class="basket__bottom-text">
         <p class="basket__bottom-info">Subtotal (5 items)</p>
 
-        <p class="basket__bottom-sum">$ 100,00</p>
+        <p class="basket__bottom-sum">
+          $
+
+          {{ price ? price.toFixed(2).replace('.', ',') : 0 }}
+        </p>
       </div>
 
       <div class="basket__btn">
@@ -104,20 +124,37 @@ function listenerClick(e: MouseEvent) {
 .basket {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &__main {
-    padding: 73px 0 10px 36px;
+    padding: 73px 0 0 36px;
     flex-grow: 1;
 
     @include media-down(sm) {
-      padding: 16px;
+      padding: 16px 0 0 16px;
+      flex-grow: 0;
     }
   }
 
   &__back {
-    width: 50px;
-    height: 30px;
-    fill: red;
+    position: absolute;
+    left: 5px;
+    top: 14px;
+    width: 30px;
+    height: 26px;
+    padding: 5px 10px;
+    fill: var(--text);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s;
+
+    &:active {
+      transform: translateX(-5px);
+    }
+
+    @include media-up(sm) {
+      display: none;
+    }
   }
 
   &__title {
@@ -136,9 +173,14 @@ function listenerClick(e: MouseEvent) {
   }
 
   &__cards {
-    height: calc(100vh - 306px);
-    margin: 5px 0;
-    overflow: auto;
+    height: calc(100vh - 256px);
+    margin-top: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    @include media-down(sm) {
+      height: calc(100vh - 175px);
+    }
   }
 
   &__bottom {
@@ -157,5 +199,14 @@ function listenerClick(e: MouseEvent) {
   &__btn {
     margin: 0 36px 25px;
   }
+}
+
+.cards-leave-active {
+  transition: all 0.3s ease;
+}
+.cards-enter-from,
+.cards-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
