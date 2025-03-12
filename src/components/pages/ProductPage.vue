@@ -1,11 +1,9 @@
 <script setup lang="ts">
-
+import ProductSlider from '../reusable/ProductSlider.vue'
 </script>
 
 <template>
-Product Page
+  <ProductSlider />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

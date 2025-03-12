@@ -98,6 +98,10 @@ const classObject: Record<string, boolean> = {
         left: -15%;
         top: -20%;
         opacity: 0.3;
+
+        @include media-up(sm) {
+          display: none;
+        }
       }
 
       &::after {

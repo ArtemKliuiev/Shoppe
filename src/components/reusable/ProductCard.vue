@@ -21,7 +21,7 @@ const router = useRouter()
 const like = ref(false)
 
 function cardClick() {
-  router.push('/shope/' + props.data.id)
+  router.push('/product/' + props.data.id)
 }
 </script>
 

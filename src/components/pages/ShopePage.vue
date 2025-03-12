@@ -1,11 +1,7 @@
 <script setup lang="ts">
-
+import ProductSlider from '../reusable/ProductSlider.vue'
 </script>
 
-<template>
-Shope Page
-</template>
+<template><ProductSlider />wwwwwwwwwwwwwwwwwwwwww</template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

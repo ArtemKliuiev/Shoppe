@@ -1,9 +1,11 @@
-import { createRouter,  createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/components/pages/MainPage.vue'
 import ShopePage from '@/components/pages/ShopePage.vue'
 import ProductPage from '@/components/pages/ProductPage.vue'
 import BlogPage from '@/components/pages/BlogPage.vue'
 import StoryPage from '@/components/pages/StoryPage.vue'
+import ErrorPage from '@/components/pages/ErrorPage.vue'
+import ContactsPage from '@/components/pages/ContactsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +21,7 @@ const router = createRouter({
       component: ShopePage,
     },
     {
-      path: '/product',
+      path: '/product/:id?',
       name: 'product',
       component: ProductPage,
     },
@@ -32,6 +34,16 @@ const router = createRouter({
       path: '/story',
       name: 'story',
       component: StoryPage,
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: ContactsPage,
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: ErrorPage,
     },
   ],
 })

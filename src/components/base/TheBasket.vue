@@ -173,7 +173,7 @@ onUnmounted(() => {
   }
 
   &__cards {
-    height: calc(100vh - 256px);
+    height: calc(100vh - 272px);
     margin-top: 5px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -185,7 +185,7 @@ onUnmounted(() => {
 
   &__bottom {
     border-top: 1px solid var(--gray);
-    padding-top: 5px;
+    padding-top: 20px;
 
     &-text {
       display: flex;
