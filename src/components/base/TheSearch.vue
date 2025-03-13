@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, computed } from 'vue'
+import { computed } from 'vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
@@ -24,22 +24,10 @@ const searchValue = computed({
     emits('update:search', newValue)
   },
 })
-
-const htmlEL = ref<HTMLDivElement | null>(null)
-const listenerClick = (e: MouseEvent) =>
-  !htmlEL.value?.contains(e.target as Node | null) ? emits('close') : null
-
-onMounted(() => {
-  document.addEventListener('click', listenerClick)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', listenerClick)
-})
 </script>
 
 <template>
-  <div class="search" ref="htmlEL">
+  <div class="search">
     <div class="search__main">
       <h3 class="search__title">Search</h3>
 

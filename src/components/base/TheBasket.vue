@@ -81,7 +81,7 @@ function changeCard(id: number, value: string) {
           v-for="card in dataBasketCards"
           :key="card.id"
           :data="card"
-          @deleteCard.once="deletCard"
+          @deleteCard="deletCard"
           @changeCount="changeCard"
         />
       </TransitionGroup>
