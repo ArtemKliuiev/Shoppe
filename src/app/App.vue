@@ -2,11 +2,21 @@
 import TheFooter from '@/components/base/TheFooter.vue'
 import TheHeader from '@/components/base/TheHeader.vue'
 import SvgManager from '@/components/base/SvgManager.vue'
-import { provide, ref } from 'vue'
+import { provide, ref, watch, onMounted } from 'vue'
 
 const blackTheme = ref<boolean>(true)
 
 provide('blackTheme', blackTheme)
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem('theme')
+
+  if (savedTheme) blackTheme.value = savedTheme === 'true'
+})
+
+watch(blackTheme, () => {
+  localStorage.setItem('theme', blackTheme.value.toString())
+})
 </script>
 
 <template>
