@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, computed, ref, onUpdated } from 'vue'
+import { computed, ref } from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BasketCard from '@/components/reusable/BasketCard.vue'
 import { dataCards } from '@/components/mixins/data-cards'
@@ -17,7 +17,8 @@ interface Emits {
 }
 
 const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
+defineEmits<Emits>()
+
 const basketStorage = useBasketStorage()
 const htmlEL = ref<HTMLDivElement | null>(null)
 

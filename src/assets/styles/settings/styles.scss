@@ -3,11 +3,6 @@
 body {
   font-family: 'DM Sans', serif;
   font-size: 16px;
-
-  &::selection {
-    color: var(--background);
-    background-color: var(--text);
-  }
 }
 
 .wrapper {
@@ -20,6 +15,11 @@ body {
   transition:
     background-color 0.3s,
     color 0.3s;
+
+  &::selection {
+    color: var(--background);
+    background-color: var(--text);
+  }
 }
 
 .main {
