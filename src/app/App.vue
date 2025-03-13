@@ -4,7 +4,7 @@ import TheHeader from '@/components/base/TheHeader.vue'
 import SvgManager from '@/components/base/SvgManager.vue'
 import { provide, ref } from 'vue'
 
-const blackTheme = ref<boolean>(false)
+const blackTheme = ref<boolean>(true)
 
 provide('blackTheme', blackTheme)
 </script>
