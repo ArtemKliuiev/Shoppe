@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
 interface Props {
   modelValue: string
@@ -11,6 +11,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const input = ref<HTMLInputElement | null>(null)
 
 const display = computed({
   get() {
@@ -35,13 +36,13 @@ function addCount(condition: boolean) {
 }
 
 function validationCount() {
-  display.value = display.value.replace(/\D/g, '')
+  const caretPosition = input.value?.selectionStart
 
-  if (display.value[0] === '0' && display.value.length > 1) display.value = display.value.slice(1)
+  display.value = display.value.replace(/(^0+|[^0-9]){1,3}/g, '').slice(0, 3)
 
-  if (+display.value > 999) display.value = display.value.slice(0, -1)
-
-  if (display.value === '0' || !display.value) display.value = '1'
+  nextTick(() => {
+    if (caretPosition) input.value?.setSelectionRange(caretPosition, caretPosition)
+  })
 }
 </script>
 
@@ -54,6 +55,7 @@ function validationCount() {
       :class="classObject"
       class="count__display"
       type="text"
+      ref="input"
       @input="validationCount"
       @paste.prevent
     />
