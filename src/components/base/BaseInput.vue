@@ -169,7 +169,7 @@ input {
     input {
       font-size: 16px;
       line-height: 27px;
-      padding: 10px 0;
+      padding: 10px 35px 10px 0;
 
       @include media-down(sm) {
         font-size: 12px;

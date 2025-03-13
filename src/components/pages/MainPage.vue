@@ -17,16 +17,16 @@ function addToBasket(card: DataCards) {
 </script>
 
 <template>
-  <div class="main-page container">
-    <MainSlider class="main-page__slider" />
+  <div class="main container">
+    <MainSlider class="main__slider" />
 
-    <div class="main-page__info">
-      <h1 class="main-page__title">Shop The Latest</h1>
+    <div class="main__info">
+      <h1 class="main__title">Shop The Latest</h1>
 
-      <BaseButtonText class="main-page__btn" to="/shope"> View All </BaseButtonText>
+      <BaseButtonText class="main__btn" to="/shope"> View All </BaseButtonText>
     </div>
 
-    <ul class="main-page__cards">
+    <ul class="main__cards">
       <ProductCard
         v-for="card in dataCards"
         :key="card.title"
@@ -40,7 +40,7 @@ function addToBasket(card: DataCards) {
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as *;
 
-.main-page {
+.main {
   &__slider {
     margin-bottom: 65px;
 

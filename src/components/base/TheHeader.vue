@@ -194,8 +194,12 @@ function toggleBurger(): void {
     transition: background-color 0.3s;
     padding: 45px 15px 0;
 
+    @include media-down(lg) {
+      padding: 20px 15px 0;
+    }
+
     @include media-down(md) {
-      padding: 10px 15px 0;
+      padding: 0 15px;
     }
 
     @include media-down(sm) {
@@ -212,6 +216,10 @@ function toggleBurger(): void {
       transition: background-color 0.3s;
       margin: 0 auto;
       max-width: 1248px;
+
+      @include media-down(md) {
+        padding: 0 15px;
+      }
 
       @include media-down(sm) {
         padding: 5px 15px;
@@ -243,6 +251,10 @@ function toggleBurger(): void {
     width: 100%;
     max-width: 550px;
 
+    @include media-down(md) {
+      max-width: 420px;
+    }
+
     @include media-down(sm) {
       width: unset;
     }
@@ -256,6 +268,11 @@ function toggleBurger(): void {
     max-width: 319px;
     position: relative;
     padding-right: 50px;
+
+    @include media-down(md) {
+      max-width: 230px;
+      padding-right: 30px;
+    }
 
     @include media-down(sm) {
       display: none;
@@ -306,15 +323,16 @@ function toggleBurger(): void {
           transition: unset;
           pointer-events: unset;
         }
-      }
 
-      &::after {
-        content: '';
-        position: absolute;
-        width: 140%;
-        left: -20%;
-        top: 0;
-        height: 50px;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 400px;
+          left: 50%;
+          transform: translateX(-50%);
+          top: 5px;
+          height: 40px;
+        }
       }
     }
   }
@@ -325,6 +343,10 @@ function toggleBurger(): void {
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
+
+    @include media-down(md) {
+      padding-left: 30px;
+    }
 
     @include media-down(sm) {
       padding: 0;

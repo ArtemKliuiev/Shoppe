@@ -72,7 +72,6 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       height: 10px;
       opacity: 1;
       border: 0 solid var(--background);
-
       background-color: var(--background);
       transition: background-color 0.3s;
 

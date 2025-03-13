@@ -38,7 +38,9 @@ function addCount(condition: boolean) {
 function validationCount() {
   const caretPosition = input.value?.selectionStart
 
-  display.value = display.value.replace(/(^0+|[^0-9]){1,3}/g, '').slice(0, 3)
+  const newValue = display.value.replace(/^0+|[^0-9]/g, '').slice(0, 3)
+
+  display.value = newValue.length ? newValue : '1'
 
   nextTick(() => {
     if (caretPosition) input.value?.setSelectionRange(caretPosition, caretPosition)
@@ -57,7 +59,6 @@ function validationCount() {
       type="text"
       ref="input"
       @input="validationCount"
-      @paste.prevent
     />
 
     <button class="count__btn count__btn-add" @click="addCount(true)">+</button>

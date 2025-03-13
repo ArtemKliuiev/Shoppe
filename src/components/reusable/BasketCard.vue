@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import BasePicture from '@/components/base/BasePicture.vue'
 import CountItems from '@/components/ui/CountItems.vue'
 import type { DataBasketCards } from '@/components/mixins/data-cards'
+import BaseButtonText from '../base/BaseButtonText.vue'
 
 interface Props {
   data: DataBasketCards
@@ -37,7 +38,9 @@ watch(count, () => {
     <div class="basket-card__main">
       <div class="basket-card__info">
         <h4 class="basket-card__title">
-          {{ data.title }}
+          <BaseButtonText :to="'/product/' + data.id">
+            {{ data.title }}
+          </BaseButtonText>
         </h4>
 
         <p class="basket-card__text">
