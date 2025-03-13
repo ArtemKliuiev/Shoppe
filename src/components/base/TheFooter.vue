@@ -111,11 +111,11 @@ const agree = ref(false)
   }
 
   @include media-down(sm) {
-    padding: 50px 16px 30px;
+    padding: 50px 20px 30px;
   }
 
   @include media-down(xs) {
-    padding: 80px 16px 20px;
+    padding: 80px 20px 20px;
   }
 
   &__main {
@@ -320,7 +320,9 @@ const agree = ref(false)
     &-label {
       font-size: 12px;
       color: var(--text);
-      margin-left: 3px;
+      padding-left: 5px;
+      user-select: none;
+      cursor: pointer;
     }
   }
 }

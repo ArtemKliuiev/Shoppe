@@ -60,6 +60,10 @@ const classObject: Record<string, boolean> = {
     border-radius: 2px;
 
     input {
+      position: absolute;
+      top: 0;
+      left: 0;
+
       &::after {
         content: '';
         position: absolute;

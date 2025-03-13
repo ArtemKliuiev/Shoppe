@@ -157,17 +157,25 @@ function toggleBurger(): void {
     </Transition>
   </header>
 
-  <Transition name="right-block" mode="out-in">
+  <Transition name="right-block" type="transition">
     <KeepAlive include="TheBasket">
       <component
         v-model:search="search"
         :is="components[activeComponent]"
         :isLoading="true"
         :data="dataBasket"
-        class="header__right-block"
+        class="right-block"
         @close="toggleBasketSearch('one')"
       />
     </KeepAlive>
+  </Transition>
+
+  <Transition name="right-block-bg">
+    <div
+      v-if="activeComponent !== 'one'"
+      class="right-block-bg"
+      @click="toggleBasketSearch('one')"
+    ></div>
   </Transition>
 </template>
 
@@ -176,7 +184,7 @@ function toggleBurger(): void {
 
 .header {
   position: sticky;
-  z-index: 100;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
@@ -424,22 +432,6 @@ function toggleBurger(): void {
     }
   }
 
-  &__right-block {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    background-color: var(--background);
-    border: 1px solid var(--gray);
-    border-right: unset;
-    width: 360px;
-    height: 100%;
-    right: 0;
-
-    @include media-down(sm) {
-      width: 100%;
-    }
-  }
-
   &_main-page {
     .header {
       &__head-container {
@@ -449,37 +441,81 @@ function toggleBurger(): void {
   }
 }
 
-.right-block-leave-to,
-.right-block-enter-from {
-  right: -100%;
-}
-
-.right-block-enter-active,
-.right-block-leave-active {
-  transition: right 0.2s ease-in-out;
-}
-
-.right-block-leave-from,
-.right-block-enter-to {
-  right: 0;
-}
-
-.menu-leave-to,
-.menu-enter-from {
-  top: -100%;
-}
-
-.menu-enter-active,
-.menu-leave-active {
-  transition: top 0.2s ease-in-out;
-}
-
-.menu-leave-from,
-.menu-enter-to {
+.right-block {
+  position: fixed;
+  z-index: 100;
   top: 0;
+  background-color: var(--background);
+  border: 1px solid var(--gray);
+  border-right: unset;
+  width: 360px;
+  height: 100%;
+  right: 0;
+
+  @include media-down(sm) {
+    width: 100%;
+  }
+
+  &-bg {
+    position: fixed;
+    z-index: 11;
+    bottom: -1vh;
+    left: -1vw;
+    width: 102vw;
+    height: 102vh;
+    opacity: 0.2;
+    background-color: var(--text-second);
+
+    &-leave-to,
+    &-enter-from {
+      opacity: 0;
+    }
+
+    &-enter-active {
+      transition: opacity 0.4s;
+    }
+    &-leave-active {
+      transition: opacity 0.2s;
+    }
+  }
+
+  &-leave-to,
+  &-enter-from {
+    right: -100%;
+  }
+
+  &-enter-active {
+    transition: right 0.2s ease-in-out;
+  }
+
+  &-leave-active {
+    transition: right 0.4s ease-in-out;
+  }
+
+  &-block-leave-from,
+  &-enter-to {
+    right: 0;
+  }
 }
 
-.menu-leave-active {
-  overflow: hidden;
+.menu {
+  &-leave-to,
+  &-enter-from {
+    top: -100%;
+  }
+
+  &-enter-active,
+  &-leave-active {
+    transition: top 0.2s ease-in-out;
+  }
+
+  &-leave-from,
+  &-enter-to {
+    top: 0;
+  }
+
+  &-leave-active {
+    overflow: hidden;
+  }
 }
 </style>

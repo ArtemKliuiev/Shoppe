@@ -58,20 +58,6 @@ function deletCard(id: number) {
 function changeCard(id: number, value: string) {
   basketStorage.change(id, value)
 }
-
-function listenerClick(e: MouseEvent) {
-  if (!htmlEL.value?.contains(e.target as Node | null)) {
-    emits('close')
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('click', listenerClick)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', listenerClick)
-})
 </script>
 
 <template>

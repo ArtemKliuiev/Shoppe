@@ -17,9 +17,9 @@ const modules = [FreeMode, Navigation, Thumbs]
 
 const thumbsSwiper = ref(null)
 
-const setThumbsSwiper = (swiper) => {
-  thumbsSwiper.value = swiper
-}
+// const setThumbsSwiper = (swiper) => {
+//   thumbsSwiper.value = swiper
+// }
 </script>
 
 <template>
@@ -46,7 +46,6 @@ const setThumbsSwiper = (swiper) => {
     ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg" /></swiper-slide>
   </swiper>
   <swiper
-    @swiper="setThumbsSwiper"
     :spaceBetween="10"
     :slidesPerView="4"
     :freeMode="true"

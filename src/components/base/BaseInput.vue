@@ -124,10 +124,7 @@ input {
         transform 0.3s;
 
       @include media-down(sm) {
-        padding: 3px;
-        width: 21px;
-        height: 12px;
-        top: 15px;
+        top: 7px;
         right: -3px;
       }
 
