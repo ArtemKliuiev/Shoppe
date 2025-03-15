@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  inject,
-  onMounted,
-  ref,
-  shallowReactive,
-  shallowRef,
-  type ComponentCustomOptions,
-} from 'vue'
+import { inject, onMounted, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
@@ -29,7 +22,7 @@ const search = ref('')
 const blackTheme = inject('blackTheme', false)
 const activeComponent = ref('one')
 const basketStorage = useBasketStorage()
-const dataBasket = shallowRef<Array<DataBasket>>([])
+const dataBasket = ref<Array<DataBasket>>([])
 
 const components = shallowReactive<Components>({
   one: null,
@@ -133,7 +126,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-basket">
-              <BasketBtn :count="dataBasket.length" @click.stop="toggleBasketSearch('two')" />
+              <BasketBtn :data="dataBasket" @click="toggleBasketSearch('two')" />
             </div>
 
             <div class="header__btn header__btn-person">
@@ -158,16 +151,14 @@ function toggleBurger(): void {
   </header>
 
   <Transition name="right-block" type="transition">
-    <KeepAlive include="TheBasket">
-      <component
-        v-model:search="search"
-        :is="components[activeComponent]"
-        :isLoading="true"
-        :data="dataBasket"
-        class="right-block"
-        @close="toggleBasketSearch('one')"
-      />
-    </KeepAlive>
+    <component
+      v-model:search="search"
+      :is="components[activeComponent]"
+      :isLoading="true"
+      :data="dataBasket"
+      class="right-block"
+      @close="toggleBasketSearch('one')"
+    />
   </Transition>
 
   <Transition name="right-block-bg">
@@ -306,12 +297,17 @@ function toggleBurger(): void {
         &::before {
           content: '';
           position: absolute;
-          bottom: -22px;
+          bottom: -21px;
           z-index: 2;
           left: 0;
           width: 100%;
           height: 2px;
+          transition: background-color 0.3s;
           background-color: var(--text);
+
+          @include media-down(md) {
+            bottom: -15px;
+          }
         }
       }
     }
@@ -359,12 +355,12 @@ function toggleBurger(): void {
     &-icon {
       fill: var(--text);
       transition: fill 0.3s;
+      cursor: pointer;
+      user-select: none;
 
       &:hover {
         @media (hover: hover) {
           fill: var(--text-second);
-          cursor: pointer;
-          user-select: none;
         }
       }
     }
@@ -405,7 +401,7 @@ function toggleBurger(): void {
   &__shop {
     position: absolute;
     pointer-events: none;
-    top: 45px;
+    top: 44px;
     right: 0;
     transform: translateX(50%);
     background-color: var(--background);
@@ -415,12 +411,22 @@ function toggleBurger(): void {
     opacity: 0;
     transition: opacity 0.3s;
 
+    @include media-down(md) {
+      top: 39px;
+    }
+
     &-column {
       position: relative;
       width: 205px;
       padding-left: 30px;
       font-size: 14px;
       line-height: 22px;
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
 
       &::before {
         content: '';

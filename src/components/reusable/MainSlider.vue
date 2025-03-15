@@ -36,6 +36,7 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
     aspect-ratio: 1/0.518;
     border-radius: 16px;
     overflow: hidden;
+    user-select: none;
 
     @include media-down(sm) {
       border-radius: 12px;

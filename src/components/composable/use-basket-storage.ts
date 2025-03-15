@@ -1,6 +1,6 @@
 export interface DataBasket {
   id: number
-  count: string
+  count: number
 }
 
 interface BasketStorage {
@@ -9,7 +9,7 @@ interface BasketStorage {
   get: () => DataBasket[]
   del: (id: number) => void
   add: (value: DataBasket) => void
-  change: (id: number, newValue: string) => void
+  change: (id: number, newValue: number) => void
 }
 
 let singelFunction: BasketStorage | null = null
@@ -52,12 +52,13 @@ function basketStorage(): BasketStorage {
 
     const findCard = oldArray.find((obj) => obj.id == data.id)
 
-    if (!findCard) oldArray.push(data)
+    if (findCard) findCard.count++
+    else oldArray.push(data)
 
     set(oldArray)
   }
 
-  function change(id: number, newValue: string): void {
+  function change(id: number, newValue: number): void {
     const oldArray = getBasketData()
 
     const findCard = oldArray.find((obj) => obj.id == id)

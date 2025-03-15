@@ -29,9 +29,7 @@ const dataBasketCards = computed(() => {
     const cardData: DataCards | undefined = dataCards.find((card) => card.id === basketData.id)
 
     if (cardData) {
-      const basketCard = cardData as DataBasketCards
-
-      basketCard.count = basketData.count
+      const basketCard: DataBasketCards = { ...cardData, count: basketData.count }
 
       newArray.push(basketCard)
     }
@@ -56,7 +54,7 @@ function deletCard(id: number) {
   basketStorage.del(id)
 }
 
-function changeCard(id: number, value: string) {
+function changeCard(id: number, value: number) {
   basketStorage.change(id, value)
 }
 </script>

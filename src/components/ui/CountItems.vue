@@ -2,11 +2,11 @@
 import { computed, nextTick, ref } from 'vue'
 
 interface Props {
-  modelValue: string
+  modelValue: number
 }
 
 interface Emits {
-  (e: 'update:modelValue', count: string): void
+  (e: 'update:modelValue', count: number): void
 }
 
 const props = defineProps<Props>()
@@ -15,10 +15,10 @@ const input = ref<HTMLInputElement | null>(null)
 
 const display = computed({
   get() {
-    return props.modelValue
+    return String(props.modelValue)
   },
   set(value: string) {
-    emit('update:modelValue', value)
+    emit('update:modelValue', Number(value))
   },
 })
 

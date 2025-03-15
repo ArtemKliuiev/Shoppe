@@ -11,7 +11,7 @@ interface Props {
 
 interface Emit {
   (e: 'deleteCard', id: number): void
-  (e: 'changeCount', id: number, value: string): void
+  (e: 'changeCount', id: number, value: number): void
 }
 
 const props = defineProps<Props>()
@@ -91,6 +91,7 @@ watch(count, () => {
     aspect-ratio: 1/1;
     border-radius: 4px;
     overflow: hidden;
+    user-select: none;
   }
 
   &__main {

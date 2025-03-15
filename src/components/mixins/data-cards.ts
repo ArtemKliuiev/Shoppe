@@ -9,7 +9,7 @@ export interface DataCards {
 }
 
 export interface DataBasketCards extends DataCards {
-  count: string
+  count: number
 }
 
 export const dataCards: Array<DataCards> = [

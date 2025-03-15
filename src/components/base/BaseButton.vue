@@ -15,11 +15,11 @@ const classObject: Record<string, boolean> = {
 </script>
 
 <template>
-  <BaseButtonText class="button" :class="classObject" v-if="to" :to="to">
+  <BaseButtonText v-if="to" :class="classObject" :to="to" class="button">
     <slot></slot>
   </BaseButtonText>
 
-  <button v-else class="button" :class="classObject">
+  <button v-else :class="classObject" class="button">
     <slot></slot>
   </button>
 </template>

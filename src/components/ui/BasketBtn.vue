@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
+import type { DataBasket } from '../composable/use-basket-storage'
 
 interface Props {
-  count: number
+  data: DataBasket[]
 }
 
 const props = defineProps<Props>()
 const animation = ref(false)
 const classObject = computed(() => ({
-  'basket-btn_empty': props.count === 0,
-  'basket-btn_one': props.count < 10,
-  'basket-btn_two': props.count >= 10 && props.count < 100,
-  'basket-btn_three': props.count >= 100,
+  'basket-btn_empty': props.data.length === 0,
+  'basket-btn_one': props.data.length < 10,
+  'basket-btn_two': props.data.length >= 10 && props.data.length < 100,
+  'basket-btn_three': props.data.length >= 100,
   'basket-btn_animation': animation.value,
 }))
 
@@ -31,7 +32,7 @@ watch(props, () => {
 
     <div class="basket-btn__count">
       <span class="basket-btn__count-text">
-        {{ count < 999 ? count : '999' }}
+        {{ data.length < 999 ? data.length : '999' }}
       </span>
     </div>
   </div>
@@ -164,16 +165,16 @@ watch(props, () => {
 }
 
 @keyframes basket-add {
-  25% {
-    transform: rotate(10deg);
+  0% {
+    transform: translateY(0);
   }
 
-  75% {
-    transform: rotate(-10deg);
+  50% {
+    transform: translateY(-3px) scale(1.05);
   }
 
   100% {
-    transform: rotate(0);
+    transform: translateY(0);
   }
 }
 </style>

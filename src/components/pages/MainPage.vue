@@ -11,7 +11,7 @@ const basketStorage = useBasketStorage()
 function addToBasket(card: DataCards) {
   basketStorage.add({
     id: card.id,
-    count: '1',
+    count: 1,
   })
 }
 </script>

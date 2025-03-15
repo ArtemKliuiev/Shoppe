@@ -141,14 +141,14 @@ function cardClick() {
     z-index: 2;
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 
     @include media-down(sm) {
-      gap: 20px;
+      gap: 14px;
     }
 
     @include media-down(xxs) {
-      gap: 10px;
+      gap: 4px;
     }
   }
 
@@ -156,6 +156,17 @@ function cardClick() {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 5px;
+
+    @include media-down(sm) {
+      gap: 3px;
+    }
+
+    &:hover {
+      .card__icon {
+        fill: var(--accent);
+      }
+    }
   }
 
   &__icon {
@@ -163,10 +174,6 @@ function cardClick() {
     transition:
       fill 0.3s,
       transform 0.3s;
-
-    &:hover {
-      fill: var(--accent);
-    }
 
     &:active {
       transform: scale(0.95);
