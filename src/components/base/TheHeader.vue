@@ -4,7 +4,7 @@ import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BurgerBtn from '@/components/ui/BurgerBtn.vue'
 import BasketBtn from '@/components/ui/BasketBtn.vue'
-import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import TheBasket from '@/components/base/TheBasket.vue'
 import TheSearch from '@/components/base/TheSearch.vue'
 import BurgerMenu from '@/components/ui/BurgerMenu.vue'
@@ -114,7 +114,7 @@ function toggleBurger(): void {
 
           <div class="header__buttons">
             <div class="header__btn header__btn-theme">
-              <BaseCheckbox v-model="blackTheme" type="custom" />
+              <CustomCheckbox v-model="blackTheme" type="custom" />
             </div>
 
             <div class="header__btn header__btn-search">
@@ -171,7 +171,7 @@ function toggleBurger(): void {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .header {
   position: sticky;
@@ -185,15 +185,15 @@ function toggleBurger(): void {
     transition: background-color 0.3s;
     padding: 45px 15px 0;
 
-    @include media-down(lg) {
+    @include mixins.media-down(lg) {
       padding: 20px 15px 0;
     }
 
-    @include media-down(md) {
+    @include mixins.media-down(md) {
       padding: 0 15px;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       padding: 0;
     }
 
@@ -204,15 +204,17 @@ function toggleBurger(): void {
       padding-bottom: 6px;
       border-bottom: 1px solid var(--gray);
       background-color: var(--background);
-      transition: background-color 0.3s;
+      transition:
+        background-color 0.3s,
+        border-bottom 0.3s;
       margin: 0 auto;
       max-width: 1248px;
 
-      @include media-down(md) {
+      @include mixins.media-down(md) {
         padding: 0 15px;
       }
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         padding: 5px 15px;
         border-bottom: unset;
         transition: unset;
@@ -228,7 +230,7 @@ function toggleBurger(): void {
     color: var(--text);
     transition: color 0.3s;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 25px;
     }
 
@@ -242,11 +244,11 @@ function toggleBurger(): void {
     width: 100%;
     max-width: 550px;
 
-    @include media-down(md) {
+    @include mixins.media-down(md) {
       max-width: 420px;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       width: unset;
     }
   }
@@ -260,12 +262,12 @@ function toggleBurger(): void {
     position: relative;
     padding-right: 50px;
 
-    @include media-down(md) {
+    @include mixins.media-down(md) {
       max-width: 230px;
       padding-right: 30px;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       display: none;
       width: unset;
     }
@@ -305,7 +307,7 @@ function toggleBurger(): void {
           transition: background-color 0.3s;
           background-color: var(--text);
 
-          @include media-down(md) {
+          @include mixins.media-down(md) {
             bottom: -15px;
           }
         }
@@ -340,11 +342,11 @@ function toggleBurger(): void {
     align-items: center;
     flex-grow: 1;
 
-    @include media-down(md) {
+    @include mixins.media-down(md) {
       padding-left: 30px;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       padding: 0;
     }
   }
@@ -369,7 +371,7 @@ function toggleBurger(): void {
       width: 19px;
       height: 19px;
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         display: none;
       }
     }
@@ -378,7 +380,7 @@ function toggleBurger(): void {
       width: 20px;
       height: 20px;
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         display: none;
       }
     }
@@ -386,13 +388,13 @@ function toggleBurger(): void {
     &-theme {
       height: 20px;
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         display: none;
       }
     }
 
     &-burger {
-      @include media-up(sm) {
+      @include mixins.media-up(sm) {
         display: none;
       }
     }
@@ -411,7 +413,7 @@ function toggleBurger(): void {
     opacity: 0;
     transition: opacity 0.3s;
 
-    @include media-down(md) {
+    @include mixins.media-down(md) {
       top: 39px;
     }
 
@@ -480,7 +482,7 @@ function toggleBurger(): void {
   height: 100%;
   right: 0;
 
-  @include media-down(sm) {
+  @include mixins.media-down(sm) {
     width: 100%;
   }
 

@@ -104,7 +104,7 @@ function changeCard(id: number, value: number) {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .basket {
   display: flex;
@@ -115,7 +115,7 @@ function changeCard(id: number, value: number) {
     padding: 73px 0 0 36px;
     flex-grow: 1;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       padding: 16px 0 0 16px;
       flex-grow: 0;
     }
@@ -137,7 +137,7 @@ function changeCard(id: number, value: number) {
       transform: translateX(-5px);
     }
 
-    @include media-up(sm) {
+    @include mixins.media-up(sm) {
       display: none;
     }
   }
@@ -147,7 +147,7 @@ function changeCard(id: number, value: number) {
     margin-bottom: 19px;
     color: var(--text);
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       text-align: center;
     }
   }
@@ -163,7 +163,7 @@ function changeCard(id: number, value: number) {
     overflow-x: hidden;
     overflow-y: auto;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       height: calc(100vh - 175px);
     }
   }

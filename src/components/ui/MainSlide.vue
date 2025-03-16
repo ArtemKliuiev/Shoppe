@@ -37,7 +37,7 @@ defineProps<Props>()
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .main-slide {
   position: relative;
@@ -60,11 +60,11 @@ defineProps<Props>()
     transition: color 0.3s;
     transform: translateY(50%);
 
-    @include media-down(ml) {
+    @include mixins.media-down(ml) {
       left: 4%;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       transform: unset;
       bottom: 25px;
       left: 3%;
@@ -78,11 +78,11 @@ defineProps<Props>()
     margin-bottom: 16px;
     letter-spacing: 0.7px;
 
-    @include media-down(ml) {
+    @include mixins.media-down(ml) {
       margin-bottom: 5%;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 20px;
       letter-spacing: 0;
       line-height: 26px;
@@ -96,11 +96,11 @@ defineProps<Props>()
     line-height: 35px;
     margin-bottom: 49px;
 
-    @include media-down(ml) {
+    @include mixins.media-down(ml) {
       margin-bottom: 20%;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 14px;
       line-height: 20px;
       margin-bottom: 8%;
@@ -110,7 +110,7 @@ defineProps<Props>()
   &__btn {
     max-width: 193px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       max-width: 90px;
     }
   }

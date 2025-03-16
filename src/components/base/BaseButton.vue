@@ -25,7 +25,7 @@ const classObject: Record<string, boolean> = {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .button {
   display: block;
@@ -49,7 +49,7 @@ const classObject: Record<string, boolean> = {
     border 0.3s,
     color 0.3s;
 
-  @include media-down(sm) {
+  @include mixins.media-down(sm) {
     height: 32px;
     font-size: 12px;
   }
@@ -83,7 +83,7 @@ const classObject: Record<string, boolean> = {
     background-color: unset;
     border: 2px solid var(--background);
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       border: 1px solid var(--background);
       font-size: 12px;
       font-weight: 400;

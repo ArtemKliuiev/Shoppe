@@ -39,7 +39,7 @@ watch(props, () => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .basket-btn {
   position: relative;
@@ -48,14 +48,14 @@ watch(props, () => {
   cursor: pointer;
   user-select: none;
 
-  @include media-down(sm) {
+  @include mixins.media-down(sm) {
     width: 18px;
     height: 18px;
     margin-right: 18px;
   }
 
   &:hover {
-    @include media-up(md) {
+    @include mixins.media-up(md) {
       @media (hover: hover) {
         .basket-btn {
           &__icon {
@@ -90,7 +90,7 @@ watch(props, () => {
       line-height: 100%;
       font-size: 8px;
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         font-size: 7px;
       }
     }
@@ -112,7 +112,7 @@ watch(props, () => {
         height: 14px;
         width: 14px;
 
-        @include media-down(sm) {
+        @include mixins.media-down(sm) {
           right: -3px;
           top: -3px;
           height: 12px;
@@ -130,7 +130,7 @@ watch(props, () => {
         height: 16px;
         width: 16px;
 
-        @include media-down(sm) {
+        @include mixins.media-down(sm) {
           height: 15px;
           width: 15px;
         }
@@ -146,7 +146,7 @@ watch(props, () => {
         height: 18px;
         width: 18px;
 
-        @include media-down(sm) {
+        @include mixins.media-down(sm) {
           height: 17px;
           width: 17px;
         }

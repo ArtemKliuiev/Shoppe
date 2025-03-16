@@ -66,7 +66,7 @@ watch(count, () => {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .basket-card {
   max-width: 293px;
@@ -75,11 +75,11 @@ watch(count, () => {
   display: flex;
   gap: 7px;
 
-  @include media-down(sm) {
+  @include mixins.media-down(sm) {
     max-width: 93vw;
   }
 
-  @include media-down(xs) {
+  @include mixins.media-down(xs) {
     max-width: 88vw;
     margin-bottom: 25px;
   }
@@ -144,7 +144,7 @@ watch(count, () => {
       transform 0.3s,
       background-color 0.3;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       width: 16px;
       height: 16px;
       top: 1px;
@@ -178,7 +178,7 @@ watch(count, () => {
       transition: background-color 0.3s;
       width: 7px;
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         width: 8px;
       }
     }

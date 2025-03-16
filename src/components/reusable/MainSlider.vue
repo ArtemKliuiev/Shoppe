@@ -28,8 +28,7 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
 </template>
 
 <style lang="scss">
-@use '@/assets/styles/libs/swiper-bundle.css' as *;
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .swiper {
   &-slide {
@@ -38,17 +37,17 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
     overflow: hidden;
     user-select: none;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       border-radius: 12px;
       aspect-ratio: 1/0.7;
     }
 
-    @include media-down(xs) {
+    @include mixins.media-down(xs) {
       border-radius: 8px;
       aspect-ratio: 1/1;
     }
 
-    @include media-down(xxs) {
+    @include mixins.media-down(xxs) {
       aspect-ratio: 1/1.23;
     }
   }
@@ -57,12 +56,12 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
     --swiper-pagination-bottom: 20px;
     --swiper-pagination-bullet-horizontal-gap: 6px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       --swiper-pagination-bottom: 10px;
       --swiper-pagination-bullet-horizontal-gap: 4px;
     }
 
-    @include media-down(xxs) {
+    @include mixins.media-down(xxs) {
       --swiper-pagination-bottom: 2px;
       --swiper-pagination-bullet-horizontal-gap: 3px;
     }
@@ -86,12 +85,12 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
         height: 20px;
       }
 
-      @include media-down(sm) {
+      @include mixins.media-down(sm) {
         width: 6px;
         height: 6px;
       }
 
-      @include media-down(xxs) {
+      @include mixins.media-down(xxs) {
         width: 4px;
         height: 4px;
       }
@@ -104,13 +103,13 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
         height: 18px;
         transform: translateY(4px);
 
-        @include media-down(sm) {
+        @include mixins.media-down(sm) {
           width: 12px;
           height: 12px;
           transform: translateY(3px);
         }
 
-        @include media-down(xxs) {
+        @include mixins.media-down(xxs) {
           width: 8px;
           height: 8px;
           transform: translateY(2px);

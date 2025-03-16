@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import BaseInput from '@/components/base/BaseInput.vue'
+import SearchInput from '@/components/ui/SearchInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 interface Props {
@@ -31,7 +31,7 @@ const searchValue = computed({
     <div class="search__main">
       <h3 class="search__title">Search</h3>
 
-      <BaseInput
+      <SearchInput
         v-model="searchValue"
         :isLoading="isLoading"
         class="search__input"
@@ -56,8 +56,6 @@ const searchValue = computed({
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
-
 .search {
   padding: 73px 36px 25px;
   display: flex;

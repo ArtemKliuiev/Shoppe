@@ -2,7 +2,7 @@
 import BasePicture from '@/components/base/BasePicture.vue'
 import type { DataCards } from '@/components/mixins/data-cards'
 import BaseSvg from '@/components/base/BaseSvg.vue'
-import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -47,7 +47,7 @@ function cardClick() {
           </div>
 
           <div class="card__btn" @click.stop>
-            <BaseCheckbox v-model="like" type="like" />
+            <CustomCheckbox v-model="like" type="like" />
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ function cardClick() {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .card {
   width: 100%;
@@ -102,7 +102,7 @@ function cardClick() {
     overflow: hidden;
     margin-bottom: 20px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       margin-bottom: 8px;
     }
 
@@ -143,11 +143,11 @@ function cardClick() {
     align-items: center;
     gap: 20px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       gap: 14px;
     }
 
-    @include media-down(xxs) {
+    @include mixins.media-down(xxs) {
       gap: 4px;
     }
   }
@@ -158,7 +158,7 @@ function cardClick() {
     justify-content: center;
     padding: 5px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       gap: 3px;
     }
 
@@ -183,7 +183,7 @@ function cardClick() {
       height: 25px;
       width: 25px;
 
-      @include media-down(xxs) {
+      @include mixins.media-down(xxs) {
         height: 15px;
         width: 15px;
       }
@@ -193,7 +193,7 @@ function cardClick() {
       height: 32px;
       width: 32px;
 
-      @include media-down(xxs) {
+      @include mixins.media-down(xxs) {
         height: 20px;
         width: 20px;
       }
@@ -211,7 +211,7 @@ function cardClick() {
     text-overflow: ellipsis;
     word-break: break-all;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       margin-bottom: 5px;
       font-size: 14px;
     }
@@ -222,7 +222,7 @@ function cardClick() {
     font-size: 20px;
     font-weight: 500;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 12px;
       font-weight: 400;
     }

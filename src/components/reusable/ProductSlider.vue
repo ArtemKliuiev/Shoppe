@@ -1,25 +1,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import type { Swiper as ISwiper } from 'swiper/types'
+import { Pagination, FreeMode, Navigation, Thumbs } from 'swiper/modules'
 
-// Import Swiper styles
-import 'swiper/css'
+const modulesNav = [FreeMode, Navigation, Thumbs]
+const modulesMain = [Pagination, Thumbs]
 
-import 'swiper/css/free-mode'
-import 'swiper/css/navigation'
-import 'swiper/css/thumbs'
+const thumbsSwiper = ref<null | ISwiper>(null)
 
-// import required modules
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
-
-const modules = [FreeMode, Navigation, Thumbs]
-
-const thumbsSwiper = ref(null)
-
-// const setThumbsSwiper = (swiper) => {
-//   thumbsSwiper.value = swiper
-// }
+const setThumbsSwiper = (swiper: ISwiper) => {
+  console.log(swiper)
+  thumbsSwiper.value = swiper
+}
 </script>
 
 <template>
@@ -28,7 +21,7 @@ const thumbsSwiper = ref(null)
       <swiper
         :slidesPerView="4"
         :spaceBetween="20"
-        :modules="modules"
+        :modules="modulesNav"
         :breakpoints="{
           1024: {
             spaceBetween: 30,
@@ -39,6 +32,7 @@ const thumbsSwiper = ref(null)
         }"
         direction="vertical"
         class="slider__nav-swiper"
+        @swiper="setThumbsSwiper"
       >
         <swiper-slide class="slider__nav-slide"
           ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
@@ -47,42 +41,53 @@ const thumbsSwiper = ref(null)
           ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
         /></swiper-slide>
         <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
+          ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
         /></swiper-slide>
         <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
+          ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
         /></swiper-slide>
         <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
+          ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
         /></swiper-slide>
         <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
+          ><img src="https://swiperjs.com/demos/images/nature-6.jpg"
+        /></swiper-slide>
+        <swiper-slide class="slider__nav-slide"
+          ><img src="https://swiperjs.com/demos/images/nature-7.jpg"
+        /></swiper-slide>
+        <swiper-slide class="slider__nav-slide"
+          ><img src="https://swiperjs.com/demos/images/nature-8.jpg"
+        /></swiper-slide>
+        <swiper-slide class="slider__nav-slide"
+          ><img src="https://swiperjs.com/demos/images/nature-9.jpg"
+        /></swiper-slide>
+        <swiper-slide class="slider__nav-slide"
+          ><img src="https://swiperjs.com/demos/images/nature-10.jpg"
         /></swiper-slide>
       </swiper>
     </div>
 
     <div class="slider__main">
       <swiper
-        :style="{
-          '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff',
-        }"
         :spaceBetween="10"
-        :navigation="true"
+        :zoom="true"
+        :modules="modulesMain"
         :thumbs="{ swiper: thumbsSwiper }"
-        :modules="modules"
+        :pagination="{
+          type: 'progressbar',
+        }"
         class="slider__main-swiper"
       >
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-9.jpg" /></swiper-slide
-        ><swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-9.jpg" /></swiper-slide>
+        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg" /></swiper-slide>
       </swiper>
     </div>
   </div>
@@ -90,7 +95,9 @@ const thumbsSwiper = ref(null)
 
 <style scoped lang="scss">
 .slider {
+  position: relative;
   display: flex;
+  margin-bottom: 50px;
   aspect-ratio: 1/0.855;
   gap: 5.5%;
 
@@ -114,9 +121,18 @@ const thumbsSwiper = ref(null)
     overflow: hidden;
 
     &-swiper {
+      position: static;
       width: 100%;
       height: 100%;
     }
+  }
+
+  :deep(.swiper-pagination) {
+    position: absolute;
+    bottom: -30px;
+    top: unset;
+    width: 70%;
+    background-color: red;
   }
 }
 </style>

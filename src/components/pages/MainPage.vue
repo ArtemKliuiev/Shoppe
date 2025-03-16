@@ -38,13 +38,13 @@ function addToBasket(card: DataCards) {
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .main {
   &__slider {
     margin-bottom: 65px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       margin-bottom: 20px;
     }
   }
@@ -55,7 +55,7 @@ function addToBasket(card: DataCards) {
     align-items: center;
     margin-bottom: 39px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       margin-bottom: 13px;
     }
   }
@@ -66,7 +66,7 @@ function addToBasket(card: DataCards) {
     line-height: 43px;
     letter-spacing: 1px;
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 16px;
       font-weight: 400;
       line-height: 27px;
@@ -91,7 +91,7 @@ function addToBasket(card: DataCards) {
       transform: scale(0.98);
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       font-size: 12px;
       font-weight: 400;
     }
@@ -102,15 +102,15 @@ function addToBasket(card: DataCards) {
     grid-template-columns: repeat(3, 1fr);
     gap: 83px 55px;
 
-    @include media-down(ml) {
+    @include mixins.media-down(ml) {
       gap: 50px 30px;
     }
 
-    @include media-down(sm) {
+    @include mixins.media-down(sm) {
       gap: 23px 16px;
     }
 
-    @include media-down(xs) {
+    @include mixins.media-down(xs) {
       grid-template-columns: repeat(2, 1fr);
     }
   }

@@ -3,8 +3,8 @@ import { computed, inject } from 'vue'
 import { dataBurgerMenu } from '@/components/mixins/data-header-shope'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
-import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
-import BaseInput from '@/components/base/BaseInput.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
+import SearchInput from './SearchInput.vue'
 
 interface Props {
   search: string
@@ -32,7 +32,7 @@ const searchValue = computed({
 <template>
   <div class="burger-menu">
     <div class="burger-menu__search">
-      <BaseInput
+      <SearchInput
         v-model="searchValue"
         :isLoading="searchValue.length !== 0"
         placeholder="Search"
@@ -45,7 +45,7 @@ const searchValue = computed({
 
       <nav v-else class="burger-menu__nav">
         <div class="burger-menu__theme">
-          <BaseCheckbox v-model="blackTheme" type="custom" />
+          <CustomCheckbox v-model="blackTheme" type="custom" />
         </div>
 
         <ul class="burger-menu__list">
@@ -87,7 +87,7 @@ const searchValue = computed({
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .burger-menu {
   position: fixed;
@@ -101,7 +101,7 @@ const searchValue = computed({
   background-color: var(--background);
   color: var(--text);
 
-  @include media-up(sm) {
+  @include mixins.media-up(sm) {
     display: none;
   }
 

@@ -13,7 +13,7 @@ defineProps<Props>()
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/mixins/index.scss' as *;
+@use '@/assets/styles/mixins/index.scss' as mixins;
 
 .burger {
   position: relative;
@@ -23,7 +23,7 @@ defineProps<Props>()
   user-select: none;
   display: none;
 
-  @include media-down(sm) {
+  @include mixins.media-down(sm) {
     display: block;
   }
 
