@@ -7,12 +7,12 @@ export function useScrollLock(condition: boolean): void {
   if (condition) {
     html.style.paddingRight = `${window.innerWidth - body.offsetWidth}px`
 
-    document.body.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
 
     return
   }
 
   html.style.paddingRight = '0'
 
-  document.body.style.overflow = 'auto'
+  body.style.overflow = 'auto'
 }

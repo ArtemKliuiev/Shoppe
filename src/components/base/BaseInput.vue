@@ -6,7 +6,9 @@ interface Props {
   ariaLabel?: string
   id?: string
   placeholder?: string
-  modelValue: string | boolean
+  name?: string
+  value?: string | number
+  modelValue: string | number | boolean
 }
 
 interface Emits {
@@ -33,6 +35,8 @@ const inputValue = computed({
     :aria-label="ariaLabel"
     :id="id"
     :placeholder="placeholder"
+    :name="name"
+    :value="value"
   />
 </template>
 
