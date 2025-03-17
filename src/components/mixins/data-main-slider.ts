@@ -3,6 +3,7 @@ export interface DataImage {
   srcset: string
   width: string
   height: string
+  alt?: string
 }
 
 export interface DataSlide {
@@ -19,6 +20,7 @@ export const dataMainSlider: Array<DataSlide> = [
       srcset: new URL('@/assets/images/main-slider/1.webp', import.meta.url).href,
       width: '850',
       height: '550',
+      alt: 'slider image',
     },
     title: 'Gold big hoops',
     price: '68,00',
@@ -30,6 +32,7 @@ export const dataMainSlider: Array<DataSlide> = [
       srcset: new URL('@/assets/images/main-slider/2.webp', import.meta.url).href,
       width: '850',
       height: '550',
+      alt: 'slider image',
     },
     title: 'Silver small hoops',
     price: '45,00',
@@ -41,6 +44,7 @@ export const dataMainSlider: Array<DataSlide> = [
       srcset: new URL('@/assets/images/main-slider/3.webp', import.meta.url).href,
       width: '850',
       height: '550',
+      alt: 'slider image',
     },
     title: 'Platinum studs',
     price: '120,00',
@@ -52,6 +56,7 @@ export const dataMainSlider: Array<DataSlide> = [
       srcset: new URL('@/assets/images/main-slider/4.webp', import.meta.url).href,
       width: '850',
       height: '550',
+      alt: 'slider image',
     },
     title: 'Rose gold earrings',
     price: '80,00',
@@ -63,6 +68,7 @@ export const dataMainSlider: Array<DataSlide> = [
       srcset: new URL('@/assets/images/main-slider/5.webp', import.meta.url).href,
       width: '850',
       height: '550',
+      alt: 'slider image',
     },
     title: 'Diamond drop earrings',
     price: '250,00',

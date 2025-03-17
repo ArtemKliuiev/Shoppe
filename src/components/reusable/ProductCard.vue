@@ -29,10 +29,10 @@ function cardClick() {
   <div class="card" @click="cardClick">
     <div class="card__image">
       <BasePicture
-        :src="data.image.src"
-        :srcset="data.image.srcset"
-        :width="data.image.width"
-        :height="data.image.height"
+        :src="data.images[0].src"
+        :srcset="data.images[0].srcset"
+        :width="data.images[0].width"
+        :height="data.images[0].height"
         alt="product photo"
       />
 

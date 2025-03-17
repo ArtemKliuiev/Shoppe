@@ -164,7 +164,7 @@ function changeCard(id: number, value: number) {
     overflow-y: auto;
 
     @include mixins.media-down(sm) {
-      height: calc(100vh - 175px);
+      height: calc(100vh - 190px);
     }
   }
 

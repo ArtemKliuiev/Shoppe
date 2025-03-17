@@ -1,16 +1,20 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Thumbs } from 'swiper/modules'
 import type { Swiper as ISwiper } from 'swiper/types'
-import { Pagination, FreeMode, Navigation, Thumbs } from 'swiper/modules'
+import type { DataImage } from '@/components/mixins/data-main-slider'
+import BasePicture from '@/components/base/BasePicture.vue'
 
-const modulesNav = [FreeMode, Navigation, Thumbs]
-const modulesMain = [Pagination, Thumbs]
+interface Props {
+  images: DataImage[] | undefined
+}
 
+defineProps<Props>()
+const modules = [Pagination, Thumbs]
 const thumbsSwiper = ref<null | ISwiper>(null)
 
-const setThumbsSwiper = (swiper: ISwiper) => {
-  console.log(swiper)
+function setThumbsSwiper(swiper: ISwiper) {
   thumbsSwiper.value = swiper
 }
 </script>
@@ -21,7 +25,7 @@ const setThumbsSwiper = (swiper: ISwiper) => {
       <swiper
         :slidesPerView="4"
         :spaceBetween="20"
-        :modules="modulesNav"
+        :modules="modules"
         :breakpoints="{
           1024: {
             spaceBetween: 30,
@@ -34,36 +38,15 @@ const setThumbsSwiper = (swiper: ISwiper) => {
         class="slider__nav-swiper"
         @swiper="setThumbsSwiper"
       >
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-6.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-7.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-8.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-9.jpg"
-        /></swiper-slide>
-        <swiper-slide class="slider__nav-slide"
-          ><img src="https://swiperjs.com/demos/images/nature-10.jpg"
-        /></swiper-slide>
+        <swiper-slide v-for="image in images" :key="image.src" class="slider__nav-slide">
+          <BasePicture
+            :src="image.src"
+            :srcset="image.srcset"
+            :height="image.height"
+            :width="image.width"
+            :alt="image.alt"
+          />
+        </swiper-slide>
       </swiper>
     </div>
 
@@ -71,38 +54,60 @@ const setThumbsSwiper = (swiper: ISwiper) => {
       <swiper
         :spaceBetween="10"
         :zoom="true"
-        :modules="modulesMain"
+        :modules="modules"
         :thumbs="{ swiper: thumbsSwiper }"
         :pagination="{
           type: 'progressbar',
         }"
         class="slider__main-swiper"
       >
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-9.jpg" /></swiper-slide>
-        <swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg" /></swiper-slide>
+        <swiper-slide v-for="image in images" :key="image.src" class="slider__main-slide">
+          <BasePicture
+            :src="image.src"
+            :srcset="image.srcset"
+            :height="image.height"
+            :width="image.width"
+            :alt="image.alt"
+          />
+        </swiper-slide>
       </swiper>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/styles/mixins/index.scss' as mixins;
+
 .slider {
   position: relative;
   display: flex;
-  margin-bottom: 50px;
-  aspect-ratio: 1/0.855;
+  margin-bottom: 40px;
+  aspect-ratio: 1/0.859;
   gap: 5.5%;
+
+  @include mixins.media-down(md) {
+    aspect-ratio: 1/1.1;
+  }
+
+  @include mixins.media-down(sm) {
+    aspect-ratio: 1/0.7;
+  }
+
+  @include mixins.media-down(xs) {
+    margin-bottom: 30px;
+    aspect-ratio: 1/0.9;
+  }
+
+  @include mixins.media-down(xxs) {
+    aspect-ratio: 1/1.3;
+  }
 
   &__nav {
     flex: 0 1 20%;
+
+    @include mixins.media-down(md) {
+      display: none;
+    }
 
     &-swiper {
       overflow: hidden;
@@ -129,10 +134,25 @@ const setThumbsSwiper = (swiper: ISwiper) => {
 
   :deep(.swiper-pagination) {
     position: absolute;
-    bottom: -30px;
+    bottom: -24px;
+    height: 2px;
     top: unset;
-    width: 70%;
-    background-color: red;
+    left: unset;
+    width: 77%;
+    right: 0;
+    background-color: var(--gray);
+
+    @include mixins.media-down(md) {
+      width: 100%;
+    }
+
+    @include mixins.media-down(xs) {
+      bottom: -15px;
+    }
+
+    span {
+      background-color: var(--text-second);
+    }
   }
 }
 </style>

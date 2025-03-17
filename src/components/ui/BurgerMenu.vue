@@ -101,10 +101,6 @@ const searchValue = computed({
   background-color: var(--background);
   color: var(--text);
 
-  @include mixins.media-up(sm) {
-    display: none;
-  }
-
   &__search {
     padding: 0 16px;
   }

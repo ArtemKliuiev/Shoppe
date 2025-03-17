@@ -20,14 +20,15 @@ watch(blackTheme, () => {
 </script>
 
 <template>
-  <div class="wrapper" :class="{ 'black-theme': blackTheme }">
-    <TheHeader />
-    <main class="main">
-      <RouterView />
-    </main>
-    <TheFooter />
+  <div :class="{ 'black-theme': blackTheme }" class="theme-bg">
+    <div class="wrapper">
+      <TheHeader />
+      <main class="main">
+        <RouterView />
+      </main>
+      <TheFooter />
+    </div>
   </div>
-
   <SvgManager />
 </template>
 

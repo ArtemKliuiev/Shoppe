@@ -87,7 +87,6 @@ watch(props, () => {
 
     &-text {
       font-weight: 700;
-      line-height: 100%;
       font-size: 8px;
 
       @include mixins.media-down(sm) {
