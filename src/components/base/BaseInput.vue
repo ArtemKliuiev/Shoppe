@@ -22,7 +22,7 @@ const inputValue = computed({
   get() {
     return props.modelValue
   },
-  set(newValue: string) {
+  set(newValue: string | boolean) {
     emit('update:modelValue', newValue)
   },
 })
@@ -37,6 +37,7 @@ const inputValue = computed({
     :placeholder="placeholder"
     :name="name"
     :value="value"
+    ref="inputEl"
   />
 </template>
 

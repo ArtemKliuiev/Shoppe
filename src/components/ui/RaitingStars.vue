@@ -81,7 +81,10 @@ const classObject = computed<Record<string, boolean>>(() => ({
       height: 18px;
       width: 18px;
       fill: var(--background);
-      transition: fill 0.2s;
+      stroke: var(--text);
+      transition:
+        fill 0.2s,
+        stroke 0.2s;
     }
   }
 

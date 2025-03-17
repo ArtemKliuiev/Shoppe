@@ -3,6 +3,7 @@ import { computed, nextTick, ref } from 'vue'
 
 interface Props {
   modelValue: number
+  type?: 'big'
 }
 
 interface Emits {
@@ -23,8 +24,10 @@ const display = computed({
 })
 
 const classObject = computed(() => ({
-  count__display_two: display.value.length > 1,
-  count__display_three: display.value.length > 2,
+  count_two: display.value.length > 1,
+  count_three: display.value.length > 2,
+  count_big: props.type === 'big',
+  count_default: !props.type,
 }))
 
 function addCount(condition: boolean) {
@@ -49,12 +52,11 @@ function validationCount() {
 </script>
 
 <template>
-  <div class="count">
+  <div :class="classObject" class="count">
     <button class="count__btn count__btn-remove" @click="addCount(false)">-</button>
 
     <input
       v-model="display"
-      :class="classObject"
       class="count__display"
       type="text"
       ref="input"
@@ -67,8 +69,6 @@ function validationCount() {
 
 <style scoped lang="scss">
 .count {
-  font-size: 14px;
-  height: 23px;
   display: flex;
   align-items: center;
   user-select: none;
@@ -91,15 +91,51 @@ function validationCount() {
 
   &__display {
     color: var(--text-second);
-    width: 12px;
     text-align: center;
+  }
 
-    &_two {
-      width: 22px;
+  &_default {
+    font-size: 14px;
+    height: 23px;
+
+    .count {
+      &__display {
+        width: 32px;
+      }
     }
 
-    &_three {
-      width: 32px;
+    &.count {
+      &_two {
+        .count__display {
+          width: 22px;
+        }
+      }
+
+      &_three {
+        .count__display {
+          width: 32px;
+        }
+      }
+    }
+  }
+
+  &_big {
+    background-color: var(--gray-two);
+    transition: background-color 0.3s;
+    height: 53px;
+    width: 100px;
+    border-radius: 4px;
+
+    .count {
+      &__display {
+        width: 26px;
+        line-height: 53px;
+      }
+
+      &__btn {
+        flex-grow: 1;
+        line-height: 53px;
+      }
     }
   }
 }

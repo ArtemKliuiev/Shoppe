@@ -15,7 +15,7 @@ const id = route.params.id
 
 const count = ref(0)
 
-const raiting = ref(5)
+const raiting = ref(1)
 
 const like = ref(false)
 
@@ -58,13 +58,13 @@ console.log(currentProduct)
         </div>
 
         <div class="product__add">
-          <CountItems class="product__add-count" v-model="count" />
+          <CountItems v-model="count" class="product__add-count" type="big" />
 
           <BaseButton type="mode"> ADD TO CART </BaseButton>
         </div>
 
         <div class="product__link-row">
-          <CustomCheckbox class="product__like" v-model="like" type="like" />
+          <CustomCheckbox class="product__like" v-model="like" type="like-two" />
 
           <ul class="product__links">
             <li class="product__links-item">
@@ -199,30 +199,64 @@ console.log(currentProduct)
   &__add {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 80px;
+    gap: 25px;
+    margin-bottom: 77px;
 
     &-count {
-      width: 155px;
+      flex-shrink: 0;
     }
   }
 
   &__link-row {
     display: flex;
+    align-items: center;
   }
 
   &__like {
+    margin-right: 80px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      right: -40px;
+      top: 0;
+      width: 1px;
+      transition: background-color 0.3s;
+      background-color: var(--gray);
+      height: 20px;
+    }
   }
 
   &__links {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 140px;
 
     &-item {
     }
   }
 
+  &:hover {
+    @media (hover: hover) {
+      fill: var(--text);
+    }
+  }
+
   &__link {
+    height: 27px;
+    display: flex;
+    align-items: center;
+    fill: var(--text-second);
+    transition: fill 0.3s;
+
+    &:hover {
+      @media (hover: hover) {
+        fill: var(--text);
+      }
+    }
+
     &-icon {
       width: 20px;
       height: 20px;
@@ -230,6 +264,7 @@ console.log(currentProduct)
   }
 
   &__more {
+    display: none;
     &-sku {
     }
 

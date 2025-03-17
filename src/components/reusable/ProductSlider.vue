@@ -141,6 +141,7 @@ function setThumbsSwiper(swiper: ISwiper) {
     width: 77%;
     right: 0;
     background-color: var(--gray);
+    transition: background-color 0.3s;
 
     @include mixins.media-down(md) {
       width: 100%;
@@ -152,6 +153,7 @@ function setThumbsSwiper(swiper: ISwiper) {
 
     span {
       background-color: var(--text-second);
+      transition: background-color 0.3s;
     }
   }
 }

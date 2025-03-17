@@ -5,7 +5,7 @@ import BaseInput from '@/components/base/BaseInput.vue'
 
 interface Props {
   modelValue: boolean
-  type?: 'custom' | 'like'
+  type?: 'custom' | 'like' | 'like-two'
   id?: string
 }
 
@@ -27,8 +27,9 @@ const checkboxValue = computed({
 
 const classObject: Record<string, boolean> = {
   checkbox_custom: props.type === 'custom',
-  checkbox_like: props.type === 'like',
   checkbox_default: !props.type,
+  checkbox_like: props.type === 'like' || props.type === 'like-two',
+  'checkbox_like-two': props.type === 'like-two',
 }
 </script>
 
@@ -154,9 +155,11 @@ const classObject: Record<string, boolean> = {
     }
 
     &:hover {
-      .checkbox {
-        &__icon {
-          fill: var(--accent);
+      @media (hover: hover) {
+        .checkbox {
+          &__icon {
+            fill: var(--accent);
+          }
         }
       }
     }
@@ -167,12 +170,15 @@ const classObject: Record<string, boolean> = {
         position: absolute;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
         fill: var(--text);
         transition: fill 0.3s;
 
         &-fill {
-          top: 1px;
-          left: 1px;
+          top: 0;
+          width: 100%;
+          height: 100%;
           opacity: 0;
           transition:
             opacity 0.3s,
@@ -190,6 +196,28 @@ const classObject: Record<string, boolean> = {
           &-fill {
             opacity: 1;
           }
+        }
+      }
+    }
+
+    &-two {
+      height: 18px;
+      width: 20px;
+
+      &:hover {
+        @media (hover: hover) {
+          .checkbox {
+            &__icon {
+              fill: var(--text);
+            }
+          }
+        }
+      }
+
+      .checkbox {
+        &__icon {
+          top: 2px;
+          fill: var(--text-second);
         }
       }
     }
