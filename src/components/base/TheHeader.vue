@@ -465,12 +465,12 @@ function toggleBurger(): void {
   &_main-page {
     .header {
       &__head-container {
-        // border-bottom: unset;
         &::before,
         &::after {
           content: '';
           position: absolute;
           background-color: var(--background);
+          transition: background-color 0.3s;
           bottom: -1px;
           height: 5px;
           width: 15px;

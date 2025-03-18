@@ -9,6 +9,7 @@ import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import RaitingStars from '@/components/ui/RaitingStars.vue'
 import { dataProductLinks } from '@/components/mixins/data-product-links'
+import TabsButtons from '../ui/TabsButtons.vue'
 
 const route = useRoute()
 const id = route.params.id
@@ -113,6 +114,10 @@ function toggleShowText() {
           {{ currentProduct?.categories }}
         </div>
       </div>
+    </div>
+
+    <div class="product__tabs">
+      <TabsButtons />
     </div>
   </div>
 </template>

@@ -153,7 +153,9 @@ function setThumbsSwiper(swiper: ISwiper) {
 
     span {
       background-color: var(--text-second);
-      transition: background-color 0.3s;
+      transition:
+        background-color 0.3s,
+        transform 0.2s;
     }
   }
 }
