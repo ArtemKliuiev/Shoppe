@@ -4,6 +4,7 @@ import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import FooterInput from '@/components/ui/FooterInput.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
+import { dataFooterLinks } from '@/components/mixins/data-footer-links'
 
 const inputValue = ref('')
 const agree = ref(false)
@@ -47,47 +48,9 @@ const agree = ref(false)
         <p class="footer__bottom-text">© 2021 Shelly. Terms of use and privacy policy.</p>
 
         <ul class="footer__bottom-list">
-          <li class="footer__bottom-list-item">
-            <a
-              class="footer__link"
-              href="https://ua.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BaseSvg class="footer__link-icon" id="linkedin" />
-            </a>
-          </li>
-
-          <li class="footer__bottom-list-item">
-            <a
-              class="footer__link"
-              href="https://www.facebook.com/?locale=ru_RU"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BaseSvg class="footer__link-icon" id="facebook" />
-            </a>
-          </li>
-
-          <li class="footer__bottom-list-item">
-            <a
-              class="footer__link"
-              href="https://www.instagram.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BaseSvg class="footer__link-icon" id="insta" />
-            </a>
-          </li>
-
-          <li class="footer__bottom-list-item">
-            <a
-              class="footer__link"
-              href="https://x.com/?lang=ru"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BaseSvg class="footer__link-icon" id="twiter" />
+          <li v-for="link in dataFooterLinks" :key="link.link" class="footer__bottom-list-item">
+            <a class="footer__link" :href="link.link" target="_blank" rel="noopener noreferrer">
+              <BaseSvg class="footer__link-icon" :id="link.iconId" />
             </a>
           </li>
         </ul>

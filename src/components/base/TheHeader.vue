@@ -403,7 +403,7 @@ function toggleBurger(): void {
   &__shop {
     position: absolute;
     pointer-events: none;
-    top: 44px;
+    top: 45px;
     right: 0;
     transform: translateX(50%);
     background-color: var(--background);
@@ -465,7 +465,24 @@ function toggleBurger(): void {
   &_main-page {
     .header {
       &__head-container {
-        border-bottom: unset;
+        // border-bottom: unset;
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          background-color: var(--background);
+          bottom: -1px;
+          height: 5px;
+          width: 15px;
+        }
+
+        &::before {
+          left: 0;
+        }
+
+        &::after {
+          right: 0;
+        }
       }
     }
   }
@@ -488,7 +505,7 @@ function toggleBurger(): void {
 
   &-bg {
     position: fixed;
-    z-index: 11;
+    z-index: 21;
     bottom: -1vh;
     left: -1vw;
     width: 102vw;

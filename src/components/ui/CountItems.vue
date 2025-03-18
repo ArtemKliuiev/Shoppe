@@ -14,14 +14,16 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const input = ref<HTMLInputElement | null>(null)
 
-const display = computed({
-  get() {
-    return String(props.modelValue)
-  },
-  set(value: string) {
-    emit('update:modelValue', Number(value))
-  },
-})
+// const display = computed({
+//   get() {
+//     return String(props.modelValue)
+//   },
+//   set(value: string) {
+//     emit('update:modelValue', Number(value))
+//   },
+// })
+
+const display = ref('1')
 
 const classObject = computed(() => ({
   count_two: display.value.length > 1,
@@ -100,7 +102,7 @@ function validationCount() {
 
     .count {
       &__display {
-        width: 32px;
+        width: 12px;
       }
     }
 
@@ -129,7 +131,6 @@ function validationCount() {
     .count {
       &__display {
         width: 26px;
-        line-height: 53px;
       }
 
       &__btn {

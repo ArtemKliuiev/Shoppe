@@ -49,7 +49,7 @@ const classObject: Record<string, boolean> = {
     border 0.3s,
     color 0.3s;
 
-  @include mixins.media-down(sm) {
+  @include mixins.media-down(xs) {
     height: 32px;
     font-size: 12px;
   }

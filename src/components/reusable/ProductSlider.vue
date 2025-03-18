@@ -94,7 +94,7 @@ function setThumbsSwiper(swiper: ISwiper) {
   }
 
   @include mixins.media-down(xs) {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     aspect-ratio: 1/0.9;
   }
 
@@ -148,7 +148,7 @@ function setThumbsSwiper(swiper: ISwiper) {
     }
 
     @include mixins.media-down(xs) {
-      bottom: -15px;
+      bottom: -16px;
     }
 
     span {

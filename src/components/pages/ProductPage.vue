@@ -8,20 +8,26 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import RaitingStars from '@/components/ui/RaitingStars.vue'
+import { dataProductLinks } from '@/components/mixins/data-product-links'
 
 const route = useRoute()
-
 const id = route.params.id
-
 const count = ref(0)
-
 const raiting = ref(1)
-
 const like = ref(false)
-
 const currentProduct = dataCards.find((el) => el.id === +id)
+const isShowText = ref(false)
+const isShowMore = ref(false)
 
-console.log(currentProduct)
+function toggleShowText() {
+  isShowText.value = !isShowText.value
+
+  if (isShowText.value) return (isShowMore.value = true)
+
+  setTimeout(() => {
+    isShowMore.value = false
+  }, 500)
+}
 </script>
 
 <template>
@@ -53,61 +59,43 @@ console.log(currentProduct)
           </span>
         </div>
 
-        <div class="product__text">
-          {{ currentProduct?.text }}
-        </div>
+        <div class="product__block">
+          <div :class="{ product__text_show: isShowText }" class="product__text">
+            <div class="product__text-container">
+              <p
+                :class="{ 'product__text-article_show': isShowMore }"
+                class="product__text-article"
+              >
+                {{ currentProduct?.text }}
+              </p>
+            </div>
 
-        <div class="product__add">
-          <CountItems v-model="count" class="product__add-count" type="big" />
+            <div class="product__text-more" @click="toggleShowText()">
+              <span>View more</span>
 
-          <BaseButton type="mode"> ADD TO CART </BaseButton>
+              <BaseSvg class="product__text-icon" id="back-arrow" />
+            </div>
+          </div>
+
+          <div class="product__add">
+            <CountItems v-model="count" class="product__add-count" type="big" />
+
+            <BaseButton type="mode"> ADD TO CART </BaseButton>
+          </div>
         </div>
 
         <div class="product__link-row">
           <CustomCheckbox class="product__like" v-model="like" type="like-two" />
 
           <ul class="product__links">
-            <li class="product__links-item">
+            <li v-for="link in dataProductLinks" :key="link.link" class="product__links-item">
               <a
                 class="product__link"
-                href="https://ua.linkedin.com/"
-                target="_blank"
+                :href="link.link"
+                :target="link.target"
                 rel="noopener noreferrer"
               >
-                <BaseSvg class="product__link-icon" id="letter" />
-              </a>
-            </li>
-
-            <li class="product__links-item">
-              <a
-                class="product__link"
-                href="https://www.facebook.com/?locale=ru_RU"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BaseSvg class="product__link-icon" id="facebook" />
-              </a>
-            </li>
-
-            <li class="product__links-item">
-              <a
-                class="product__link"
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BaseSvg class="product__link-icon" id="insta" />
-              </a>
-            </li>
-
-            <li class="product__links-item">
-              <a
-                class="product__link"
-                href="https://x.com/?lang=ru"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BaseSvg class="product__link-icon" id="twiter" />
+                <BaseSvg class="product__link-icon" :id="link.iconId" />
               </a>
             </li>
           </ul>
@@ -165,6 +153,11 @@ console.log(currentProduct)
     font-size: 26px;
     margin-bottom: 23px;
     line-height: 35px;
+
+    @include mixins.media-down(xs) {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
   }
 
   &__price {
@@ -173,6 +166,14 @@ console.log(currentProduct)
     line-height: 26px;
     color: var(--accent);
     margin-bottom: 66px;
+
+    @include mixins.media-down(sm) {
+      margin-bottom: 24px;
+    }
+
+    @include mixins.media-down(xs) {
+      font-size: 16px;
+    }
   }
 
   &__reviews {
@@ -180,6 +181,10 @@ console.log(currentProduct)
     align-items: center;
     gap: 23px;
     margin-bottom: 20px;
+
+    @include mixins.media-down(sm) {
+      display: none;
+    }
 
     &-rating {
       height: 18px;
@@ -190,10 +195,110 @@ console.log(currentProduct)
     }
   }
 
+  &__block {
+    @include mixins.media-down(sm) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
   &__text {
     margin-bottom: 48px;
-    line-height: 27px;
-    color: var(--text-second);
+
+    @include mixins.media-down(sm) {
+      order: 1;
+      margin-bottom: 35px;
+    }
+
+    @include mixins.media-down(xs) {
+      margin-bottom: 10px;
+    }
+
+    &-container {
+      @include mixins.media-down(xs) {
+        display: grid;
+        grid-template-rows: 44px 0fr;
+        transition: grid-template-rows 0.5s ease-in-out;
+        overflow: hidden;
+      }
+    }
+
+    &-article {
+      line-height: 27px;
+      color: var(--text-second);
+      grid-row: 1/3;
+
+      @include mixins.media-down(xs) {
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 20px;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+
+        overflow: hidden;
+      }
+
+      &_show {
+        line-clamp: unset;
+        -webkit-line-clamp: unset;
+      }
+    }
+
+    &-more {
+      display: none;
+      align-items: center;
+      cursor: pointer;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--accent);
+      fill: var(--accent);
+      user-select: none;
+      transition:
+        color 0.3s,
+        transform 0.3s;
+
+      &:hover {
+        @media (hover: hover) {
+          color: var(--text);
+          fill: var(--text);
+        }
+      }
+
+      @include mixins.media-down(xs) {
+        display: inline-flex;
+      }
+    }
+
+    &-icon {
+      width: 6px;
+      height: 8px;
+      transform: rotate(180deg);
+      transition: transform 0.3s;
+    }
+
+    &_show {
+      .product {
+        &__text {
+          &-icon {
+            transform: rotate(90deg);
+          }
+
+          &-container {
+            grid-template-rows: 45px 1fr;
+          }
+
+          // &-article {
+          //   line-clamp: unset;
+          //   -webkit-line-clamp: unset;
+          // }
+        }
+      }
+    }
   }
 
   &__add {
@@ -202,18 +307,35 @@ console.log(currentProduct)
     gap: 25px;
     margin-bottom: 77px;
 
+    @include mixins.media-down(sm) {
+      margin-bottom: 35px;
+    }
+
+    @include mixins.media-down(xs) {
+      margin-bottom: 15px;
+    }
+
     &-count {
       flex-shrink: 0;
+
+      @include mixins.media-down(xs) {
+        display: none;
+      }
     }
   }
 
   &__link-row {
     display: flex;
     align-items: center;
+    margin-bottom: 35px;
+
+    @include mixins.media-down(xs) {
+      display: none;
+    }
   }
 
   &__like {
-    margin-right: 80px;
+    margin-right: 79px;
 
     &::before {
       content: '';
@@ -232,7 +354,7 @@ console.log(currentProduct)
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 140px;
+    width: 141px;
 
     &-item {
     }
@@ -264,11 +386,19 @@ console.log(currentProduct)
   }
 
   &__more {
-    display: none;
-    &-sku {
+    color: var(--text-second);
+
+    @include mixins.media-down(xs) {
+      display: none;
     }
 
-    &-categories {
+    span {
+      margin-right: 12px;
+      color: var(--text);
+    }
+
+    &-sku {
+      margin-bottom: 9px;
     }
   }
 }
