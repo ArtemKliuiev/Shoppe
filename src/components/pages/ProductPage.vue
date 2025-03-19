@@ -117,7 +117,7 @@ function toggleShowText() {
     </div>
 
     <div class="product__tabs">
-      <TabsButtons />
+      <TabsButtons spaceDesktop="96" @change="(e) => console.log(e)" />
     </div>
   </div>
 </template>
@@ -128,7 +128,7 @@ function toggleShowText() {
 .product {
   &__main {
     display: flex;
-    margin-top: 130px;
+    margin: 130px 0 80px;
     gap: 5.2%;
 
     @include mixins.media-down(md) {

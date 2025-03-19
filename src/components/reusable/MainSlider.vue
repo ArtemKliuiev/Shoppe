@@ -17,11 +17,12 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       clickable: true,
     }"
     :modules="modules"
+    class="maim-slider"
     navigation
     loop
     effect="fade"
   >
-    <swiper-slide v-for="slide in dataMainSlider" :key="slide.title">
+    <swiper-slide v-for="slide in dataMainSlider" :key="slide.title" class="maim-slider__slide">
       <MainSlide :data="slide" />
     </swiper-slide>
   </swiper>
@@ -30,8 +31,8 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
 <style lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
 
-.swiper {
-  &-slide {
+.maim-slider {
+  &__slide {
     aspect-ratio: 1/0.518;
     border-radius: 16px;
     overflow: hidden;
@@ -51,7 +52,9 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       aspect-ratio: 1/1.23;
     }
   }
+}
 
+.swiper {
   &-pagination {
     --swiper-pagination-bottom: 20px;
     --swiper-pagination-bullet-horizontal-gap: 6px;
