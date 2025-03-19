@@ -121,10 +121,6 @@ function remove() {
 .tabs {
   position: relative;
 
-  @include mixins.media-down(md) {
-    padding: 0 25px;
-  }
-
   @include mixins.media-down(sm) {
     padding: 0 15px;
   }
@@ -144,9 +140,6 @@ function remove() {
     }
   }
 
-  &__wrapper {
-  }
-
   &__tab {
     display: inline;
     width: unset;
@@ -157,6 +150,10 @@ function remove() {
     transition: color 0.3s;
     margin-bottom: 34px;
     font-size: 20px;
+
+    @include mixins.media-down(md) {
+      margin-bottom: 25px;
+    }
 
     @include mixins.media-down(sm) {
       margin-bottom: 17px;
@@ -175,6 +172,10 @@ function remove() {
       transition:
         transform 0.3s,
         background-color 0.3s;
+
+      @include mixins.media-down(md) {
+        bottom: -25px;
+      }
 
       @include mixins.media-down(sm) {
         bottom: -17px;
@@ -199,7 +200,7 @@ function remove() {
     padding: 0;
     background: unset;
     border: unset;
-    width: 20px;
+    width: 9px;
     height: 20px;
     fill: var(--text);
     cursor: pointer;
@@ -214,12 +215,8 @@ function remove() {
       }
     }
 
-    @include mixins.media-down(md) {
-      display: block;
-    }
-
     @include mixins.media-down(sm) {
-      width: 9px;
+      display: block;
     }
 
     &-prev {

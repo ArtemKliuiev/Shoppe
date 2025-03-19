@@ -10,6 +10,7 @@ import BaseSvg from '@/components/base/BaseSvg.vue'
 import RaitingStars from '@/components/ui/RaitingStars.vue'
 import { dataProductLinks } from '@/components/mixins/data-product-links'
 import TabsButtons from '../ui/TabsButtons.vue'
+import ReviewsBlock from '../reusable/ReviewsBlock.vue'
 
 const route = useRoute()
 const id = route.params.id
@@ -19,6 +20,7 @@ const like = ref(false)
 const currentProduct = dataCards.find((el) => el.id === +id)
 const isShowText = ref(false)
 const isShowMore = ref(false)
+const tabsState = ref(0)
 
 function toggleShowText() {
   isShowText.value = !isShowText.value
@@ -117,7 +119,31 @@ function toggleShowText() {
     </div>
 
     <div class="product__tabs">
-      <TabsButtons spaceDesktop="96" @change="(e) => console.log(e)" />
+      <TabsButtons spaceDesktop="96" @change="tabsState = $event" />
+    </div>
+
+    <div class="product__tabs-content">
+      <Transition name="tabs-content" type="transition">
+        <p v-if="tabsState === 0" class="product__tabs-description">
+          {{ currentProduct?.description }}
+        </p>
+      </Transition>
+
+      <Transition name="tabs-content" type="transition">
+        <ul v-if="tabsState === 1" class="product__tabs-list">
+          <li v-for="(value, key) in currentProduct?.aditional" :key="key">
+            {{ key }}:
+
+            <span> {{ value }} </span>
+          </li>
+        </ul>
+      </Transition>
+
+      <Transition name="tabs-content" type="transition">
+        <template v-if="tabsState === 2">
+          <ReviewsBlock />
+        </template>
+      </Transition>
     </div>
   </div>
 </template>
@@ -406,5 +432,69 @@ function toggleShowText() {
       margin-bottom: 9px;
     }
   }
+
+  &__tabs {
+    margin-bottom: 40px;
+
+    @include mixins.media-down(xs) {
+      display: none;
+    }
+
+    &-content {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+    }
+
+    &-description {
+      line-height: 27px;
+    }
+
+    &-list {
+      li {
+        color: var(--text);
+        margin-bottom: 13px;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+
+        span {
+          color: var(--text-second);
+          display: inline-block;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+.tabs-content-enter-active {
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.7s;
+  position: absolute;
+}
+.tabs-content-leave-active {
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s;
+  position: absolute;
+}
+
+.tabs-content-enter-from {
+  transform: translateX(200%) translateY(0);
+  opacity: 0;
+}
+
+.tabs-content-leave-to {
+  transform: translateX(-200%) translateY(0);
+  opacity: 0;
+}
+
+.tabs-content-enter-to,
+.tabs-content-leave-from {
+  transform: translateX(0) translateY(0);
+  opacity: 1;
 }
 </style>
