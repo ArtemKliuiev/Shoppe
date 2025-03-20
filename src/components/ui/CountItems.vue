@@ -130,7 +130,7 @@ function validationCount() {
 
     .count {
       &__display {
-        width: 26px;
+        width: 30px;
       }
 
       &__btn {

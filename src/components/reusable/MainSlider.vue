@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules'
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import MainSlide from '@/components/ui/MainSlide.vue'
 import { dataMainSlider } from '@/components/mixins/data-main-slider'
 
-const modules = [Autoplay, EffectFade, Navigation, Pagination]
+const modules = [Autoplay, EffectFade, Pagination]
 </script>
 
 <template>
@@ -17,12 +17,12 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
       clickable: true,
     }"
     :modules="modules"
-    class="maim-slider"
+    class="main-slider"
     navigation
     loop
     effect="fade"
   >
-    <swiper-slide v-for="slide in dataMainSlider" :key="slide.title" class="maim-slider__slide">
+    <swiper-slide v-for="slide in dataMainSlider" :key="slide.title" class="main-slider__slide">
       <MainSlide :data="slide" />
     </swiper-slide>
   </swiper>
@@ -31,7 +31,7 @@ const modules = [Autoplay, EffectFade, Navigation, Pagination]
 <style lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
 
-.maim-slider {
+.main-slider {
   &__slide {
     aspect-ratio: 1/0.518;
     border-radius: 16px;

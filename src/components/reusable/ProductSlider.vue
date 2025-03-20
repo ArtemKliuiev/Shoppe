@@ -117,6 +117,7 @@ function setThumbsSwiper(swiper: ISwiper) {
 
     &-slide {
       border-radius: 8px;
+      overflow: hidden;
       aspect-ratio: 1/1;
     }
   }
@@ -129,6 +130,15 @@ function setThumbsSwiper(swiper: ISwiper) {
       position: static;
       width: 100%;
       height: 100%;
+    }
+
+    &-slide {
+      border-radius: 8px;
+      overflow: hidden;
+
+      @include mixins.media-down(xs) {
+        border-radius: 4px;
+      }
     }
   }
 

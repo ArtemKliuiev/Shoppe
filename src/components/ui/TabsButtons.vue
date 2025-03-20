@@ -93,7 +93,7 @@ function remove() {
         class="tabs__tab"
         @click="toggle(index)"
       >
-        {{ tab.title }}{{ tab.count || tab.count === 0 ? `(${tab.count})` : '' }}
+        {{ tab.title }}{{ tab.count ? `(${tab.count})` : '' }}
       </swiper-slide>
     </swiper>
 

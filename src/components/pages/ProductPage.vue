@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { dataCards } from '@/components/mixins/data-cards'
+import { dataPruductAccordion } from '@/components/mixins/data-pruduct-accordion'
 import { useRoute } from 'vue-router'
 import ProductSlider from '@/components/reusable/ProductSlider.vue'
 import CountItems from '@/components/ui/CountItems.vue'
@@ -11,6 +12,8 @@ import RaitingStars from '@/components/ui/RaitingStars.vue'
 import { dataProductLinks } from '@/components/mixins/data-product-links'
 import TabsButtons from '../ui/TabsButtons.vue'
 import ReviewsBlock from '../reusable/ReviewsBlock.vue'
+import AccordionMenu from '../ui/AccordionMenu.vue'
+import ProductList from '../ui/ProductList.vue'
 
 const route = useRoute()
 const id = route.params.id
@@ -119,31 +122,48 @@ function toggleShowText() {
     </div>
 
     <div class="product__tabs">
-      <TabsButtons spaceDesktop="96" @change="tabsState = $event" />
+      <div class="product__tabs-button">
+        <TabsButtons spaceDesktop="96" @change="tabsState = $event" />
+      </div>
+
+      <div class="product__tabs-content">
+        <Transition name="tabs-content" type="transition">
+          <p v-if="tabsState === 0" class="product__tabs-description">
+            {{ currentProduct?.description }}
+          </p>
+        </Transition>
+
+        <Transition name="tabs-content" type="transition">
+          <ProductList
+            v-if="tabsState === 1 && currentProduct"
+            :listData="currentProduct.aditional"
+          />
+        </Transition>
+
+        <Transition name="tabs-content" type="transition">
+          <template v-if="tabsState === 2">
+            <ReviewsBlock />
+          </template>
+        </Transition>
+      </div>
     </div>
 
-    <div class="product__tabs-content">
-      <Transition name="tabs-content" type="transition">
-        <p v-if="tabsState === 0" class="product__tabs-description">
-          {{ currentProduct?.description }}
-        </p>
-      </Transition>
+    <div class="product__accordion">
+      <AccordionMenu :accordinData="dataPruductAccordion">
+        <template #first>
+          <div class="product__accordion-text">
+            {{ currentProduct?.description }}
+          </div>
+        </template>
 
-      <Transition name="tabs-content" type="transition">
-        <ul v-if="tabsState === 1" class="product__tabs-list">
-          <li v-for="(value, key) in currentProduct?.aditional" :key="key">
-            {{ key }}:
+        <template #second>
+          <ProductList :listData="currentProduct?.aditional ? currentProduct?.aditional : []" />
+        </template>
 
-            <span> {{ value }} </span>
-          </li>
-        </ul>
-      </Transition>
-
-      <Transition name="tabs-content" type="transition">
-        <template v-if="tabsState === 2">
+        <template #third>
           <ReviewsBlock />
         </template>
-      </Transition>
+      </AccordionMenu>
     </div>
   </div>
 </template>
@@ -322,11 +342,6 @@ function toggleShowText() {
           &-container {
             grid-template-rows: 45px 1fr;
           }
-
-          // &-article {
-          //   line-clamp: unset;
-          //   -webkit-line-clamp: unset;
-          // }
         }
       }
     }
@@ -434,10 +449,12 @@ function toggleShowText() {
   }
 
   &__tabs {
-    margin-bottom: 40px;
+    &-button {
+      margin-bottom: 40px;
 
-    @include mixins.media-down(xs) {
-      display: none;
+      @include mixins.media-down(xs) {
+        display: none;
+      }
     }
 
     &-content {
@@ -448,23 +465,6 @@ function toggleShowText() {
 
     &-description {
       line-height: 27px;
-    }
-
-    &-list {
-      li {
-        color: var(--text);
-        margin-bottom: 13px;
-
-        &::first-letter {
-          text-transform: uppercase;
-        }
-
-        span {
-          color: var(--text-second);
-          display: inline-block;
-          margin-left: 8px;
-        }
-      }
     }
   }
 }
@@ -483,18 +483,18 @@ function toggleShowText() {
 }
 
 .tabs-content-enter-from {
-  transform: translateX(200%) translateY(0);
+  transform: translateX(100vw);
   opacity: 0;
 }
 
 .tabs-content-leave-to {
-  transform: translateX(-200%) translateY(0);
+  transform: translateX(-100vw);
   opacity: 0;
 }
 
 .tabs-content-enter-to,
 .tabs-content-leave-from {
-  transform: translateX(0) translateY(0);
+  transform: translateX(0);
   opacity: 1;
 }
 </style>

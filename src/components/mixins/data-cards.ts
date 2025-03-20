@@ -1,17 +1,15 @@
 import type { DataImage } from '@/components/mixins/data-main-slider'
 
-interface Aditional {
-  weight: string
-  dimentions: string
-  colours: string
-  material: string
-}
-
 interface Reviews {
   fullName: string
   rating: number
   date: Date
   text: string
+}
+
+export interface Aditional {
+  title: string
+  value: string
 }
 
 export interface DataCards {
@@ -25,7 +23,7 @@ export interface DataCards {
   categories: string
   text: string
   description: string
-  aditional: Aditional
+  aditional: Aditional[]
   reviews: Reviews[]
   images: DataImage[]
 }
@@ -47,12 +45,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
@@ -124,12 +134,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
@@ -201,12 +223,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
@@ -278,12 +312,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
@@ -355,12 +401,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
@@ -432,12 +490,24 @@ export const dataCards: Array<DataCards> = [
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-    aditional: {
-      weight: '0.3 kg',
-      dimentions: '15 x 10 x 1 cm',
-      colours: 'Black, Browns, White',
-      material: 'Metal',
-    },
+    aditional: [
+      {
+        title: 'weight',
+        value: '0.3 kg',
+      },
+      {
+        title: 'dimentions',
+        value: '15 x 10 x 1 cm',
+      },
+      {
+        title: 'colours',
+        value: 'Black, Browns, White',
+      },
+      {
+        title: 'material',
+        value: 'Metal',
+      },
+    ],
     reviews: [
       {
         fullName: 'Scarlet withch',
