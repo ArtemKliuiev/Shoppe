@@ -24,7 +24,7 @@ watch(blackTheme, () => {
     <div class="wrapper">
       <TheHeader />
       <main class="main">
-        <RouterView />
+        <RouterView :key="$route.fullPath" />
       </main>
       <TheFooter />
     </div>

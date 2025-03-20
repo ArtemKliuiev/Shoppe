@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import BasePicture from '@/components/base/BasePicture.vue'
 import type { DataCards } from '@/components/mixins/data-cards'
-import BaseSvg from '@/components/base/BaseSvg.vue'
-import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import BaseSvg from '@/components/base/BaseSvg.vue'
+import BasePicture from '@/components/base/BasePicture.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 
 interface Props {
   data: DataCards
@@ -104,6 +104,7 @@ function cardClick() {
 
     @include mixins.media-down(sm) {
       margin-bottom: 8px;
+      border-radius: 4px;
     }
 
     :deep(img) {

@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Thumbs } from 'swiper/modules'
+import BasePicture from '@/components/base/BasePicture.vue'
 import type { Swiper as ISwiper } from 'swiper/types'
 import type { DataImage } from '@/components/mixins/data-main-slider'
-import BasePicture from '@/components/base/BasePicture.vue'
 
 interface Props {
   images: DataImage[] | undefined

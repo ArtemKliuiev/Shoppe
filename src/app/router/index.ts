@@ -48,4 +48,12 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach((to) => {
+  if (to.name === 'product') {
+    window.scrollTo({
+      top: 0,
+    })
+  }
+})
+
 export default router

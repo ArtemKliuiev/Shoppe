@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { dataCards } from '@/components/mixins/data-cards'
 import { dataPruductAccordion } from '@/components/mixins/data-pruduct-accordion'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
+import { dataProductLinks } from '@/components/mixins/data-product-links'
 import { useRoute } from 'vue-router'
 import ProductSlider from '@/components/reusable/ProductSlider.vue'
 import CountItems from '@/components/ui/CountItems.vue'
@@ -9,21 +11,33 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import RaitingStars from '@/components/ui/RaitingStars.vue'
-import { dataProductLinks } from '@/components/mixins/data-product-links'
-import TabsButtons from '../ui/TabsButtons.vue'
-import ReviewsBlock from '../reusable/ReviewsBlock.vue'
-import AccordionMenu from '../ui/AccordionMenu.vue'
-import ProductList from '../ui/ProductList.vue'
+import TabsButtons from '@/components/ui/TabsButtons.vue'
+import ReviewsBlock from '@/components/reusable/ReviewsBlock.vue'
+import AccordionMenu from '@/components/ui/AccordionMenu.vue'
+import ProductList from '@/components/ui/ProductList.vue'
+import ProductCard from '@/components/reusable/ProductCard.vue'
+import CardsSlider from '@/components/reusable/CardsSlider.vue'
+import type { DataCards } from '@/components/mixins/data-cards'
 
-const route = useRoute()
-const id = route.params.id
 const count = ref(0)
 const raiting = ref(1)
 const like = ref(false)
-const currentProduct = dataCards.find((el) => el.id === +id)
 const isShowText = ref(false)
 const isShowMore = ref(false)
 const tabsState = ref(0)
+
+const route = useRoute()
+const basketStorage = useBasketStorage()
+const id = route.params.id
+const currentProduct = dataCards.find((el) => el.id === +id)
+const similarProduct = dataCards.slice(0, 4)
+
+function addToBasket(card: DataCards) {
+  basketStorage.add({
+    id: card.id,
+    count: 1,
+  })
+}
 
 function toggleShowText() {
   isShowText.value = !isShowText.value
@@ -165,6 +179,20 @@ function toggleShowText() {
         </template>
       </AccordionMenu>
     </div>
+
+    <div class="product__cards">
+      <h3 class="product__cards-title">Similar Items</h3>
+
+      <ul class="product__cards-list">
+        <ProductCard
+          v-for="card in similarProduct"
+          :key="card.title"
+          :data="card"
+          @addToBasket="addToBasket(card)"
+        />
+      </ul>
+      <!--      <CardsSlider :data="similarProduct" :desktopQuantity="3" /> -->
+    </div>
   </div>
 </template>
 
@@ -178,11 +206,16 @@ function toggleShowText() {
     gap: 5.2%;
 
     @include mixins.media-down(md) {
-      margin-top: 50px;
+      margin: 50px 0 80px;
     }
 
     @include mixins.media-down(sm) {
-      margin-top: 2px;
+      margin: 2px 0 40px;
+      display: block;
+    }
+
+    @include mixins.media-down(xs) {
+      margin: 2px 0;
       display: block;
     }
   }
@@ -449,22 +482,63 @@ function toggleShowText() {
   }
 
   &__tabs {
-    &-button {
-      margin-bottom: 40px;
+    @include mixins.media-down(xs) {
+      display: none;
+    }
 
-      @include mixins.media-down(xs) {
-        display: none;
-      }
+    &-button {
+      margin-bottom: 39px;
     }
 
     &-content {
       position: relative;
-      min-height: 500px;
+      min-height: 115px;
+      margin-bottom: 30px;
       overflow: hidden;
     }
 
     &-description {
       line-height: 27px;
+    }
+  }
+
+  &__accordion {
+    display: none;
+    margin-bottom: 23px;
+
+    @include mixins.media-down(xs) {
+      display: block;
+      font-size: 12px;
+    }
+  }
+
+  &__cards {
+    &-title {
+      font-size: 26px;
+      margin-bottom: 47px;
+
+      @include mixins.media-down(xs) {
+        font-size: 16px;
+        margin-bottom: 14px;
+      }
+    }
+
+    &-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 83px 55px;
+
+      @include mixins.media-down(ml) {
+        gap: 50px 30px;
+      }
+
+      @include mixins.media-down(sm) {
+        gap: 23px 16px;
+      }
+
+      @include mixins.media-down(xs) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
 }
@@ -473,7 +547,6 @@ function toggleShowText() {
   transition:
     transform 0.3s ease-in-out,
     opacity 0.7s;
-  position: absolute;
 }
 .tabs-content-leave-active {
   transition:

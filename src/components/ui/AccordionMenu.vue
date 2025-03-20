@@ -31,8 +31,7 @@ function toggle(value: string) {
     >
       <div class="accordion__head" @click="toggle(item.name)">
         <h3 class="accordion__title">
-          {{ item.text }}
-          {{ item.count || item.count === 0 ? `(${item.count})` : '' }}
+          {{ item.text }}{{ item.count || item.count === 0 ? `(${item.count})` : '' }}
         </h3>
 
         <BaseSvg class="accordion__icon" id="back-arrow" />
@@ -48,11 +47,11 @@ function toggle(value: string) {
 <style lang="scss" scoped>
 @use '@/assets/styles/mixins/index.scss' as mixins;
 
-// @include mixins.media-down(sm) {
-//
-//   }
-
 .accordion {
+  border-top: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+  padding: 16px 0 5px;
+
   &__item {
     display: grid;
     grid-template-rows: 40px 0fr;
@@ -60,11 +59,27 @@ function toggle(value: string) {
     margin-bottom: 20px;
     gap: 20px;
 
+    @include mixins.media-down(xs) {
+      grid-template-rows: 20px 0fr;
+      margin-bottom: 4px;
+      gap: 5px;
+    }
+
     &_active {
       grid-template-rows: 40px 1fr;
 
-      .accordion__icon {
-        transform: rotate(90deg);
+      @include mixins.media-down(xs) {
+        grid-template-rows: 20px 1fr;
+      }
+
+      .accordion {
+        &__icon {
+          transform: rotate(90deg);
+        }
+
+        &__content {
+          padding: 10px 0;
+        }
       }
     }
   }
@@ -76,12 +91,20 @@ function toggle(value: string) {
     height: 40px;
     cursor: pointer;
     user-select: none;
+
+    @include mixins.media-down(xs) {
+      height: 20px;
+    }
   }
 
   &__title {
+    @include mixins.media-down(xs) {
+      font-size: 12px;
+    }
   }
 
   &__content {
+    transition: padding 0.3s;
     overflow: hidden;
   }
 
@@ -91,6 +114,11 @@ function toggle(value: string) {
     transition: transform 0.3s;
     width: 20px;
     height: 20px;
+
+    @include mixins.media-down(xs) {
+      width: 8px;
+      height: 8px;
+    }
   }
 }
 </style>
