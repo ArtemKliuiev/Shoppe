@@ -7,7 +7,6 @@ import type { DataCards } from '@/components/mixins/data-cards'
 
 interface Props {
   data: DataCards[]
-  desktopQuantity: number
 }
 
 defineProps<Props>()
@@ -25,13 +24,21 @@ function addToBasket(card: DataCards) {
 
 <template>
   <swiper
-    :spaceBetween="10"
+    :spaceBetween="12"
     :modules="modules"
-    :slidesPerView="2.2"
+    :slidesPerView="2.13"
     :breakpoints="{
       768: {
-        spaceBetween: 16,
-        slidesPerView: desktopQuantity,
+        spaceBetween: 30,
+        slidesPerView: 3,
+      },
+      1024: {
+        spaceBetween: 40,
+        slidesPerView: 3,
+      },
+      1220: {
+        spaceBetween: 54,
+        slidesPerView: 3,
       },
     }"
     class="card-slider"

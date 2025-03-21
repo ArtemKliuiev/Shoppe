@@ -14,16 +14,16 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const input = ref<HTMLInputElement | null>(null)
 
-// const display = computed({
-//   get() {
-//     return String(props.modelValue)
-//   },
-//   set(value: string) {
-//     emit('update:modelValue', Number(value))
-//   },
-// })
+const display = computed({
+  get() {
+    return String(props.modelValue)
+  },
+  set(value: string) {
+    emit('update:modelValue', Number(value))
+  },
+})
 
-const display = ref('1')
+// const display = ref('1')
 
 const classObject = computed(() => ({
   count_two: display.value.length > 1,
@@ -42,6 +42,8 @@ function addCount(condition: boolean) {
 
 function validationCount() {
   const caretPosition = input.value?.selectionStart
+
+  console.log(typeof props.modelValue, props.modelValue)
 
   const newValue = display.value.replace(/^0+|[^0-9]/g, '').slice(0, 3)
 

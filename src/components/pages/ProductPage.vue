@@ -18,6 +18,7 @@ import ProductList from '@/components/ui/ProductList.vue'
 import ProductCard from '@/components/reusable/ProductCard.vue'
 import CardsSlider from '@/components/reusable/CardsSlider.vue'
 import type { DataCards } from '@/components/mixins/data-cards'
+import BaseButtonText from '../base/BaseButtonText.vue'
 
 const count = ref(0)
 const raiting = ref(1)
@@ -51,8 +52,8 @@ function toggleShowText() {
 </script>
 
 <template>
-  <div class="product container">
-    <div class="product__main">
+  <div class="product">
+    <div class="product__main container">
       <div class="product__slider">
         <ProductSlider :images="currentProduct?.images" />
       </div>
@@ -135,7 +136,7 @@ function toggleShowText() {
       </div>
     </div>
 
-    <div class="product__tabs">
+    <div class="product__tabs container">
       <div class="product__tabs-button">
         <TabsButtons spaceDesktop="96" @change="tabsState = $event" />
       </div>
@@ -162,7 +163,7 @@ function toggleShowText() {
       </div>
     </div>
 
-    <div class="product__accordion">
+    <div class="product__accordion container">
       <AccordionMenu :accordinData="dataPruductAccordion">
         <template #first>
           <div class="product__accordion-text">
@@ -183,16 +184,14 @@ function toggleShowText() {
     <div class="product__cards">
       <h3 class="product__cards-title">Similar Items</h3>
 
-      <ul class="product__cards-list">
-        <ProductCard
-          v-for="card in similarProduct"
-          :key="card.title"
-          :data="card"
-          @addToBasket="addToBasket(card)"
-        />
-      </ul>
-      <!--      <CardsSlider :data="similarProduct" :desktopQuantity="3" /> -->
+      <CardsSlider :data="dataCards" class="product__cards-slider" />
     </div>
+
+    <BaseButtonText to="/shope" class="product__btn container">
+      <span>Continue shopping</span>
+
+      <BaseSvg class="product__btn-icon" id="back-arrow" />
+    </BaseButtonText>
   </div>
 </template>
 
@@ -202,11 +201,11 @@ function toggleShowText() {
 .product {
   &__main {
     display: flex;
-    margin: 130px 0 80px;
+    margin: 130px auto 80px;
     gap: 5.2%;
 
     @include mixins.media-down(md) {
-      margin: 50px 0 80px;
+      margin: 50px auto 80px;
     }
 
     @include mixins.media-down(sm) {
@@ -513,6 +512,14 @@ function toggleShowText() {
   }
 
   &__cards {
+    max-width: 1288px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include mixins.media-down(md) {
+      padding: 0 0 0 16px;
+    }
+
     &-title {
       font-size: 26px;
       margin-bottom: 47px;
@@ -523,22 +530,47 @@ function toggleShowText() {
       }
     }
 
-    &-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 83px 55px;
-
-      @include mixins.media-down(ml) {
-        gap: 50px 30px;
-      }
-
-      @include mixins.media-down(sm) {
-        gap: 23px 16px;
-      }
-
+    &-slider {
       @include mixins.media-down(xs) {
-        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 39px;
       }
+    }
+  }
+
+  &__btn {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background: unset;
+    color: var(--accent);
+    border: unset;
+    width: 100%;
+    fill: var(--text);
+    cursor: pointer;
+    transition: color 0.3s;
+    font-size: 12px;
+
+    @include mixins.media-down(xs) {
+      display: flex;
+    }
+
+    &:hover {
+      @media (hover: hover) {
+        color: var(--text);
+      }
+    }
+
+    &:active {
+      .product__btn-icon {
+        transform: rotate(180deg) translateX(-5px);
+      }
+    }
+
+    &-icon {
+      width: 6px;
+      height: 10px;
+      transform: rotate(180deg);
+      transition: transform 0.3s;
     }
   }
 }
