@@ -3,6 +3,7 @@ import BaseButtonText from './BaseButtonText.vue'
 
 interface Props {
   type?: 'mode' | 'bold'
+  size?: 'small'
   to?: string
 }
 
@@ -11,6 +12,7 @@ const props = defineProps<Props>()
 const classObject: Record<string, boolean> = {
   button_mode: props.type === 'mode',
   button_bold: props.type === 'bold',
+  button_small: props.size === 'small',
 }
 </script>
 
@@ -64,6 +66,17 @@ const classObject: Record<string, boolean> = {
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &_small {
+    display: inline-block;
+    width: unset;
+    padding: 0 34px;
+
+    @include mixins.media-down(sm) {
+      width: 100%;
+      padding: 0 10px;
+    }
   }
 
   &_mode {

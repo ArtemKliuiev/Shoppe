@@ -41,4 +41,12 @@ const inputValue = computed({
   />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+input[type='text'] {
+  height: 50px;
+  width: 100%;
+  color: var(--text-second);
+  border-bottom: 1px solid var(--gray);
+  font-size: 14px;
+}
+</style>

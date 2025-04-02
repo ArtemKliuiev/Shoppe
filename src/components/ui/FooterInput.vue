@@ -51,7 +51,7 @@ const text = computed({
     height: 35px;
   }
 
-  &:deep(input) {
+  &:deep(input[type='text']) {
     font-size: 16px;
     line-height: 27px;
     padding: 10px 35px 10px 0;

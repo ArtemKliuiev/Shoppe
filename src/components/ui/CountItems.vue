@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, useTemplateRef } from 'vue'
 
 interface Props {
   modelValue: number
@@ -22,6 +22,7 @@ const display = computed({
     emit('update:modelValue', Number(value))
   },
 })
+// useTemplateRef   TODO
 
 // const display = ref('1')
 
@@ -33,7 +34,7 @@ const classObject = computed(() => ({
 }))
 
 function addCount(condition: boolean) {
-  const count: number = +display.value
+  const count = +display.value
 
   if (condition && count < 999) display.value = String(count + 1)
 
