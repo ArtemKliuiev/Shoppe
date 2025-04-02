@@ -16,6 +16,7 @@ interface Emits {
 }
 
 const props = defineProps<Props>()
+
 const emit = defineEmits<Emits>()
 
 const inputValue = computed({
@@ -36,7 +37,6 @@ const inputValue = computed({
     :id="id"
     :placeholder="placeholder"
     :name="name"
-    :value="value"
     ref="inputEl"
   />
 </template>

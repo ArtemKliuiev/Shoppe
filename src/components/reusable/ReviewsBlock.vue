@@ -1,18 +1,59 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import * as yup from 'yup'
 import { dataPruductReviews } from '@/components/mixins/data-product-reviews'
 import OneReview from '@/components/ui/OneReview.vue'
-import BaseTextarea from '../base/BaseTextarea.vue'
-import BaseInput from '../base/BaseInput.vue'
-import CustomCheckbox from '../ui/CustomCheckbox.vue'
-import RaitingStars from '../ui/RaitingStars.vue'
-import BaseButton from '../base/BaseButton.vue'
+import BaseTextarea from '@/components/base/BaseTextarea.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
+import RaitingStars from '@/components/ui/RaitingStars.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
-const reviewText = ref('')
-const name = ref('')
-const email = ref('')
-const rating = ref(0)
-const checkbox = ref(false)
+type validationErrors = Record<string, string>
+
+interface FormData {
+  text: string
+  email: string
+  name: string
+  rating: number
+  save: boolean
+}
+
+const formData = ref<FormData>({
+  text: '',
+  email: '',
+  name: '',
+  rating: 0,
+  save: false,
+})
+
+const schema: yup.ObjectSchema<FormData> = yup.object({
+  name: yup.string().required('Ім’я обов’язкове').min(3, 'Мінімум 3 символи'),
+  email: yup.string().email('Некоректний email').required('Email обов’язковий'),
+  text: yup.string().required('Текст обов’язковий').min(10, 'Мінімум 10 символів для тексту'),
+  rating: yup.number().required('Рейтинг обов’язковий').min(1, 'Мінімум 1').max(5, 'Максимум 5'),
+  save: yup.boolean().required('Необхідно вибрати збереження'),
+})
+
+const errors = ref<validationErrors>({})
+
+const validateForm = async () => {
+  try {
+    await schema.validate(formData.value, { abortEarly: false })
+
+    errors.value = {}
+  } catch (err) {
+    if (err instanceof yup.ValidationError) {
+      errors.value = err.inner.reduce((acc: validationErrors, curr) => {
+        const fieldName = curr.path
+
+        if (fieldName) acc[fieldName] = curr.message
+
+        return acc
+      }, {})
+    }
+  }
+}
 </script>
 
 <template>
@@ -34,38 +75,65 @@ const checkbox = ref(false)
         Your email address will not be published. Required fields are marked *
       </p>
 
-      <form class="reviews__form">
-        <div class="reviews__textarea">
+      <form @submit.prevent="validateForm" class="reviews__form">
+        {{ errors }}
+        <div class="reviews__textarea reviews__form-field">
           <p class="reviews__text">Your Review*</p>
 
-          <BaseTextarea v-model="reviewText" />
+          <BaseTextarea v-model="formData.text" />
+
+          <span class="reviews__form-error">
+            {{ errors.text ? errors.text : '' }}ww wdawdeffgrgergerg
+          </span>
         </div>
 
-        <BaseInput
-          class="reviews__name"
-          v-model="name"
-          type="text"
-          placeholder="Enter your name*"
-        />
+        <div class="reviews__form-field">
+          <BaseInput
+            class="reviews__name"
+            v-model="formData.name"
+            type="text"
+            placeholder="Enter your name*"
+          />
 
-        <BaseInput
-          class="reviews__email"
-          v-model="email"
-          type="text"
-          placeholder="Enter your Email*"
-        />
+          <span class="reviews__form-error">
+            {{ errors.name }}
+          </span>
+        </div>
 
-        <div class="reviews__save">
-          <CustomCheckbox v-model="checkbox" id="save-data" class="reviews__save-checkbox" />
+        <div class="reviews__form-field">
+          <BaseInput
+            class="reviews__email"
+            v-model="formData.email"
+            type="text"
+            placeholder="Enter your Email*"
+          />
+
+          <span class="reviews__form-error">
+            {{ errors.email ? errors.email : '' }}
+          </span>
+        </div>
+
+        <div class="reviews__save reviews__form-field">
+          <CustomCheckbox v-model="formData.save" id="save-data" class="reviews__save-checkbox" />
 
           <label class="reviews__save-label" for="save-data">
             Save my name, email, and website in this browser for the next time I comment
           </label>
+
+          <span class="reviews__form-error">
+            {{ errors.save ? errors.save : '' }}
+          </span>
         </div>
 
         <p class="reviews__text reviews__bottom-text">Your Rating*</p>
 
-        <RaitingStars class="reviews__rating" v-model="rating" />
+        <div class="reviews__form-field">
+          <RaitingStars class="reviews__rating" v-model="formData.rating" />
+
+          <span class="reviews__form-error">
+            {{ errors.rating ? errors.rating : '' }}
+          </span>
+        </div>
 
         <BaseButton size="small">Submit</BaseButton>
       </form>
@@ -201,6 +269,17 @@ const checkbox = ref(false)
   }
 
   &__form {
+    &-field {
+      position: relative;
+    }
+
+    &-error {
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      font-size: 12px;
+      color: red;
+    }
   }
 }
 </style>
