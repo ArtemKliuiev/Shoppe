@@ -73,6 +73,13 @@ const classObject: Record<string, boolean> = {
     width: unset;
     padding: 0 34px;
 
+    &:hover {
+      @media (hover: hover) {
+        border: unset;
+        outline: 1px solid var(--text);
+      }
+    }
+
     @include mixins.media-down(sm) {
       width: 100%;
       padding: 0 10px;

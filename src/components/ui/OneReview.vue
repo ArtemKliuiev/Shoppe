@@ -42,22 +42,30 @@ const raiting = props.data.rating
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
 
-// @include mixins.media-down(sm) {
-
-//   }
-
 .review {
   margin: 21px 0 39px;
+
+  @include mixins.media-down(sm) {
+    margin: 10px 0 25px;
+  }
 
   &__head {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 12px;
+
+    @include mixins.media-down(sm) {
+      margin-bottom: 8px;
+    }
   }
 
   &__name {
     font-size: 20px;
+
+    @include mixins.media-down(sm) {
+      font-size: 16px;
+    }
   }
 
   &__date {
@@ -67,11 +75,19 @@ const raiting = props.data.rating
 
   &__rating {
     margin-bottom: 18px;
+
+    @include mixins.media-down(sm) {
+      margin-bottom: 0;
+    }
   }
 
   &__text {
     color: var(--text-second);
     line-height: 27px;
+
+    @include mixins.media-down(sm) {
+      line-height: unset;
+    }
   }
 }
 </style>

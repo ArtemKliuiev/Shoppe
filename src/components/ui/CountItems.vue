@@ -12,7 +12,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
-const input = ref<HTMLInputElement | null>(null)
+const input = useTemplateRef<HTMLInputElement>('input')
 
 const display = computed({
   get() {

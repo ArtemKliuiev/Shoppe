@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
+import type { WatchStopHandle } from 'vue'
 import * as yup from 'yup'
 import { dataPruductReviews } from '@/components/mixins/data-product-reviews'
 import OneReview from '@/components/ui/OneReview.vue'
@@ -19,7 +20,9 @@ interface FormData {
   save: boolean
 }
 
-const formData = ref<FormData>({
+const errors = ref<validationErrors>({})
+
+const formData = reactive<FormData>({
   text: '',
   email: '',
   name: '',
@@ -28,20 +31,30 @@ const formData = ref<FormData>({
 })
 
 const schema: yup.ObjectSchema<FormData> = yup.object({
-  name: yup.string().required('Ім’я обов’язкове').min(3, 'Мінімум 3 символи'),
-  email: yup.string().email('Некоректний email').required('Email обов’язковий'),
-  text: yup.string().required('Текст обов’язковий').min(10, 'Мінімум 10 символів для тексту'),
-  rating: yup.number().required('Рейтинг обов’язковий').min(1, 'Мінімум 1').max(5, 'Максимум 5'),
-  save: yup.boolean().required('Необхідно вибрати збереження'),
+  name: yup.string().required('Name is required').min(3, 'Minimum 3 characters'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  text: yup.string().required('Text is required').min(10, 'Minimum 10 characters for the text'),
+  rating: yup.number().required('Rating is required').min(1, 'Minimum 1').max(5, 'Maximum 5'),
+  save: yup.boolean().default(false),
 })
 
-const errors = ref<validationErrors>({})
+let addWatch: WatchStopHandle | null = null
 
-const validateForm = async () => {
+function addedWatch() {
+  if (addWatch) return
+
+  addWatch = watch(formData, () => {
+    validateForm(false)
+  })
+}
+
+async function validateForm(sendData: boolean) {
   try {
-    await schema.validate(formData.value, { abortEarly: false })
+    await schema.validate(formData, { abortEarly: false })
 
     errors.value = {}
+
+    if (sendData) alert('Коментар додано')
   } catch (err) {
     if (err instanceof yup.ValidationError) {
       errors.value = err.inner.reduce((acc: validationErrors, curr) => {
@@ -53,6 +66,8 @@ const validateForm = async () => {
       }, {})
     }
   }
+
+  if (sendData) addedWatch()
 }
 </script>
 
@@ -75,19 +90,18 @@ const validateForm = async () => {
         Your email address will not be published. Required fields are marked *
       </p>
 
-      <form @submit.prevent="validateForm" class="reviews__form">
-        {{ errors }}
-        <div class="reviews__textarea reviews__form-field">
+      <form @submit.prevent="validateForm(true)" class="reviews__form">
+        <div class="reviews__textarea">
           <p class="reviews__text">Your Review*</p>
 
           <BaseTextarea v-model="formData.text" />
 
-          <span class="reviews__form-error">
-            {{ errors.text ? errors.text : '' }}ww wdawdeffgrgergerg
+          <span class="reviews__textarea-error reviews__error">
+            {{ errors.text ? errors.text : '' }}
           </span>
         </div>
 
-        <div class="reviews__form-field">
+        <div class="reviews__input">
           <BaseInput
             class="reviews__name"
             v-model="formData.name"
@@ -95,12 +109,12 @@ const validateForm = async () => {
             placeholder="Enter your name*"
           />
 
-          <span class="reviews__form-error">
+          <span class="reviews__input-error reviews__error">
             {{ errors.name }}
           </span>
         </div>
 
-        <div class="reviews__form-field">
+        <div class="reviews__input">
           <BaseInput
             class="reviews__email"
             v-model="formData.email"
@@ -108,29 +122,25 @@ const validateForm = async () => {
             placeholder="Enter your Email*"
           />
 
-          <span class="reviews__form-error">
+          <span class="reviews__input-error reviews__error">
             {{ errors.email ? errors.email : '' }}
           </span>
         </div>
 
-        <div class="reviews__save reviews__form-field">
+        <div class="reviews__save">
           <CustomCheckbox v-model="formData.save" id="save-data" class="reviews__save-checkbox" />
 
           <label class="reviews__save-label" for="save-data">
             Save my name, email, and website in this browser for the next time I comment
           </label>
-
-          <span class="reviews__form-error">
-            {{ errors.save ? errors.save : '' }}
-          </span>
         </div>
 
         <p class="reviews__text reviews__bottom-text">Your Rating*</p>
 
-        <div class="reviews__form-field">
+        <div class="reviews__stars">
           <RaitingStars class="reviews__rating" v-model="formData.rating" />
 
-          <span class="reviews__form-error">
+          <span class="reviews__stars-error reviews__error">
             {{ errors.rating ? errors.rating : '' }}
           </span>
         </div>
@@ -204,10 +214,22 @@ const validateForm = async () => {
   }
 
   &__textarea {
+    position: relative;
     margin-bottom: 24px;
 
     @include mixins.media-down(sm) {
       margin-bottom: 15px;
+    }
+
+    &-error {
+      left: 0;
+      bottom: -12px;
+
+      @include mixins.media-down(sm) {
+        left: unset;
+        right: 0;
+        bottom: -12px;
+      }
     }
   }
 
@@ -215,6 +237,21 @@ const validateForm = async () => {
     font-size: 14px;
     line-height: 30px;
     color: var(--text-second);
+  }
+
+  &__input {
+    position: relative;
+
+    &-error {
+      bottom: 10px;
+      left: 0;
+
+      @include mixins.media-down(sm) {
+        left: unset;
+        right: 0;
+        bottom: -3px;
+      }
+    }
   }
 
   &__name {
@@ -244,11 +281,13 @@ const validateForm = async () => {
 
     &-checkbox {
       margin: 2px 0 0 2px;
+      flex-shrink: 0;
     }
 
     &-label {
       font-size: 12px;
       color: var(--text-second);
+      user-select: none;
     }
   }
 
@@ -268,18 +307,24 @@ const validateForm = async () => {
     }
   }
 
-  &__form {
-    &-field {
-      position: relative;
-    }
+  &__stars {
+    position: relative;
 
     &-error {
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-      font-size: 12px;
-      color: red;
+      bottom: -17px;
+
+      @include mixins.media-down(sm) {
+        left: unset;
+        right: 0;
+        bottom: -17px;
+      }
     }
+  }
+
+  &__error {
+    position: absolute;
+    font-size: 12px;
+    color: var(--errors);
   }
 }
 </style>
