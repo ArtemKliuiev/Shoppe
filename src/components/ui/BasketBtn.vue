@@ -24,6 +24,13 @@ watch(props, () => {
     animation.value = false
   }, 300)
 })
+
+const currenCount = computed(() => {
+  const quantity = props.data.reduce((acc, item) => acc + item.count, 0)
+
+  return quantity < 999 ? quantity : '999'
+})
+
 </script>
 
 <template>
@@ -32,7 +39,7 @@ watch(props, () => {
 
     <div class="basket-btn__count">
       <span class="basket-btn__count-text">
-        {{ data.length < 999 ? data.length : '999' }}
+        {{ currenCount }}
       </span>
     </div>
   </div>

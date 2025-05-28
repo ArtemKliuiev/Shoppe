@@ -1,28 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 
 interface Props {
-  modelValue: boolean
   type?: 'custom' | 'like' | 'like-two'
   id?: string
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: boolean): void
-}
-
 const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
 
-const checkboxValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue: boolean) {
-    emits('update:modelValue', newValue)
-  },
+const checkboxValue = defineModel<boolean>({
+  required: true,
 })
 
 const classObject: Record<string, boolean> = {

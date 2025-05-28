@@ -6,27 +6,17 @@ import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
 import SearchInput from './SearchInput.vue'
 
-interface Props {
-  search: string
-}
-
 interface Emits {
-  (e: 'update:search', search: string): void
   (e: 'closeBurger'): void
 }
 
-const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
-const blackTheme = inject('blackTheme', false)
 
-const searchValue = computed({
-  get() {
-    return props.search
-  },
-  set(newValue: string) {
-    emit('update:search', newValue)
-  },
+const searchValue = defineModel<string>({
+  required: true,
 })
+
+const blackTheme = inject('blackTheme', false)
 </script>
 
 <template>
@@ -93,7 +83,7 @@ const searchValue = computed({
   position: fixed;
   padding-top: 48px;
   z-index: -20;
-  overflow: auto;
+  overflow: hidden;
   left: 0;
   top: 0;
   width: 100%;
@@ -173,7 +163,7 @@ const searchValue = computed({
 }
 
 .search-enter-from {
-  left: -100%;
+  left: +100%;
 }
 
 .search-enter-to {
@@ -191,5 +181,6 @@ const searchValue = computed({
 .search-enter-active,
 .search-leave-active {
   transition: left 0.3s;
+  overflow: hidden;
 }
 </style>

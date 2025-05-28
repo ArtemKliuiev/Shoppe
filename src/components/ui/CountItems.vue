@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, useTemplateRef } from 'vue'
 
 interface Props {
   modelValue: number
@@ -22,9 +22,6 @@ const display = computed({
     emit('update:modelValue', Number(value))
   },
 })
-// useTemplateRef   TODO
-
-// const display = ref('1')
 
 const classObject = computed(() => ({
   count_two: display.value.length > 1,

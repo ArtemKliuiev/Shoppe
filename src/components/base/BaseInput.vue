@@ -7,25 +7,12 @@ interface Props {
   id?: string
   placeholder?: string
   name?: string
-  value?: string | number
-  modelValue: string | number | boolean
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: string | boolean): void
-}
+defineProps<Props>()
 
-const props = defineProps<Props>()
-
-const emit = defineEmits<Emits>()
-
-const inputValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue: string | boolean) {
-    emit('update:modelValue', newValue)
-  },
+const inputValue = defineModel<string | number | boolean>({
+  required: true,
 })
 </script>
 

@@ -4,25 +4,14 @@ import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 
 interface Props {
-  modelValue: string
   placeholder?: string
   errorText?: string
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: string): void
-}
+defineProps<Props>()
 
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
-
-const text = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue: string) {
-    emits('update:modelValue', newValue)
-  },
+const text = defineModel<string>({
+  required: true,
 })
 </script>
 
@@ -52,6 +41,8 @@ const text = computed({
   }
 
   &:deep(input[type='text']) {
+    border: none;
+    height: 100%;
     font-size: 16px;
     line-height: 27px;
     padding: 10px 35px 10px 0;

@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 
 interface Props {
   modelValue: string
   placeholder?: string
 }
 
-interface Emit {
-  (e: 'update:modelValue', value: string): void
-}
+defineProps<Props>()
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emit>()
-
-const textareaValue = computed({
-  get() {
-    return props.modelValue
-  },
-
-  set(newValue) {
-    emit('update:modelValue', newValue)
-  },
+const textareaValue = defineModel<string>({
+  required: true,
 })
 </script>
 

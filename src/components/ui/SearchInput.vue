@@ -4,31 +4,21 @@ import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 
 interface Props {
-  modelValue: string
   placeholder?: string
   isLoading?: boolean
 }
 
-interface Emits {
-  (e: 'update:modelValue', value: string): void
-}
+defineProps<Props>()
 
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
-
-const text = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue: string) {
-    emits('update:modelValue', newValue)
-  },
+const model = defineModel({
+  default: '',
+  type: String,
 })
 </script>
 
 <template>
   <div class="search-input">
-    <BaseInput v-model="text" :placeholder="placeholder" type="text" />
+    <BaseInput v-model="model" :placeholder="placeholder" type="text" />
 
     <div :class="{ 'search-input__line_active': isLoading }" class="search-input__line"></div>
 

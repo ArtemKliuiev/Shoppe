@@ -4,24 +4,14 @@ import { computed } from 'vue'
 import BaseSvg from '../base/BaseSvg.vue'
 
 interface Props {
-  modelValue: number
   readonly?: boolean
 }
 
-interface Emit {
-  (e: 'update:modelValue', value: number): void
-}
-
 const props = defineProps<Props>()
-const emit = defineEmits<Emit>()
 
-const ratingValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newValue: number) {
-    emit('update:modelValue', newValue)
-  },
+const ratingValue = defineModel<number>({
+  type: Number,
+  default: 0,
 })
 
 const classObject = computed<Record<string, boolean>>(() => ({

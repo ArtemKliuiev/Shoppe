@@ -22,21 +22,20 @@ import BaseButtonText from '../base/BaseButtonText.vue'
 
 const count = ref(0)
 const raiting = ref(1)
+const tabsState = ref(0)
 const like = ref(false)
 const isShowText = ref(false)
 const isShowMore = ref(false)
-const tabsState = ref(0)
 
 const route = useRoute()
 const basketStorage = useBasketStorage()
 const id = route.params.id
 const currentProduct = dataCards.find((el) => el.id === +id)
-const similarProduct = dataCards.slice(0, 4)
 
 function addToBasket(card: DataCards) {
   basketStorage.add({
     id: card.id,
-    count: 1,
+    count: count.value,
   })
 }
 
@@ -101,7 +100,7 @@ function toggleShowText() {
           <div class="product__add">
             <CountItems v-model="count" class="product__add-count" type="big" />
 
-            <BaseButton type="mode"> ADD TO CART </BaseButton>
+            <BaseButton type="mode" @click="addToBasket(currentProduct!)"> ADD TO CART </BaseButton>
           </div>
         </div>
 

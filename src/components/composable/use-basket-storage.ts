@@ -52,7 +52,7 @@ function basketStorage(): BasketStorage {
 
     const findCard = oldArray.find((obj) => obj.id == data.id)
 
-    if (findCard) findCard.count++
+    if (findCard) findCard.count = findCard.count + data.count
     else oldArray.push(data)
 
     set(oldArray)

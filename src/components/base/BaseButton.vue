@@ -4,6 +4,7 @@ import BaseButtonText from './BaseButtonText.vue'
 interface Props {
   type?: 'mode' | 'bold'
   size?: 'small'
+  submit?: boolean
   to?: string
 }
 
@@ -21,7 +22,7 @@ const classObject: Record<string, boolean> = {
     <slot></slot>
   </BaseButtonText>
 
-  <button v-else :class="classObject" class="button">
+  <button v-else :class="classObject" :type="submit ? 'submit' : 'button'" class="button">
     <slot></slot>
   </button>
 </template>
@@ -103,7 +104,7 @@ const classObject: Record<string, boolean> = {
     background-color: unset;
     border: 2px solid var(--background);
 
-    @include mixins.media-down(sm) {
+    @include mixins.media-down(xs) {
       border: 1px solid var(--background);
       font-size: 12px;
       font-weight: 400;

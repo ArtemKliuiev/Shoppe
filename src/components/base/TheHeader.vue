@@ -70,7 +70,7 @@ function toggleBurger(): void {
 </script>
 
 <template>
-  <header :class="{ 'header_main-page': $route.name === 'home' }" class="header">
+  <header class="header">
     <div class="header__head">
       <div class="header__head-container">
         <div class="header__logo">
@@ -144,7 +144,7 @@ function toggleBurger(): void {
     <Transition name="menu" type="transition">
       <BurgerMenu
         v-if="isOpenBurgerMenu"
-        v-model:search="search"
+        v-model="search"
         @closeBurger="isOpenBurgerMenu = false"
       />
     </Transition>
@@ -152,7 +152,7 @@ function toggleBurger(): void {
 
   <Transition name="right-block" type="transition">
     <component
-      v-model:search="search"
+      v-model="search"
       :is="components[activeComponent]"
       :isLoading="true"
       :data="dataBasket"
@@ -457,31 +457,6 @@ function toggleBurger(): void {
           @media (hover: hover) {
             color: var(--text);
           }
-        }
-      }
-    }
-  }
-
-  &_main-page {
-    .header {
-      &__head-container {
-        &::before,
-        &::after {
-          content: '';
-          position: absolute;
-          background-color: var(--background);
-          transition: background-color 0.3s;
-          bottom: -1px;
-          height: 5px;
-          width: 15px;
-        }
-
-        &::before {
-          left: 0;
-        }
-
-        &::after {
-          right: 0;
         }
       }
     }

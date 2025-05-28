@@ -4,25 +4,19 @@ import SearchInput from '@/components/ui/SearchInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
 interface Props {
-  search: string
   isLoading: boolean
 }
 
 interface Emits {
-  (e: 'update:search', search: string): void
   (e: 'close'): void
 }
 
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
+defineProps<Props>()
 
-const searchValue = computed({
-  get() {
-    return props.search
-  },
-  set(newValue: string) {
-    emits('update:search', newValue)
-  },
+defineEmits<Emits>()
+
+const searchValue = defineModel<string>({
+  required: true
 })
 </script>
 
