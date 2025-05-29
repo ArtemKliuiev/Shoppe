@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, useTemplateRef } from 'vue'
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 
 interface Props {
   modelValue: number
@@ -14,13 +14,10 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const input = useTemplateRef<HTMLInputElement>('input')
 
-const display = computed({
-  get() {
-    return String(props.modelValue)
-  },
-  set(value: string) {
-    emit('update:modelValue', Number(value))
-  },
+const display = ref(String(props.modelValue))
+
+watch(display, () => {
+  emit('update:modelValue', +display.value)
 })
 
 const classObject = computed(() => ({

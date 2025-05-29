@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import TheFooter from '@/components/base/TheFooter.vue'
-import TheHeader from '@/components/base/TheHeader.vue'
 import SvgManager from '@/components/base/SvgManager.vue'
 import { provide, ref, watch, onMounted } from 'vue'
 
@@ -11,7 +9,8 @@ provide('blackTheme', blackTheme)
 onMounted(() => {
   const savedTheme = localStorage.getItem('theme')
 
-  if (savedTheme) blackTheme.value = savedTheme === 'true'
+  if (savedTheme) blackTheme.value = Boolean(JSON.parse(savedTheme))
+  else blackTheme.value = true
 })
 
 watch(blackTheme, () => {
@@ -20,14 +19,8 @@ watch(blackTheme, () => {
 </script>
 
 <template>
-  <div :class="{ 'black-theme': blackTheme }" class="theme-bg">
-    <div class="wrapper">
-      <TheHeader />
-      <main class="main">
-        <RouterView :key="$route.fullPath" />
-      </main>
-      <TheFooter />
-    </div>
+  <div :class="{ 'black-theme': blackTheme }">
+    <RouterView />
   </div>
   <SvgManager />
 </template>
