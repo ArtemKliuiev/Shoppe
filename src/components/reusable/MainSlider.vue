@@ -9,36 +9,39 @@ import { dataMainSlider } from '@/components/mixins/data-main-slider'
 
 const modules = [Autoplay, EffectFade, Pagination]
 const slideIndex = ref(0)
-
 </script>
 
 <template>
   <div class="main-slider">
     <swiper
-    :spaceBetween="30"
-    :autoplay="{
-      delay: 5000000000,
-    }"
-    :pagination="{
-      clickable: true,
-    }"
-    :modules="modules"
-    class="main-slider__swiper"
-    navigation
-    loop
-    effect="fade"
-    @slideChange="slideIndex = $event.activeIndex"
-  >
-    <swiper-slide v-for="slide in dataMainSlider" :key="slide.title" class="main-slider__swiper-slide">
-      <BasePicture
-        :src="slide.image.src"
-        :srcset="slide.image.srcset"
-        :width="slide.image.width"
-        :height="slide.image.height"
-        class="main-slider__image"
-      />
-    </swiper-slide>
-  </swiper>
+      :spaceBetween="30"
+      :autoplay="{
+        delay: 5000000000,
+      }"
+      :pagination="{
+        clickable: true,
+      }"
+      :modules="modules"
+      class="main-slider__swiper"
+      navigation
+      loop
+      effect="fade"
+      @slideChange="slideIndex = $event.activeIndex"
+    >
+      <swiper-slide
+        v-for="slide in dataMainSlider"
+        :key="slide.title"
+        class="main-slider__swiper-slide"
+      >
+        <BasePicture
+          :src="slide.image.src"
+          :srcset="slide.image.srcset"
+          :width="slide.image.width"
+          :height="slide.image.height"
+          class="main-slider__image"
+        />
+      </swiper-slide>
+    </swiper>
 
     <div class="main-slider__content">
       <h2 class="main-slider__title">
@@ -51,7 +54,9 @@ const slideIndex = ref(0)
         {{ dataMainSlider[slideIndex].price }}
       </p>
 
-      <BaseButton :to="dataMainSlider[slideIndex].link" class="main-slider__btn" type="bold"> View Product </BaseButton>
+      <BaseButton :to="dataMainSlider[slideIndex].link" class="main-slider__btn" styles="bold">
+        View Product
+      </BaseButton>
     </div>
 
     <div class="main-slider__background"></div>
@@ -61,8 +66,6 @@ const slideIndex = ref(0)
 <style lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
 
-
-
 .main-slider {
   position: relative;
   overflow: hidden;
@@ -70,7 +73,7 @@ const slideIndex = ref(0)
   height: 100%;
   border-radius: 16px;
 
-  &__swiper{
+  &__swiper {
     &-slide {
       aspect-ratio: 1/0.518;
       border-radius: 16px;
@@ -111,8 +114,6 @@ const slideIndex = ref(0)
       bottom: 25px;
       left: 3%;
     }
-
-
   }
 
   &__title {
@@ -121,7 +122,6 @@ const slideIndex = ref(0)
     line-height: 43px;
     margin-bottom: 16px;
     letter-spacing: 0.7px;
-
 
     @include mixins.media-down(sm) {
       font-size: 20px;
@@ -174,7 +174,7 @@ const slideIndex = ref(0)
     z-index: 2;
 
     @include mixins.media-down(sm) {
-     display: none;
+      display: none;
     }
   }
 }

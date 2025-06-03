@@ -7,6 +7,7 @@ import StoryPage from '@/components/pages/StoryPage.vue'
 import ErrorPage from '@/components/pages/ErrorPage.vue'
 import ContactsPage from '@/components/pages/ContactsPage.vue'
 import DefaultLayout from '@/components/layouts/DefaultLayout.vue'
+import LoginPage from '@/components/pages/LoginPage.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
         path: 'contact',
         name: 'contact',
         component: ContactsPage,
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: LoginPage,
       },
       {
         path: '404',

@@ -2,7 +2,8 @@
 import BaseButtonText from './BaseButtonText.vue'
 
 interface Props {
-  type?: 'mode' | 'bold'
+  type?: 'button' | 'submit' | 'reset'
+  styles?: 'mode' | 'bold'
   size?: 'small'
   submit?: boolean
   to?: string
@@ -11,8 +12,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const classObject: Record<string, boolean> = {
-  button_mode: props.type === 'mode',
-  button_bold: props.type === 'bold',
+  button_mode: props.styles === 'mode',
+  button_bold: props.styles === 'bold',
   button_small: props.size === 'small',
 }
 </script>
@@ -22,7 +23,7 @@ const classObject: Record<string, boolean> = {
     <slot></slot>
   </BaseButtonText>
 
-  <button v-else :class="classObject" :type="submit ? 'submit' : 'button'" class="button">
+  <button v-else :class="classObject" :type="type" class="button">
     <slot></slot>
   </button>
 </template>

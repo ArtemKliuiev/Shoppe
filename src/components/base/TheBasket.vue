@@ -97,7 +97,7 @@ function changeCard(id: number, value: number) {
       </div>
 
       <div class="basket__btn">
-        <BaseButton type="mode"> VIEW CART </BaseButton>
+        <BaseButton styles="mode"> VIEW CART </BaseButton>
       </div>
     </div>
   </div>

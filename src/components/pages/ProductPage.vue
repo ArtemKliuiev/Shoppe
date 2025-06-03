@@ -100,7 +100,9 @@ function toggleShowText() {
           <div class="product__add">
             <CountItems v-model="count" class="product__add-count" type="big" />
 
-            <BaseButton type="mode" @click="addToBasket(currentProduct!)"> ADD TO CART </BaseButton>
+            <BaseButton styles="mode" @click="addToBasket(currentProduct!)">
+              ADD TO CART
+            </BaseButton>
           </div>
         </div>
 

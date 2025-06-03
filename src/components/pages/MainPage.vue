@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import MainSlider from '@/components/reusable/MainSlider.vue'
-import BaseButtonText from '@/components/base/BaseButtonText.vue'
-import ProductCard from '@/components/reusable/ProductCard.vue'
-import { dataCards } from '@/components/mixins/data-cards'
-import { useBasketStorage } from '@/components/composable/use-basket-storage'
-import type { DataCards } from '@/components/mixins/data-cards'
-
-const basketStorage = useBasketStorage()
-
-function addToBasket(card: DataCards) {
-  basketStorage.add({
-    id: card.id,
-    count: 1,
-  })
-}
-</script>
-
 <template>
   <div class="main container">
     <MainSlider class="main__slider" />
@@ -36,6 +18,24 @@ function addToBasket(card: DataCards) {
     </ul>
   </div>
 </template>
+
+<script setup lang="ts">
+import MainSlider from '@/components/reusable/MainSlider.vue'
+import BaseButtonText from '@/components/base/BaseButtonText.vue'
+import ProductCard from '@/components/reusable/ProductCard.vue'
+import { dataCards } from '@/components/mixins/data-cards'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
+import type { DataCards } from '@/components/mixins/data-cards'
+
+const basketStorage = useBasketStorage()
+
+function addToBasket(card: DataCards) {
+  basketStorage.add({
+    id: card.id,
+    count: 1,
+  })
+}
+</script>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;

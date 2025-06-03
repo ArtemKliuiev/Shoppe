@@ -1,3 +1,77 @@
+<template>
+  <div class="reviews">
+    <div class="reviews__old">
+      <h3 class="reviews__title reviews__old-title">2 Reviews for lira earings</h3>
+
+      <ul class="reviews__list">
+        <li v-for="review in dataPruductReviews" :key="review.name" class="reviews__list-item">
+          <OneReview :data="review" />
+        </li>
+      </ul>
+    </div>
+
+    <div class="reviews__add">
+      <h3 class="reviews__title reviews__add-title">Add a Review</h3>
+
+      <p class="reviews__info">
+        Your email address will not be published. Required fields are marked *
+      </p>
+
+      <form @submit.prevent="validateForm(true)" class="reviews__form">
+        <div class="reviews__textarea">
+          <p class="reviews__text">Your Review*</p>
+
+          <BaseTextarea v-model="formData.text" />
+
+          <span class="reviews__textarea-error reviews__error">
+            {{ errors.text ? errors.text : '' }}
+          </span>
+        </div>
+
+        <div class="reviews__input">
+          <BaseInput
+            v-model="formData.name"
+            :error="errors.name"
+            class="reviews__name"
+            type="text"
+            placeholder="Enter your name*"
+          />
+        </div>
+
+        <div class="reviews__input">
+          <BaseInput
+            v-model="formData.email"
+            :error="errors.email"
+            class="reviews__email"
+            type="text"
+            placeholder="Enter your Email*"
+          />
+        </div>
+
+        <div class="reviews__save">
+          <CustomCheckbox v-model="formData.save" id="save-data" class="reviews__save-checkbox" />
+
+          <label class="reviews__save-label" for="save-data">
+            Save my name, email, and website in this browser for the next time I comment
+          </label>
+        </div>
+
+        <p class="reviews__text reviews__bottom-text">Your Rating*</p>
+
+        <div class="reviews__stars">
+          <RaitingStars v-model="formData.rating" class="reviews__rating" />
+
+          <span class="reviews__stars-error reviews__error">
+            {{ errors.rating ? errors.rating : '' }}
+          </span>
+        </div>
+
+        <BaseButton size="small">Submit</BaseButton>
+      </form>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
 import type { WatchStopHandle } from 'vue'
@@ -40,14 +114,6 @@ const schema: yup.ObjectSchema<FormData> = yup.object({
 
 let addWatch: WatchStopHandle | null = null
 
-function addedWatch() {
-  if (addWatch) return
-
-  addWatch = watch(formData, () => {
-    validateForm(false)
-  })
-}
-
 async function validateForm(sendData: boolean) {
   try {
     await schema.validate(formData, { abortEarly: false })
@@ -67,89 +133,13 @@ async function validateForm(sendData: boolean) {
     }
   }
 
-  if (sendData) addedWatch()
+  if (addWatch) return
+
+  addWatch = watch(formData, () => {
+    validateForm(false)
+  })
 }
 </script>
-
-<template>
-  <div class="reviews">
-    <div class="reviews__old">
-      <h3 class="reviews__title reviews__old-title">2 Reviews for lira earings</h3>
-
-      <ul class="reviews__list">
-        <li v-for="review in dataPruductReviews" :key="review.name" class="reviews__list-item">
-          <OneReview :data="review" />
-        </li>
-      </ul>
-    </div>
-
-    <div class="reviews__add">
-      <h3 class="reviews__title reviews__add-title">Add a Review</h3>
-
-      <p class="reviews__info">
-        Your email address will not be published. Required fields are marked *
-      </p>
-
-      <form @submit.prevent="validateForm(true)" class="reviews__form">
-        <div class="reviews__textarea">
-          <p class="reviews__text">Your Review*</p>
-
-          <BaseTextarea v-model="formData.text" />
-
-          <span class="reviews__textarea-error reviews__error">
-            {{ errors.text ? errors.text : '' }}
-          </span>
-        </div>
-
-        <div class="reviews__input">
-          <BaseInput
-            class="reviews__name"
-            v-model="formData.name"
-            type="text"
-            placeholder="Enter your name*"
-          />
-
-          <span class="reviews__input-error reviews__error">
-            {{ errors.name }}
-          </span>
-        </div>
-
-        <div class="reviews__input">
-          <BaseInput
-            class="reviews__email"
-            v-model="formData.email"
-            type="text"
-            placeholder="Enter your Email*"
-          />
-
-          <span class="reviews__input-error reviews__error">
-            {{ errors.email ? errors.email : '' }}
-          </span>
-        </div>
-
-        <div class="reviews__save">
-          <CustomCheckbox v-model="formData.save" id="save-data" class="reviews__save-checkbox" />
-
-          <label class="reviews__save-label" for="save-data">
-            Save my name, email, and website in this browser for the next time I comment
-          </label>
-        </div>
-
-        <p class="reviews__text reviews__bottom-text">Your Rating*</p>
-
-        <div class="reviews__stars">
-          <RaitingStars class="reviews__rating" v-model="formData.rating" />
-
-          <span class="reviews__stars-error reviews__error">
-            {{ errors.rating ? errors.rating : '' }}
-          </span>
-        </div>
-
-        <BaseButton size="small">Submit</BaseButton>
-      </form>
-    </div>
-  </div>
-</template>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
@@ -224,12 +214,6 @@ async function validateForm(sendData: boolean) {
     &-error {
       left: 0;
       bottom: -12px;
-
-      @include mixins.media-down(sm) {
-        left: unset;
-        right: 0;
-        bottom: -12px;
-      }
     }
   }
 
@@ -241,17 +225,6 @@ async function validateForm(sendData: boolean) {
 
   &__input {
     position: relative;
-
-    &-error {
-      bottom: 10px;
-      left: 0;
-
-      @include mixins.media-down(sm) {
-        left: unset;
-        right: 0;
-        bottom: -3px;
-      }
-    }
   }
 
   &__name {
@@ -312,12 +285,6 @@ async function validateForm(sendData: boolean) {
 
     &-error {
       bottom: -17px;
-
-      @include mixins.media-down(sm) {
-        left: unset;
-        right: 0;
-        bottom: -17px;
-      }
     }
   }
 

@@ -23,7 +23,7 @@ const classObject: Record<string, boolean> = {
 
 <template>
   <div :class="classObject" class="checkbox">
-    <BaseInput v-model="checkboxValue" :id="id" class="checkbox__input" type="checkbox" />
+    <input v-model="checkboxValue" :id="id" class="checkbox__input" type="checkbox" />
 
     <BaseSvg class="checkbox__icon checkbox__icon-empty" id="heart" />
 

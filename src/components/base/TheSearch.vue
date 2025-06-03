@@ -16,7 +16,7 @@ defineProps<Props>()
 defineEmits<Emits>()
 
 const searchValue = defineModel<string>({
-  required: true
+  required: true,
 })
 </script>
 
@@ -44,7 +44,7 @@ const searchValue = defineModel<string>({
     </div>
 
     <div class="search__bottom">
-      <BaseButton to="/shope" type="mode" @click="$emit('close')"> Go to shope </BaseButton>
+      <BaseButton to="/shope" styles="mode" @click="$emit('close')"> Go to shope </BaseButton>
     </div>
   </div>
 </template>
