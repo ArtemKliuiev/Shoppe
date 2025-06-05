@@ -2,7 +2,6 @@
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { ref } from 'vue'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
-import MainSlide from '@/components/ui/MainSlide.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BasePicture from '@/components/base/BasePicture.vue'
 import { dataMainSlider } from '@/components/mixins/data-main-slider'
@@ -28,11 +27,7 @@ const slideIndex = ref(0)
       effect="fade"
       @slideChange="slideIndex = $event.activeIndex"
     >
-      <swiper-slide
-        v-for="slide in dataMainSlider"
-        :key="slide.title"
-        class="main-slider__swiper-slide"
-      >
+      <swiper-slide v-for="slide in dataMainSlider" :key="slide.title" class="main-slider__swiper-slide">
         <BasePicture
           :src="slide.image.src"
           :srcset="slide.image.srcset"
@@ -54,9 +49,7 @@ const slideIndex = ref(0)
         {{ dataMainSlider[slideIndex].price }}
       </p>
 
-      <BaseButton :to="dataMainSlider[slideIndex].link" class="main-slider__btn" styles="bold">
-        View Product
-      </BaseButton>
+      <BaseButton :to="dataMainSlider[slideIndex].link" class="main-slider__btn" styles="bold"> View Product </BaseButton>
     </div>
 
     <div class="main-slider__background"></div>
