@@ -1,74 +1,3 @@
-<script setup lang="ts">
-import { inject, onMounted, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
-import BaseSvg from '@/components/base/BaseSvg.vue'
-import BaseButtonText from '@/components/base/BaseButtonText.vue'
-import BurgerBtn from '@/components/ui/BurgerBtn.vue'
-import BasketBtn from '@/components/ui/BasketBtn.vue'
-import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
-import TheBasket from '@/components/base/TheBasket.vue'
-import TheSearch from '@/components/base/TheSearch.vue'
-import BurgerMenu from '@/components/ui/BurgerMenu.vue'
-import { useBasketStorage } from '@/components/composable/use-basket-storage'
-import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
-import { useScrollLock } from '@/components/composable/use-scroll-lock'
-import type { DataBasket } from '@/components/composable/use-basket-storage'
-
-interface Components {
-  [key: string]: ComponentCustomOptions | null
-}
-
-const isOpenBurgerMenu = ref(false)
-const search = ref('')
-const blackTheme = inject('blackTheme', false)
-const activeComponent = ref('one')
-const basketStorage = useBasketStorage()
-const dataBasket = ref<Array<DataBasket>>([])
-
-const components = shallowReactive<Components>({
-  one: null,
-  two: TheBasket,
-  three: TheSearch,
-})
-
-onMounted(() => {
-  dataBasket.value = basketStorage.get()
-})
-
-basketStorage.on((data) => {
-  dataBasket.value = data
-})
-
-function toggleBasketSearch(condition: string): void {
-  switch (condition) {
-    case activeComponent.value:
-      activeComponent.value = 'one'
-
-      useScrollLock(false)
-      break
-
-    case 'one':
-      activeComponent.value = condition
-
-      useScrollLock(false)
-      break
-
-    default:
-      activeComponent.value = condition
-
-      useScrollLock(true)
-      break
-  }
-}
-
-function toggleBurger(): void {
-  isOpenBurgerMenu.value = !isOpenBurgerMenu.value
-
-  useScrollLock(isOpenBurgerMenu.value)
-
-  search.value = ''
-}
-</script>
-
 <template>
   <header class="header">
     <div class="header__head">
@@ -79,10 +8,7 @@ function toggleBurger(): void {
 
         <div class="header__main">
           <ul class="header__list">
-            <li
-              :class="{ 'header__list-item_active': $route.name === 'shope' }"
-              class="header__list-item header__list-shope"
-            >
+            <li :class="{ 'header__list-item_active': $route.name === 'shope' }" class="header__list-item header__list-shope">
               Shope
 
               <div class="header__shop">
@@ -118,11 +44,7 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-search">
-              <BaseSvg
-                class="header__btn-icon"
-                id="search"
-                @click.stop="toggleBasketSearch('three')"
-              />
+              <BaseSvg class="header__btn-icon" id="search" @click.stop="toggleBasketSearch('three')" />
             </div>
 
             <div class="header__btn header__btn-basket">
@@ -130,23 +52,21 @@ function toggleBurger(): void {
             </div>
 
             <div class="header__btn header__btn-person">
-              <BaseSvg class="header__btn-icon" id="person" />
+              <BaseSvg class="header__btn-icon" id="person" @click="goToProfile" />
             </div>
 
             <div class="header__btn header__btn-burger">
-              <BurgerBtn :isOpen="isOpenBurgerMenu" @click="toggleBurger()" />
+              <BurgerBtn :isOpen="isOpenBurgerMenu" @click="toggleBurger" />
             </div>
           </div>
         </div>
       </div>
+
+      <BaseToast />
     </div>
 
     <Transition name="menu" type="transition">
-      <BurgerMenu
-        v-if="isOpenBurgerMenu"
-        v-model="search"
-        @closeBurger="isOpenBurgerMenu = false"
-      />
+      <BurgerMenu v-if="isOpenBurgerMenu" v-model="search" @closeBurger="isOpenBurgerMenu = false" />
     </Transition>
   </header>
 
@@ -162,13 +82,112 @@ function toggleBurger(): void {
   </Transition>
 
   <Transition name="right-block-bg">
-    <div
-      v-if="activeComponent !== 'one'"
-      class="right-block-bg"
-      @click="toggleBasketSearch('one')"
-    ></div>
+    <div v-if="activeComponent !== 'one'" class="right-block-bg" @click="toggleBasketSearch('one')"></div>
   </Transition>
 </template>
+
+<script setup lang="ts">
+import { inject, onMounted, ref, shallowReactive, type ComponentCustomOptions } from 'vue'
+import BaseSvg from '@/components/base/BaseSvg.vue'
+import BaseButtonText from '@/components/base/BaseButtonText.vue'
+import BurgerBtn from '@/components/ui/BurgerBtn.vue'
+import BasketBtn from '@/components/ui/BasketBtn.vue'
+import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
+import TheBasket from '@/components/base/TheBasket.vue'
+import TheSearch from '@/components/base/TheSearch.vue'
+import BurgerMenu from '@/components/ui/BurgerMenu.vue'
+import BaseToast from '@/components/base/BaseToast.vue'
+import { useRouter } from 'vue-router'
+import { onBeforeRouteUpdate } from 'vue-router'
+import { useBasketStorage } from '@/components/composable/use-basket-storage'
+import { dataHeaderMenu, dataHeaderPages } from '@/components/mixins/data-header-shope'
+import { useScrollLock } from '@/components/composable/use-scroll-lock'
+import type { DataBasket } from '@/components/composable/use-basket-storage'
+import { supabase } from '@/lib/supabaseClient'
+
+interface Components {
+  [key: string]: ComponentCustomOptions | null
+}
+
+const isOpenBurgerMenu = ref(false)
+const search = ref('')
+const blackTheme = inject('blackTheme', false)
+const activeComponent = ref('one')
+const basketStorage = useBasketStorage()
+const dataBasket = ref<Array<DataBasket>>([])
+const userAvtorization = ref(false)
+const router = useRouter()
+
+const components = shallowReactive<Components>({
+  one: null,
+  two: TheBasket,
+  three: TheSearch,
+})
+
+onMounted(() => {
+  dataBasket.value = basketStorage.get()
+
+  getUser()
+})
+
+onBeforeRouteUpdate(() => getUser())
+
+basketStorage.on((data) => {
+  dataBasket.value = data
+})
+
+async function getUser() {
+  const result = await supabase.auth.getUser()
+
+  if (result.data.user) {
+    userAvtorization.value = true
+
+    return
+  }
+
+  userAvtorization.value = false
+}
+
+function goToProfile() {
+  if (userAvtorization.value) {
+    router.push('/account')
+
+    return
+  }
+
+  router.push('/login')
+}
+
+function toggleBasketSearch(condition: string): void {
+  switch (condition) {
+    case activeComponent.value:
+      activeComponent.value = 'one'
+
+      useScrollLock(false)
+      break
+
+    case 'one':
+      activeComponent.value = condition
+
+      useScrollLock(false)
+      break
+
+    default:
+      activeComponent.value = condition
+
+      useScrollLock(true)
+      break
+  }
+}
+
+function toggleBurger(): void {
+  isOpenBurgerMenu.value = !isOpenBurgerMenu.value
+
+  useScrollLock(isOpenBurgerMenu.value)
+
+  search.value = ''
+}
+</script>
 
 <style scoped lang="scss">
 @use '@/assets/styles/mixins/index.scss' as mixins;
@@ -181,6 +200,7 @@ function toggleBurger(): void {
   width: 100%;
 
   &__head {
+    position: relative;
     background-color: var(--background);
     transition: background-color 0.3s;
     padding: 45px 15px 0;

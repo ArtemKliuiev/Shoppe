@@ -5,11 +5,7 @@
     <div class="login__content">
       <BaseTabs v-model="activeTab" :tabs="tabs" class="login__tabs" />
 
-      <form
-        v-if="activeTab.index === 1"
-        class="login__sign"
-        @submit.prevent="validateLoginForm(true)"
-      >
+      <form v-if="activeTab.index === 1" class="login__sign" @submit.prevent="validateLoginForm(true)">
         <div class="login__inputs">
           <BaseInput
             v-model="signData.email"
@@ -19,16 +15,19 @@
             class="login__input"
             type="text"
             placeholder="Email"
+            autocomplete="email"
           />
 
           <BaseInput
             v-model="signData.password"
             :error="errors.password"
             class="login__input"
-            type="text"
+            type="password"
             name="login-password"
             id="login-password"
             placeholder="Password"
+            autocomplete="current-password"
+            password
           />
         </div>
 
@@ -40,9 +39,7 @@
 
         <BaseButton class="login__btn" type="submit"> Sign in </BaseButton>
 
-        <BaseButtonText v-if="activeTab.index === 1" to="#" class="login__forget"
-          >Have you forgotten your password?</BaseButtonText
-        >
+        <BaseButtonText v-if="activeTab.index === 1" to="/reset" class="login__forget">Have you forgotten your password?</BaseButtonText>
       </form>
 
       <form v-else class="login__register" @submit.prevent="validateRegisterForm(true)">
@@ -63,8 +60,9 @@
             class="login__input"
             name="register-password"
             id="register-password"
-            type="text"
+            type="password"
             placeholder="Password"
+            autocomplete="new-password"
           />
 
           <BaseInput
@@ -73,7 +71,7 @@
             class="login__input"
             name="confirmPassword"
             id="confirmPassword"
-            type="text"
+            type="password"
             placeholder="Confirm password"
           />
         </div>
@@ -99,14 +97,17 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { WatchStopHandle } from 'vue'
 import * as yup from 'yup'
 import BaseTabs from '@/components/base/BaseTabs.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButtonText from '@/components/base/BaseButtonText.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import CustomCheckbox from '@/components/ui/CustomCheckbox.vue'
+import { useRouter } from 'vue-router'
+import { useToast } from '@/components/composable/use-toast'
+import { supabase } from '@/lib/supabaseClient'
 import { tabs } from '@/components/mixins/data-login-tabs'
+import type { WatchStopHandle } from 'vue'
 
 interface SignData {
   email: string
@@ -123,8 +124,6 @@ interface RegisterData {
 
 type validationErrors = Record<string, string>
 
-const activeTab = ref(tabs[0])
-
 const signData = ref<SignData>({
   email: '',
   password: '',
@@ -138,44 +137,44 @@ const registerData = ref<RegisterData>({
   agree: false,
 })
 
+const activeTab = ref(tabs[0])
+const errors = ref<validationErrors>({})
+const toast = useToast()
+const router = useRouter()
+
 const signSchema: yup.ObjectSchema<SignData> = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(3, 'Minimum 3 characters')
-    .max(20, 'Maximum 20 characters'),
+  password: yup.string().required('Password is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
   save: yup.boolean().default(false),
 })
 
 const registerSchema: yup.ObjectSchema<RegisterData> = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(3, 'Minimum 3 characters')
-    .max(20, 'Maximum 20 characters'),
+  password: yup.string().required('Password is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
   confirmPassword: yup
     .string()
     .required('Confirm password is required')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-  agree: yup
-    .boolean()
-    .oneOf([true], 'You must agree to continue')
-    .required('You must agree to continue'),
+  agree: yup.boolean().oneOf([true], 'You must agree to continue').required('You must agree to continue'),
 })
-
-const errors = ref<validationErrors>({})
 
 let addWatch: WatchStopHandle | null = null
 
 watch(activeTab, () => {
+  resetForms()
+})
+
+function resetForms() {
   if (addWatch) {
     addWatch()
     addWatch = null
   }
 
-  errors.value = {}
+  signData.value = {
+    email: '',
+    password: '',
+    save: false,
+  }
 
   registerData.value = {
     email: '',
@@ -184,12 +183,8 @@ watch(activeTab, () => {
     agree: false,
   }
 
-  signData.value = {
-    email: '',
-    password: '',
-    save: false,
-  }
-})
+  errors.value = {}
+}
 
 async function validateLoginForm(sendData: boolean) {
   try {
@@ -197,7 +192,7 @@ async function validateLoginForm(sendData: boolean) {
 
     errors.value = {}
 
-    if (sendData) alert('Вхід виконано')
+    if (sendData) login()
   } catch (err) {
     if (err instanceof yup.ValidationError) {
       errors.value = err.inner.reduce((acc: validationErrors, curr) => {
@@ -212,7 +207,7 @@ async function validateLoginForm(sendData: boolean) {
 
   if (addWatch) return
 
-  addWatch = watch(signData, () => {
+  addWatch = watch(signData.value, () => {
     validateLoginForm(false)
   })
 }
@@ -223,7 +218,7 @@ async function validateRegisterForm(sendData: boolean) {
 
     errors.value = {}
 
-    if (sendData) alert('Вхід виконано')
+    if (sendData) register()
   } catch (err) {
     if (err instanceof yup.ValidationError) {
       errors.value = err.inner.reduce((acc: validationErrors, curr) => {
@@ -238,9 +233,42 @@ async function validateRegisterForm(sendData: boolean) {
 
   if (addWatch) return
 
-  addWatch = watch(registerData, () => {
-    validateLoginForm(false)
+  addWatch = watch(registerData.value, () => {
+    validateRegisterForm(false)
   })
+}
+
+async function login() {
+  const { error } = await supabase.auth.signInWithPassword({
+    email: signData.value.email,
+    password: signData.value.password,
+  })
+
+  if (error) {
+    toast.show(error.message, 'error')
+
+    return
+  }
+
+  toast.show('You have successfully logged in.', 'success')
+
+  router.push('/account')
+}
+
+async function register() {
+  const { error } = await supabase.auth.signUp({
+    email: registerData.value.email,
+    password: registerData.value.password,
+  })
+
+  if (error) {
+    toast.show(error.message, 'error')
+    return
+  }
+
+  toast.show('Check your email to confirm your account.', 'success', null, 5000)
+
+  router.push('/')
 }
 </script>
 

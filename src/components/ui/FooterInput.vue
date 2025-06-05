@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 
@@ -17,7 +16,7 @@ const text = defineModel<string>({
 
 <template>
   <div class="footer-input">
-    <BaseInput v-model="text" :placeholder="placeholder" type="text" />
+    <BaseInput v-model="text" :base-placeholder="placeholder" id="footer-input" type="text" />
 
     <BaseSvg class="footer-input__icon" id="footer-arrow" />
 

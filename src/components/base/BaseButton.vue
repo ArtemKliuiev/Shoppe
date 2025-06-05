@@ -3,7 +3,7 @@ import BaseButtonText from './BaseButtonText.vue'
 
 interface Props {
   type?: 'button' | 'submit' | 'reset'
-  styles?: 'mode' | 'bold'
+  styles?: 'mode' | 'bold' | 'text'
   size?: 'small'
   submit?: boolean
   to?: string
@@ -14,6 +14,7 @@ const props = defineProps<Props>()
 const classObject: Record<string, boolean> = {
   button_mode: props.styles === 'mode',
   button_bold: props.styles === 'bold',
+  button_text: props.styles === 'text',
   button_small: props.size === 'small',
 }
 </script>
@@ -53,8 +54,12 @@ const classObject: Record<string, boolean> = {
     border 0.3s,
     color 0.3s;
 
-  @include mixins.media-down(xs) {
+  @include mixins.media-down(sm) {
     height: 32px;
+    font-size: 14px;
+  }
+
+  @include mixins.media-down(xs) {
     font-size: 12px;
   }
 
@@ -116,6 +121,22 @@ const classObject: Record<string, boolean> = {
       @media (hover: hover) {
         background-color: var(--text);
         color: var(--background);
+      }
+    }
+  }
+
+  &_text {
+    background-color: unset;
+    border: unset;
+    color: var(--accent);
+    font-weight: 700;
+    height: unset;
+
+    &:hover {
+      @media (hover: hover) {
+        background-color: unset;
+        border: unset;
+        color: var(--accent);
       }
     }
   }

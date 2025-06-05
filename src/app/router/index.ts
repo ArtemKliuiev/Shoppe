@@ -8,6 +8,10 @@ import ErrorPage from '@/components/pages/ErrorPage.vue'
 import ContactsPage from '@/components/pages/ContactsPage.vue'
 import DefaultLayout from '@/components/layouts/DefaultLayout.vue'
 import LoginPage from '@/components/pages/LoginPage.vue'
+import TestPage from '@/components/pages/TestPage.vue'
+import ResetPage from '@/components/pages/ResetPage.vue'
+import PasswordPage from '@/components/pages/PasswordPage.vue'
+import AccountPage from '@/components/pages/AccountPage.vue'
 
 const routes = [
   {
@@ -53,6 +57,26 @@ const routes = [
         path: '404',
         name: '404',
         component: ErrorPage,
+      },
+      {
+        path: 'reset',
+        name: 'reset',
+        component: ResetPage,
+      },
+      {
+        path: 'password',
+        name: 'password',
+        component: PasswordPage,
+      },
+      {
+        path: 'account',
+        name: 'account',
+        component: AccountPage,
+      },
+      {
+        path: 'test',
+        name: 'test',
+        component: TestPage,
       },
     ],
   },

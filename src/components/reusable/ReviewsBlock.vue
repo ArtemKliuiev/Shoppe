@@ -13,25 +13,18 @@
     <div class="reviews__add">
       <h3 class="reviews__title reviews__add-title">Add a Review</h3>
 
-      <p class="reviews__info">
-        Your email address will not be published. Required fields are marked *
-      </p>
+      <p class="reviews__info">Your email address will not be published. Required fields are marked *</p>
 
       <form @submit.prevent="validateForm(true)" class="reviews__form">
         <div class="reviews__textarea">
-          <p class="reviews__text">Your Review*</p>
-
-          <BaseTextarea v-model="formData.text" />
-
-          <span class="reviews__textarea-error reviews__error">
-            {{ errors.text ? errors.text : '' }}
-          </span>
+          <BaseTextarea v-model="formData.text" :error="errors.text" placeholder="Your Review*" id="text" />
         </div>
 
         <div class="reviews__input">
           <BaseInput
             v-model="formData.name"
             :error="errors.name"
+            id="name"
             class="reviews__name"
             type="text"
             placeholder="Enter your name*"
@@ -42,6 +35,7 @@
           <BaseInput
             v-model="formData.email"
             :error="errors.email"
+            id="email"
             class="reviews__email"
             type="text"
             placeholder="Enter your Email*"

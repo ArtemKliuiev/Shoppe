@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseInput from '../base/BaseInput.vue'
 import { computed } from 'vue'
 import BaseSvg from '../base/BaseSvg.vue'
 
@@ -27,13 +26,7 @@ const classObject = computed<Record<string, boolean>>(() => ({
 <template>
   <ul :class="classObject" class="rating">
     <li v-for="n in 5" :key="n" class="rating__star">
-      <BaseInput
-        v-model="ratingValue"
-        :value="n"
-        class="rating__star-input"
-        type="radio"
-        name="rating"
-      />
+      <input v-model="ratingValue" type="radio" :value="n" class="rating__star-input" name="rating" />
 
       <BaseSvg class="rating__star-icon" id="star" />
     </li>
@@ -46,6 +39,7 @@ const classObject = computed<Record<string, boolean>>(() => ({
   user-select: none;
   justify-content: space-between;
   width: 130px;
+  height: 18px;
 
   &__star {
     position: relative;

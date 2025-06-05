@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import BaseSvg from '@/components/base/BaseSvg.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 
@@ -18,7 +17,7 @@ const model = defineModel({
 
 <template>
   <div class="search-input">
-    <BaseInput v-model="model" :placeholder="placeholder" type="text" />
+    <BaseInput v-model="model" :basePlaceholder="placeholder" id="search-input" type="text" />
 
     <div :class="{ 'search-input__line_active': isLoading }" class="search-input__line"></div>
 
