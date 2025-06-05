@@ -15,7 +15,7 @@ const slideIndex = ref(0)
     <swiper
       :spaceBetween="30"
       :autoplay="{
-        delay: 5000000000,
+        delay: 5000,
       }"
       :pagination="{
         clickable: true,
